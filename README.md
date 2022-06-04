@@ -20,5 +20,5 @@ curl "http://localhost:8080/tz?lng=139.8753&lat=36.2330"
 Check timezone info page with link to <http://geojson.io> to view polygon:
 
 ```bash
-curl "http://localhost:8080/info?lng=139.8753&lat=36.2330"
+open "http://localhost:8080/info?lng=139.8753&lat=36.2330"
 ```
