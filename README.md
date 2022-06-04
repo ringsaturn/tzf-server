@@ -14,7 +14,6 @@ Check timezone name:
 
 ```bash
 curl "http://localhost:8080/tz?lng=-0.1276&lat=51.5073"
-# Asia/Tokyo
 ```
 
 Check timezone info page with link to <http://geojson.io> to view polygon:
