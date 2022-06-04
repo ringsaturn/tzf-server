@@ -13,12 +13,12 @@ tzf-server
 Check timezone name:
 
 ```bash
-curl "http://localhost:8080/tz?lng=139.8753&lat=36.2330"
+curl "http://localhost:8080/tz?lng=-0.1276&lat=51.5073"
 # Asia/Tokyo
 ```
 
 Check timezone info page with link to <http://geojson.io> to view polygon:
 
 ```bash
-open "http://localhost:8080/info?lng=139.8753&lat=36.2330"
+open "http://localhost:8080/info?lng=-0.1276&lat=51.5073"
 ```
