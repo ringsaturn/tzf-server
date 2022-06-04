@@ -115,5 +115,5 @@ func main() {
 	finder, _ := tzf.NewFinderFromPB(input)
 
 	e := NewServer(finder)
-	e.Run(*addr)
+	panic(e.Run(*addr))
 }
