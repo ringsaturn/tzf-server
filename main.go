@@ -1,6 +1,7 @@
 package main
 
 import (
+	"embed"
 	"flag"
 	"fmt"
 	"html/template"
@@ -14,6 +15,9 @@ import (
 	"github.com/ringsaturn/tzf/pb"
 	"google.golang.org/protobuf/proto"
 )
+
+//go:embed static/*
+var f embed.FS
 
 type Request struct {
 	Lng float64 `form:"lng"`
@@ -77,7 +81,8 @@ func (h *Handler) TZInfoPage(ctx *gin.Context) {
 
 func NewServer(finder *tzf.Finder) *gin.Engine {
 	e := gin.Default()
-	e.LoadHTMLFiles("info.html")
+	templ := template.Must(template.New("").ParseFS(f, "static/*.html"))
+	e.SetHTMLTemplate(templ)
 	h := Handler{
 		finder: finder,
 	}
