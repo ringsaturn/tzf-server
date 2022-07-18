@@ -90,6 +90,49 @@ func (h *Handler) TZInfoPage(ctx *gin.Context) {
 	})
 }
 
+type RequestByOffset struct {
+	Offset int `form:"offset"`
+}
+
+type ResponseItem struct {
+	Name string
+	URL  string
+}
+
+type TZInfoPageResponse struct {
+	Title string
+	Items []*ResponseItem
+}
+
+func (h *Handler) GetTZInfoPageByOffset(ctx *gin.Context) {
+	req := &RequestByOffset{}
+	if err := ctx.ShouldBindQuery(req); err != nil {
+		ctx.String(400, err.Error())
+		return
+	}
+	tzs, err := h.finder.GetTimezoneShapeByShift(req.Offset)
+	if err != nil {
+		ctx.String(500, err.Error())
+		return
+	}
+
+	resp := &TZInfoPageResponse{
+		Title: fmt.Sprintf("tz for %v", req.Offset),
+		Items: make([]*ResponseItem, 0),
+	}
+
+	for _, tz := range tzs {
+		dataAPIURL := fmt.Sprintf("http://%v/tz/geojson?name=%v", ctx.Request.Host, tz.Name)
+		geoJSONURL := fmt.Sprintf("http://geojson.io/#data=data:text/x-url,%v", url.QueryEscape(dataAPIURL))
+		resp.Items = append(resp.Items, &ResponseItem{
+			Name: tz.Name,
+			URL:  geoJSONURL,
+		})
+	}
+
+	ctx.HTML(200, "info_multi.html", resp)
+}
+
 func NewServer(finder *tzf.Finder) *gin.Engine {
 	e := gin.Default()
 	templ := template.Must(template.New("").ParseFS(f, "static/*.html"))
@@ -102,6 +145,7 @@ func NewServer(finder *tzf.Finder) *gin.Engine {
 	})
 	e.GET("/info", h.TZInfoPage)
 	e.GET("/tz", h.GetTZ)
+	e.GET("/tz/offset", h.GetTZInfoPageByOffset)
 	e.GET("/tz/geojson", h.GetTZGeoJSON)
 	return e
 }
@@ -116,7 +160,6 @@ func NewTZData(tzpbPath string) []byte {
 		panic(err)
 	}
 	return rawFile
-
 }
 
 func main() {
