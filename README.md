@@ -10,14 +10,8 @@ tzf-server --help
 tzf-server
 ```
 
-Check timezone name:
+Example links:
 
-```bash
-curl "http://localhost:8080/tz?lng=-0.1276&lat=51.5073"
-```
-
-Check timezone info page with link to <http://geojson.io> to view polygon:
-
-```bash
-open "http://localhost:8080/info?lng=-0.1276&lat=51.5073"
-```
+- Query by location [`http://localhost:8080/tz?lng=-0.1276&lat=51.5073`](http://localhost:8080/tz?lng=-0.1276&lat=51.5073)
+- Query by offset [`http://localhost:8080/tz/offset?offset=0`](http://localhost:8080/tz/offset?offset=0)
+- Query by name [`http://localhost:8080/info?name=Etc/GMT-12`](http://localhost:8080/info?name=Etc/GMT-12)
