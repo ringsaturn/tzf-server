@@ -20,8 +20,16 @@ import (
 var f embed.FS
 
 type Request struct {
-	Lng float64 `form:"lng"`
-	Lat float64 `form:"lat"`
+	Lng  float64 `form:"lng"`
+	Lat  float64 `form:"lat"`
+	Name string  `form:"name"`
+}
+
+func (req *Request) GetTimezoneData(finder *tzf.Finder) (*pb.Timezone, error) {
+	if req.Name != "" {
+		return finder.GetTimezoneShapeByName(req.Name)
+	}
+	return finder.GetTimezone(req.Lng, req.Lat)
 }
 
 type Handler struct {
@@ -34,11 +42,13 @@ func (h *Handler) GetTZ(ctx *gin.Context) {
 		ctx.String(400, err.Error())
 		return
 	}
-	tz, err := h.finder.GetTimezone(req.Lng, req.Lat)
-	if err != nil {
-		ctx.String(500, err.Error())
+
+	tz, tzErr := req.GetTimezoneData(h.finder)
+	if tzErr != nil {
+		ctx.String(500, tzErr.Error())
 		return
 	}
+
 	ctx.String(200, tz.Name)
 }
 
@@ -49,9 +59,9 @@ func (h *Handler) GetTZGeoJSON(ctx *gin.Context) {
 		ctx.String(400, err.Error())
 		return
 	}
-	tz, err := h.finder.GetTimezone(req.Lng, req.Lat)
-	if err != nil {
-		ctx.String(500, err.Error())
+	tz, tzErr := req.GetTimezoneData(h.finder)
+	if tzErr != nil {
+		ctx.String(500, tzErr.Error())
 		return
 	}
 	ctx.JSON(200, convert.RevertItem(tz))
@@ -63,13 +73,14 @@ func (h *Handler) TZInfoPage(ctx *gin.Context) {
 		ctx.String(400, err.Error())
 		return
 	}
-	tz, err := h.finder.GetTimezone(req.Lng, req.Lat)
-	if err != nil {
-		ctx.String(500, err.Error())
+
+	tz, tzErr := req.GetTimezoneData(h.finder)
+	if tzErr != nil {
+		ctx.String(500, tzErr.Error())
 		return
 	}
 
-	dataAPIURL := fmt.Sprintf("http://%v/tz/geojson?lng=%v&lat=%v", ctx.Request.Host, req.Lng, req.Lat)
+	dataAPIURL := fmt.Sprintf("http://%v/tz/geojson?lng=%v&lat=%v&name=%v", ctx.Request.Host, req.Lng, req.Lat, req.Name)
 	geoJSONURL := fmt.Sprintf("http://geojson.io/#data=data:text/x-url,%v", url.QueryEscape(dataAPIURL))
 
 	ctx.HTML(200, "info.html", gin.H{
