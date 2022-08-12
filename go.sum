@@ -45,10 +45,10 @@ github.com/pelletier/go-toml/v2 v2.0.1/go.mod h1:r9LEWfGN8R5k0VXJ+0BkIe7MYkRdwZO
 github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e/go.mod h1:pJLUxLENpZxwdsKMEsNbx1VGcRFpLqf3715MtcvvzbA=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
-github.com/ringsaturn/tzf v0.5.0 h1:jWx+OPKkuvbtAXqBRJoCuHaeKciynAFHY4ssZiRea5o=
-github.com/ringsaturn/tzf v0.5.0/go.mod h1:7IvX0j8ZcN3BMD/zpc79Cc6nUV/UmCPuGNq1Gv6Rt44=
-github.com/ringsaturn/tzf-rel v0.0.2021-c h1:KydSjORjgAKpRYW1qU6tosVUto7ki4yEJeHnmV3WrPs=
-github.com/ringsaturn/tzf-rel v0.0.2021-c/go.mod h1:TvyUIUpF3aCH98QYjTmMb1cqK7pFswdFLoIVZwGNV/M=
+github.com/ringsaturn/tzf v0.6.2 h1:NYf5dR+5K3ECv4BcVO/T/BW+6fy/m3Tb2w0+QRSvuhU=
+github.com/ringsaturn/tzf v0.6.2/go.mod h1:X4Oz+MWk3XKvsyAOG7g46bJQ644UYXFipPnTXomozvY=
+github.com/ringsaturn/tzf-rel v0.0.2021-c1 h1:SSFM0lPzzsmybfrgB6ZN6U+3nGsRzjPxB8RqW09xc3k=
+github.com/ringsaturn/tzf-rel v0.0.2021-c1/go.mod h1:TvyUIUpF3aCH98QYjTmMb1cqK7pFswdFLoIVZwGNV/M=
 github.com/rogpeppe/go-internal v1.6.1/go.mod h1:xXDCJY+GAPziupqXw64V24skbSoqbTEfhy4qGm1nDQc=
 github.com/rogpeppe/go-internal v1.8.0 h1:FCbCCtXNOY3UtUuHUYaghJg4y7Fd14rXifAYUAtL9R8=
 github.com/rogpeppe/go-internal v1.8.0/go.mod h1:WmiCO8CzOY8rg0OYDC4/i/2WRWAB6poM+XZ2dLUbcbE=
