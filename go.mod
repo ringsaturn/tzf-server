@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/gin-gonic/gin v1.8.1
 	github.com/ringsaturn/tzf v0.7.0
-	github.com/ringsaturn/tzf-rel v0.0.2021-c2
+	github.com/ringsaturn/tzf-rel v0.0.2021-c3
 	google.golang.org/protobuf v1.28.1
 )
 
