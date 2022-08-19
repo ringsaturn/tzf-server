@@ -150,16 +150,25 @@ func NewServer(finder *tzf.Finder) *gin.Engine {
 	return e
 }
 
-func NewTZData(tzpbPath string) []byte {
+func NewFinder(tzpbPath string) (*tzf.Finder, error) {
 	if tzpbPath == "" {
-		return tzfrel.LiteData
+		compressedInput := &pb.CompressedTimezones{}
+		if err := proto.Unmarshal(tzfrel.LiteCompressData, compressedInput); err != nil {
+			return nil, err
+		}
+		return tzf.NewFinderFromCompressed(compressedInput)
 	}
 
 	rawFile, err := ioutil.ReadFile(tzpbPath)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-	return rawFile
+	input := &pb.Timezones{}
+	err = proto.Unmarshal(rawFile, input)
+	if err != nil {
+		return nil, err
+	}
+	return tzf.NewFinderFromPB(input)
 }
 
 func main() {
@@ -167,11 +176,10 @@ func main() {
 	tzpbPath := flag.String("tzpb", "", "custom tzpb data path. Use `tzfrel.LiteData` by default.")
 	flag.Parse()
 
-	input := &pb.Timezones{}
-	if err := proto.Unmarshal(NewTZData(*tzpbPath), input); err != nil {
+	finder, err := NewFinder(*tzpbPath)
+	if err != nil {
 		panic(err)
 	}
-	finder, _ := tzf.NewFinderFromPB(input)
 
 	e := NewServer(finder)
 	panic(e.Run(*addr))
