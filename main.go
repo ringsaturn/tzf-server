@@ -5,8 +5,8 @@ import (
 	"flag"
 	"fmt"
 	"html/template"
-	"io/ioutil"
 	"net/url"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/ringsaturn/tzf"
@@ -159,7 +159,7 @@ func NewFinder(tzpbPath string) (*tzf.Finder, error) {
 		return tzf.NewFinderFromCompressed(compressedInput)
 	}
 
-	rawFile, err := ioutil.ReadFile(tzpbPath)
+	rawFile, err := os.ReadFile(tzpbPath)
 	if err != nil {
 		return nil, err
 	}
