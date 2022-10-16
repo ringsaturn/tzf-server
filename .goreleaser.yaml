@@ -1,0 +1,10 @@
+builds:
+  - # https://golang.org/doc/install/source#environment
+    goos:
+      - windows
+      - linux
+      - darwin
+
+    goarch:
+      - amd64
+      - arm64
