@@ -18,7 +18,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         && apt-get autoremove -y && apt-get autoclean -y
 
 COPY --from=builder /src/tzf-server /app/
-COPY --from=builder /src/info.html /app/
 
 WORKDIR /app
 
