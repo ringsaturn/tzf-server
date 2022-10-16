@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"embed"
 	"flag"
 	"fmt"
@@ -8,6 +9,9 @@ import (
 	"net/url"
 	"os"
 
+	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/cloudwego/hertz/pkg/app/server"
+	"github.com/cloudwego/hertz/pkg/common/config"
 	"github.com/gin-gonic/gin"
 	"github.com/ringsaturn/tzf"
 	tzfrel "github.com/ringsaturn/tzf-rel"
@@ -20,9 +24,9 @@ import (
 var f embed.FS
 
 type Request struct {
-	Lng  float64 `form:"lng"`
-	Lat  float64 `form:"lat"`
-	Name string  `form:"name"`
+	Lng  float64 `query:"lng"`
+	Lat  float64 `query:"lat"`
+	Name string  `query:"name"`
 }
 
 func (req *Request) GetTimezoneData(finder *tzf.Finder) (*pb.Timezone, error) {
@@ -36,9 +40,9 @@ type Handler struct {
 	finder *tzf.Finder
 }
 
-func (h *Handler) GetTZ(ctx *gin.Context) {
+func (h *Handler) GetTZ(c context.Context, ctx *app.RequestContext) {
 	req := &Request{}
-	if err := ctx.ShouldBindQuery(req); err != nil {
+	if err := ctx.Bind(req); err != nil {
 		ctx.String(400, err.Error())
 		return
 	}
@@ -52,10 +56,10 @@ func (h *Handler) GetTZ(ctx *gin.Context) {
 	ctx.String(200, tz.Name)
 }
 
-func (h *Handler) GetTZGeoJSON(ctx *gin.Context) {
-	ctx.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+func (h *Handler) GetTZGeoJSON(c context.Context, ctx *app.RequestContext) {
+	ctx.Response.Header.Add("Access-Control-Allow-Origin", "*")
 	req := &Request{}
-	if err := ctx.ShouldBindQuery(req); err != nil {
+	if err := ctx.Bind(req); err != nil {
 		ctx.String(400, err.Error())
 		return
 	}
@@ -67,9 +71,9 @@ func (h *Handler) GetTZGeoJSON(ctx *gin.Context) {
 	ctx.JSON(200, convert.RevertItem(tz))
 }
 
-func (h *Handler) TZInfoPage(ctx *gin.Context) {
+func (h *Handler) TZInfoPage(c context.Context, ctx *app.RequestContext) {
 	req := &Request{}
-	if err := ctx.ShouldBindQuery(req); err != nil {
+	if err := ctx.Bind(req); err != nil {
 		ctx.String(400, err.Error())
 		return
 	}
@@ -80,7 +84,7 @@ func (h *Handler) TZInfoPage(ctx *gin.Context) {
 		return
 	}
 
-	dataAPIURL := fmt.Sprintf("http://%v/tz/geojson?lng=%v&lat=%v&name=%v", ctx.Request.Host, req.Lng, req.Lat, req.Name)
+	dataAPIURL := fmt.Sprintf("http://%v/tz/geojson?lng=%v&lat=%v&name=%v", ctx.Request.Host(), req.Lng, req.Lat, req.Name)
 	geoJSONURL := fmt.Sprintf("http://geojson.io/#data=data:text/x-url,%v", url.QueryEscape(dataAPIURL))
 
 	ctx.HTML(200, "info.html", gin.H{
@@ -104,9 +108,9 @@ type TZInfoPageResponse struct {
 	Items []*ResponseItem
 }
 
-func (h *Handler) GetTZInfoPageByOffset(ctx *gin.Context) {
+func (h *Handler) GetTZInfoPageByOffset(c context.Context, ctx *app.RequestContext) {
 	req := &RequestByOffset{}
-	if err := ctx.ShouldBindQuery(req); err != nil {
+	if err := ctx.Bind(req); err != nil {
 		ctx.String(400, err.Error())
 		return
 	}
@@ -122,7 +126,7 @@ func (h *Handler) GetTZInfoPageByOffset(ctx *gin.Context) {
 	}
 
 	for _, tz := range tzs {
-		dataAPIURL := fmt.Sprintf("http://%v/tz/geojson?name=%v", ctx.Request.Host, tz.Name)
+		dataAPIURL := fmt.Sprintf("http://%v/tz/geojson?name=%v", ctx.Request.Host(), tz.Name)
 		geoJSONURL := fmt.Sprintf("http://geojson.io/#data=data:text/x-url,%v", url.QueryEscape(dataAPIURL))
 		resp.Items = append(resp.Items, &ResponseItem{
 			Name: tz.Name,
@@ -133,14 +137,14 @@ func (h *Handler) GetTZInfoPageByOffset(ctx *gin.Context) {
 	ctx.HTML(200, "info_multi.html", resp)
 }
 
-func NewServer(finder *tzf.Finder) *gin.Engine {
-	e := gin.Default()
+func NewServer(finder *tzf.Finder, opts ...config.Option) *server.Hertz {
+	e := server.Default(opts...)
 	templ := template.Must(template.New("").ParseFS(f, "static/*.html"))
 	e.SetHTMLTemplate(templ)
 	h := Handler{
 		finder: finder,
 	}
-	e.GET("/ping", func(ctx *gin.Context) {
+	e.GET("/ping", func(c context.Context, ctx *app.RequestContext) {
 		ctx.String(200, "pong")
 	})
 	e.GET("/info", h.TZInfoPage)
@@ -181,6 +185,6 @@ func main() {
 		panic(err)
 	}
 
-	e := NewServer(finder)
-	panic(e.Run(*addr))
+	e := NewServer(finder, server.WithHostPorts(*addr))
+	e.Spin()
 }
