@@ -8,6 +8,7 @@ import (
 	"html/template"
 	"net/url"
 	"os"
+	"time"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
@@ -84,7 +85,7 @@ func (h *Handler) TZInfoPage(c context.Context, ctx *app.RequestContext) {
 		return
 	}
 
-	dataAPIURL := fmt.Sprintf("http://%v/tz/geojson?lng=%v&lat=%v&name=%v", ctx.Request.Host(), req.Lng, req.Lat, req.Name)
+	dataAPIURL := fmt.Sprintf("http://%v/tz/geojson?lng=%v&lat=%v&name=%v", string(ctx.Request.Host()), req.Lng, req.Lat, req.Name)
 	geoJSONURL := fmt.Sprintf("http://geojson.io/#data=data:text/x-url,%v", url.QueryEscape(dataAPIURL))
 
 	ctx.HTML(200, "info.html", gin.H{
@@ -95,7 +96,7 @@ func (h *Handler) TZInfoPage(c context.Context, ctx *app.RequestContext) {
 }
 
 type RequestByOffset struct {
-	Offset int `form:"offset"`
+	Offset int `query:"offset"`
 }
 
 type ResponseItem struct {
@@ -126,7 +127,7 @@ func (h *Handler) GetTZInfoPageByOffset(c context.Context, ctx *app.RequestConte
 	}
 
 	for _, tz := range tzs {
-		dataAPIURL := fmt.Sprintf("http://%v/tz/geojson?name=%v", ctx.Request.Host(), tz.Name)
+		dataAPIURL := fmt.Sprintf("http://%v/tz/geojson?name=%v", string(ctx.Request.Host()), tz.Name)
 		geoJSONURL := fmt.Sprintf("http://geojson.io/#data=data:text/x-url,%v", url.QueryEscape(dataAPIURL))
 		resp.Items = append(resp.Items, &ResponseItem{
 			Name: tz.Name,
@@ -178,6 +179,7 @@ func NewFinder(tzpbPath string) (*tzf.Finder, error) {
 func main() {
 	addr := flag.String("addr", ":8080", "API Server Addr")
 	tzpbPath := flag.String("tzpb", "", "custom tzpb data path. Use `tzfrel.LiteData` by default.")
+	waitTime := flag.Int("waitTime", 1, "graceful shutdown wait time")
 	flag.Parse()
 
 	finder, err := NewFinder(*tzpbPath)
@@ -185,6 +187,6 @@ func main() {
 		panic(err)
 	}
 
-	e := NewServer(finder, server.WithHostPorts(*addr))
+	e := NewServer(finder, server.WithHostPorts(*addr), server.WithExitWaitTime(time.Duration(*waitTime)*time.Second))
 	e.Spin()
 }
