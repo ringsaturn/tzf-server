@@ -7,9 +7,10 @@ RUN go build
 
 FROM debian:stable-slim
 
-LABEL name="tzf-server"
-LABEL org.opencontainers.image.description "Simple longititu&latitude to tzname server"
-LABEL org.opencontainers.image.source https://github.com/ringsaturn/tzf-server
+LABEL \
+    name = "tzf-server" \
+    org.opencontainers.image.description = "Simple longititu&latitude to tzname server" \
+    org.opencontainers.image.source = "https://github.com/ringsaturn/tzf-server"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		ca-certificates  \
