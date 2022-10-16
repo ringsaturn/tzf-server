@@ -3,7 +3,7 @@ FROM golang:1.19 AS builder
 COPY . /src
 WORKDIR /src
 
-RUN make build
+RUN go build
 
 FROM debian:stable-slim
 
