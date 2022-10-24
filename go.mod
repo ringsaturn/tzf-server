@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/cloudwego/hertz v0.3.2
 	github.com/gin-gonic/gin v1.8.1
-	github.com/ringsaturn/tzf v0.8.2
+	github.com/ringsaturn/tzf v0.8.3
 	github.com/ringsaturn/tzf-rel v0.0.2021-c3
 	google.golang.org/protobuf v1.28.1
 )
@@ -35,10 +35,12 @@ require (
 	github.com/nyaruka/phonenumbers v1.0.55 // indirect
 	github.com/paulmach/orb v0.7.1 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.1 // indirect
+	github.com/tidwall/geoindex v1.7.0 // indirect
 	github.com/tidwall/geojson v1.3.6 // indirect
 	github.com/tidwall/gjson v1.13.0 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect
+	github.com/tidwall/rtree v1.9.2 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/twpayne/go-polyline v1.1.1 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
