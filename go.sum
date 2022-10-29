@@ -79,8 +79,8 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/ringsaturn/tzf v0.8.3 h1:UqZz961jdbsjJgLdsrp6x/yeXlL0W+GaF6EgiIZ3dBg=
 github.com/ringsaturn/tzf v0.8.3/go.mod h1:chIzcrTP7Sp0PPCLCNLZfbvieH+/1Xs6AUBIEnzW5fk=
-github.com/ringsaturn/tzf-rel v0.0.2021-c3 h1:e5hybFegg/OGTjtzft4D1xSED4R4X55rXsxc0lpcGCM=
-github.com/ringsaturn/tzf-rel v0.0.2021-c3/go.mod h1:TvyUIUpF3aCH98QYjTmMb1cqK7pFswdFLoIVZwGNV/M=
+github.com/ringsaturn/tzf-rel v0.0.2022-b h1:ZxvSy2YQKUmaSisJSvAByVyrOuGaK4aDvpS3mdmwtVs=
+github.com/ringsaturn/tzf-rel v0.0.2022-b/go.mod h1:TvyUIUpF3aCH98QYjTmMb1cqK7pFswdFLoIVZwGNV/M=
 github.com/rogpeppe/go-internal v1.6.1/go.mod h1:xXDCJY+GAPziupqXw64V24skbSoqbTEfhy4qGm1nDQc=
 github.com/rogpeppe/go-internal v1.8.0 h1:FCbCCtXNOY3UtUuHUYaghJg4y7Fd14rXifAYUAtL9R8=
 github.com/rogpeppe/go-internal v1.8.0/go.mod h1:WmiCO8CzOY8rg0OYDC4/i/2WRWAB6poM+XZ2dLUbcbE=
