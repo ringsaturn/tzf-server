@@ -80,8 +80,8 @@ github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZN
 github.com/ringsaturn/go-cities.json v0.0.0-20221105062652-69af5b046d54 h1:MVA2qVbFEcf2ZOndL1D9fdg30Do8G+FlNIWbzSM4L58=
 github.com/ringsaturn/tzf v0.9.2 h1:ri9h93CRrI9W7ueLdBRN8oocKinrV3r6x+LL0xxratI=
 github.com/ringsaturn/tzf v0.9.2/go.mod h1:F5jcCE3jcPEZekP4hYw9Epqg9Ml61SdqkljmEI3DTU8=
-github.com/ringsaturn/tzf-rel v0.0.2022-f2 h1:8vs2H+xOOwaU8BM4CbWv7RMrPODPCVMrwOembECw490=
-github.com/ringsaturn/tzf-rel v0.0.2022-f2/go.mod h1:TvyUIUpF3aCH98QYjTmMb1cqK7pFswdFLoIVZwGNV/M=
+github.com/ringsaturn/tzf-rel v0.0.2022-f4 h1:q7aLZToLYcPvSoClCKp/QI+aBTUk4J/OKfEbmIryQiw=
+github.com/ringsaturn/tzf-rel v0.0.2022-f4/go.mod h1:TvyUIUpF3aCH98QYjTmMb1cqK7pFswdFLoIVZwGNV/M=
 github.com/rogpeppe/go-internal v1.6.1/go.mod h1:xXDCJY+GAPziupqXw64V24skbSoqbTEfhy4qGm1nDQc=
 github.com/rogpeppe/go-internal v1.8.0 h1:FCbCCtXNOY3UtUuHUYaghJg4y7Fd14rXifAYUAtL9R8=
 github.com/rogpeppe/go-internal v1.8.0/go.mod h1:WmiCO8CzOY8rg0OYDC4/i/2WRWAB6poM+XZ2dLUbcbE=
