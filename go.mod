@@ -3,7 +3,7 @@ module github.com/ringsaturn/tzf-server
 go 1.19
 
 require (
-	github.com/cloudwego/hertz v0.4.0
+	github.com/cloudwego/hertz v0.4.1
 	github.com/gin-gonic/gin v1.8.1
 	github.com/ringsaturn/tzf v0.10.1
 	github.com/ringsaturn/tzf-rel v0.0.2022-f4
@@ -15,7 +15,7 @@ require (
 	github.com/bytedance/gopkg v0.0.0-20220413063733-65bf48ffb3a7 // indirect
 	github.com/bytedance/sonic v1.5.0 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20211019084208-fb5309c8db06 // indirect
-	github.com/cloudwego/netpoll v0.2.6 // indirect
+	github.com/cloudwego/netpoll v0.3.1 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
