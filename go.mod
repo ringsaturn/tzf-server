@@ -6,7 +6,7 @@ require (
 	github.com/cloudwego/hertz v0.4.1
 	github.com/gin-gonic/gin v1.8.1
 	github.com/ringsaturn/tzf v0.10.1
-	github.com/ringsaturn/tzf-rel v0.0.2022-f4
+	github.com/ringsaturn/tzf-rel v0.0.2022-f5
 	google.golang.org/protobuf v1.28.1
 )
 
