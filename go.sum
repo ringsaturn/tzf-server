@@ -78,8 +78,8 @@ github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e/go.mod h1:pJLUxLENpZxwdsK
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/ringsaturn/go-cities.json v0.0.0-20221105062652-69af5b046d54 h1:MVA2qVbFEcf2ZOndL1D9fdg30Do8G+FlNIWbzSM4L58=
-github.com/ringsaturn/tzf v0.10.1 h1:jhA9LviwwB/4/8WI+AbeuR7PvtHWu8/K9ckM+0i5+8E=
-github.com/ringsaturn/tzf v0.10.1/go.mod h1:dHOn4htx8lhMLyrTMZoTV0kGeUStfuAynOigotcwNjA=
+github.com/ringsaturn/tzf v0.10.2 h1:Fkc0dYkHXSkzd1DTV4TYwU+t/h0IGZmQDTfS7KdZ26I=
+github.com/ringsaturn/tzf v0.10.2/go.mod h1:pJg+Tpy95E5khbqpokfEHrpvko17DHX3snAF1Ku+1aA=
 github.com/ringsaturn/tzf-rel v0.0.2022-f5 h1:MeKp3vkLO5EtrOm9vRlkNrRYUsp43OyN15vMTQZcgYQ=
 github.com/ringsaturn/tzf-rel v0.0.2022-f5/go.mod h1:TvyUIUpF3aCH98QYjTmMb1cqK7pFswdFLoIVZwGNV/M=
 github.com/rogpeppe/go-internal v1.6.1/go.mod h1:xXDCJY+GAPziupqXw64V24skbSoqbTEfhy4qGm1nDQc=
@@ -99,8 +99,8 @@ github.com/tidwall/cities v0.1.0/go.mod h1:lV/HDp2gCcRcHJWqgt6Di54GiDrTZwh1aG2ZU
 github.com/tidwall/geoindex v1.4.4/go.mod h1:rvVVNEFfkJVWGUdEfU8QaoOg/9zFX0h9ofWzA60mz1I=
 github.com/tidwall/geoindex v1.7.0 h1:jtk41sfgwIt8MEDyC3xyKSj75iXXf6rjReJGDNPtR5o=
 github.com/tidwall/geoindex v1.7.0/go.mod h1:rvVVNEFfkJVWGUdEfU8QaoOg/9zFX0h9ofWzA60mz1I=
-github.com/tidwall/geojson v1.4.2 h1:foR+7MWweUPLcFI8oWMTHp22Qkc7XHRJo15e9rCnv64=
-github.com/tidwall/geojson v1.4.2/go.mod h1:1cn3UWfSYCJOq53NZoQ9rirdw89+DM0vw+ZOAVvuReg=
+github.com/tidwall/geojson v1.4.3 h1:yae/k/DhJdc9psaTJQ3pNOdbol70eH+nCijy6O7TxBw=
+github.com/tidwall/geojson v1.4.3/go.mod h1:1cn3UWfSYCJOq53NZoQ9rirdw89+DM0vw+ZOAVvuReg=
 github.com/tidwall/gjson v1.9.3/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
 github.com/tidwall/gjson v1.12.1/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
 github.com/tidwall/gjson v1.13.0 h1:3TFY9yxOQShrvmjdM76K+jc66zJeT6D3/VFFYCGQf7M=
