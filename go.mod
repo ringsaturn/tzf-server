@@ -3,7 +3,7 @@ module github.com/ringsaturn/tzf-server
 go 1.19
 
 require (
-	github.com/cloudwego/hertz v0.4.1
+	github.com/cloudwego/hertz v0.4.2
 	github.com/gin-gonic/gin v1.8.1
 	github.com/ringsaturn/tzf v0.10.3
 	github.com/ringsaturn/tzf-rel v0.0.2022-g
