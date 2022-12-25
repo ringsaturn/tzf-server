@@ -1,18 +1,13 @@
 package main
 
 import (
-	"context"
 	"embed"
 	"flag"
 	"fmt"
 	"html/template"
 	"net/url"
 	"os"
-	"time"
 
-	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/cloudwego/hertz/pkg/app/server"
-	"github.com/cloudwego/hertz/pkg/common/config"
 	"github.com/gin-gonic/gin"
 	"github.com/ringsaturn/tzf"
 	tzfrel "github.com/ringsaturn/tzf-rel"
@@ -25,9 +20,9 @@ import (
 var f embed.FS
 
 type Request struct {
-	Lng  float64 `query:"lng"`
-	Lat  float64 `query:"lat"`
-	Name string  `query:"name"`
+	Lng  float64 `form:"lng"`
+	Lat  float64 `form:"lat"`
+	Name string  `form:"name"`
 }
 
 func (req *Request) GetTimezoneData(finder *tzf.Finder) (*pb.Timezone, error) {
@@ -41,9 +36,9 @@ type Handler struct {
 	finder *tzf.Finder
 }
 
-func (h *Handler) GetTZ(c context.Context, ctx *app.RequestContext) {
+func (h *Handler) GetTZ(ctx *gin.Context) {
 	req := &Request{}
-	if err := ctx.Bind(req); err != nil {
+	if err := ctx.ShouldBindQuery(req); err != nil {
 		ctx.String(400, err.Error())
 		return
 	}
@@ -57,10 +52,10 @@ func (h *Handler) GetTZ(c context.Context, ctx *app.RequestContext) {
 	ctx.String(200, tz.Name)
 }
 
-func (h *Handler) GetTZGeoJSON(c context.Context, ctx *app.RequestContext) {
-	ctx.Response.Header.Add("Access-Control-Allow-Origin", "*")
+func (h *Handler) GetTZGeoJSON(ctx *gin.Context) {
+	ctx.Writer.Header().Add("Access-Control-Allow-Origin", "*")
 	req := &Request{}
-	if err := ctx.Bind(req); err != nil {
+	if err := ctx.ShouldBindQuery(req); err != nil {
 		ctx.String(400, err.Error())
 		return
 	}
@@ -72,9 +67,9 @@ func (h *Handler) GetTZGeoJSON(c context.Context, ctx *app.RequestContext) {
 	ctx.JSON(200, convert.RevertItem(tz))
 }
 
-func (h *Handler) TZInfoPage(c context.Context, ctx *app.RequestContext) {
+func (h *Handler) TZInfoPage(ctx *gin.Context) {
 	req := &Request{}
-	if err := ctx.Bind(req); err != nil {
+	if err := ctx.ShouldBindQuery(req); err != nil {
 		ctx.String(400, err.Error())
 		return
 	}
@@ -85,10 +80,10 @@ func (h *Handler) TZInfoPage(c context.Context, ctx *app.RequestContext) {
 		return
 	}
 
-	dataAPIURL := fmt.Sprintf("http://%v/tz/geojson?lng=%v&lat=%v&name=%v", string(ctx.Request.Host()), req.Lng, req.Lat, req.Name)
+	dataAPIURL := fmt.Sprintf("http://%v/tz/geojson?lng=%v&lat=%v&name=%v", string(ctx.Request.Host), req.Lng, req.Lat, req.Name)
 	geoJSONURL := fmt.Sprintf("http://geojson.io/#data=data:text/x-url,%v", url.QueryEscape(dataAPIURL))
 
-	ctx.HTML(200, "info.html", gin.H{
+	ctx.HTML(200, "info.html", map[string]any{
 		"Title":   tz.Name,
 		"URL":     template.URL(geoJSONURL),
 		"URLName": fmt.Sprintf("View Polygon for %v", tz.Name),
@@ -96,7 +91,7 @@ func (h *Handler) TZInfoPage(c context.Context, ctx *app.RequestContext) {
 }
 
 type RequestByOffset struct {
-	Offset int `query:"offset"`
+	Offset int `form:"offset"`
 }
 
 type ResponseItem struct {
@@ -109,9 +104,9 @@ type TZInfoPageResponse struct {
 	Items []*ResponseItem
 }
 
-func (h *Handler) GetTZInfoPageByOffset(c context.Context, ctx *app.RequestContext) {
+func (h *Handler) GetTZInfoPageByOffset(ctx *gin.Context) {
 	req := &RequestByOffset{}
-	if err := ctx.Bind(req); err != nil {
+	if err := ctx.ShouldBindQuery(req); err != nil {
 		ctx.String(400, err.Error())
 		return
 	}
@@ -127,7 +122,7 @@ func (h *Handler) GetTZInfoPageByOffset(c context.Context, ctx *app.RequestConte
 	}
 
 	for _, tz := range tzs {
-		dataAPIURL := fmt.Sprintf("http://%v/tz/geojson?name=%v", string(ctx.Request.Host()), tz.Name)
+		dataAPIURL := fmt.Sprintf("http://%v/tz/geojson?name=%v", string(ctx.Request.Host), tz.Name)
 		geoJSONURL := fmt.Sprintf("http://geojson.io/#data=data:text/x-url,%v", url.QueryEscape(dataAPIURL))
 		resp.Items = append(resp.Items, &ResponseItem{
 			Name: tz.Name,
@@ -138,14 +133,15 @@ func (h *Handler) GetTZInfoPageByOffset(c context.Context, ctx *app.RequestConte
 	ctx.HTML(200, "info_multi.html", resp)
 }
 
-func NewServer(finder *tzf.Finder, opts ...config.Option) *server.Hertz {
-	e := server.Default(opts...)
+func NewServer(finder *tzf.Finder) *gin.Engine {
+	e := gin.Default()
+
 	templ := template.Must(template.New("").ParseFS(f, "static/*.html"))
 	e.SetHTMLTemplate(templ)
 	h := Handler{
 		finder: finder,
 	}
-	e.GET("/ping", func(c context.Context, ctx *app.RequestContext) {
+	e.GET("/ping", func(ctx *gin.Context) {
 		ctx.String(200, "pong")
 	})
 	e.GET("/info", h.TZInfoPage)
@@ -179,7 +175,6 @@ func NewFinder(tzpbPath string) (*tzf.Finder, error) {
 func main() {
 	addr := flag.String("addr", ":8080", "API Server Addr")
 	tzpbPath := flag.String("tzpb", "", "custom tzpb data path. Use `tzfrel.LiteData` by default.")
-	waitTime := flag.Int("waitTime", 1, "graceful shutdown wait time")
 	flag.Parse()
 
 	finder, err := NewFinder(*tzpbPath)
@@ -187,6 +182,6 @@ func main() {
 		panic(err)
 	}
 
-	e := NewServer(finder, server.WithHostPorts(*addr), server.WithExitWaitTime(time.Duration(*waitTime)*time.Second))
-	e.Spin()
+	e := NewServer(finder)
+	panic(e.Run(*addr))
 }
