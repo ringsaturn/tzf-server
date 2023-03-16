@@ -6,7 +6,7 @@ require (
 	github.com/gin-gonic/gin v1.9.0
 	github.com/ringsaturn/tzf v0.11.0
 	github.com/ringsaturn/tzf-rel v0.0.2022-g1
-	google.golang.org/protobuf v1.28.1
+	google.golang.org/protobuf v1.30.0
 )
 
 require (
