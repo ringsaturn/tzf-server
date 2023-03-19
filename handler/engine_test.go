@@ -1,6 +1,7 @@
 package handler_test
 
 import (
+	"encoding/json"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -39,8 +40,8 @@ func TestEngine(t *testing.T) {
 				method: gtu.GET,
 				url:    "/",
 				body:   nil,
-				validate: func(t *testing.T, resp *httptest.ResponseRecorder) {
-					assert.Equal(t, resp.Result().StatusCode, http.StatusTemporaryRedirect)
+				validate: func(t *testing.T, httpResp *httptest.ResponseRecorder) {
+					assert.Equal(t, httpResp.Result().StatusCode, http.StatusTemporaryRedirect)
 				},
 			},
 		},
@@ -52,8 +53,8 @@ func TestEngine(t *testing.T) {
 				method: gtu.GET,
 				url:    "/ping",
 				body:   nil,
-				validate: func(t *testing.T, resp *httptest.ResponseRecorder) {
-					assert.Equal(t, resp.Result().StatusCode, http.StatusOK)
+				validate: func(t *testing.T, httpResp *httptest.ResponseRecorder) {
+					assert.Equal(t, httpResp.Result().StatusCode, http.StatusOK)
 				},
 			},
 		},
@@ -65,8 +66,14 @@ func TestEngine(t *testing.T) {
 				method: gtu.GET,
 				url:    "/api/v1/tz?lng=116.3883&lat=39.9289",
 				body:   nil,
-				validate: func(t *testing.T, resp *httptest.ResponseRecorder) {
-					assert.Equal(t, resp.Result().StatusCode, http.StatusOK)
+				validate: func(t *testing.T, httpResp *httptest.ResponseRecorder) {
+					assert.Equal(t, httpResp.Result().StatusCode, http.StatusOK)
+					resp := map[string]string{}
+					err := json.Unmarshal(httpResp.Body.Bytes(), &resp)
+					if err != nil {
+						t.Fatalf(err.Error())
+					}
+					assert.Equal(t, resp["timezone"], "Asia/Shanghai")
 				},
 			},
 		},
@@ -78,8 +85,14 @@ func TestEngine(t *testing.T) {
 				method: gtu.GET,
 				url:    "/api/v1/tz?lng=116.3883&lat=39.9289",
 				body:   nil,
-				validate: func(t *testing.T, resp *httptest.ResponseRecorder) {
-					assert.Equal(t, resp.Result().StatusCode, http.StatusOK)
+				validate: func(t *testing.T, httpResp *httptest.ResponseRecorder) {
+					assert.Equal(t, httpResp.Result().StatusCode, http.StatusOK)
+					resp := map[string]string{}
+					err := json.Unmarshal(httpResp.Body.Bytes(), &resp)
+					if err != nil {
+						t.Fatalf(err.Error())
+					}
+					assert.Equal(t, resp["timezone"], "Asia/Shanghai")
 				},
 			},
 		},
