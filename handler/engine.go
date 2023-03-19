@@ -3,7 +3,6 @@ package handler
 import (
 	"embed"
 	"errors"
-	"fmt"
 	"html/template"
 	"net/http"
 	"os"
@@ -69,8 +68,6 @@ func (d *polygonData) GetShape(name string) (interface{}, error) {
 	return nil, errors.New("not found")
 }
 
-//
-
 var (
 	finder Finder
 	tzData VisualizableTimezoneData
@@ -87,8 +84,6 @@ type SetupFinderOptions struct {
 	FinderType     FinderType
 	CustomDataPath string
 }
-
-//
 
 func setupFuzzyFinder(dataPath string) (Finder, VisualizableTimezoneData, error) {
 	var err error
@@ -160,148 +155,29 @@ func Setup(option *SetupFinderOptions) *gin.Engine {
 func setupEngine() *gin.Engine {
 	engine := gin.Default()
 
-	templates := template.Must(template.New("").ParseFS(f, "template/*.html"))
-	engine.SetHTMLTemplate(templates)
+	engine.SetHTMLTemplate(template.Must(template.New("").ParseFS(f, "template/*.html")))
 
+	engine.GET("/", Index)
 	engine.GET("/ping", Ping)
-	engine.GET("/tz", GetTimezoneName)
-	engine.GET("/tz/info", GetTimezoneInfoPage)
-	engine.GET("/tzs", GetTimezoneNames)
-	engine.GET("/tzs/list", GetAllSupportTimezoneNames)
-	engine.GET("/tzs/list/page", GetAllSupportTimezoneNamesPage)
-	engine.GET("/tz/geojson", GetTimezoneShape)
-	engine.GET("/tz/geojson/viewer", GetGeoJSONViewerForTimezone)
+
+	apiV1Group := engine.Group("/api/v1")
+	{
+		apiV1Group.GET("/tz", GetTimezoneName)
+		apiV1Group.GET("/tzs", GetTimezoneNames)
+		apiV1Group.GET("/tzs/all", GetAllSupportTimezoneNames)
+		apiV1Group.GET("/tz/geojson", GetTimezoneShape)
+	}
+
+	webPageGroup := engine.Group("/web")
+	{
+		webPageGroup.GET("/tz", GetTimezoneInfoPage)
+		webPageGroup.GET("/tzs", GetTimezonesInfoPage)
+		webPageGroup.GET("/tzs/all", GetAllSupportTimezoneNamesPage)
+		webPageGroup.GET("/tz/geojson/viewer", GetGeoJSONViewerForTimezone)
+	}
 	return engine
 }
 
+func Index(c *gin.Context) { c.Redirect(http.StatusTemporaryRedirect, "/web/tzs/all") }
+
 func Ping(c *gin.Context) { c.JSON(http.StatusOK, gin.H{}) }
-
-type LocationRequest struct {
-	Lng float64 `form:"lng"`
-	Lat float64 `form:"lat"`
-}
-
-func GetTimezoneName(c *gin.Context) {
-	req := &LocationRequest{}
-	err := c.ShouldBindQuery(req)
-	if err != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{"err": err.Error(), "uri": c.Request.RequestURI})
-		return
-	}
-	timezone := finder.GetTimezoneName(req.Lng, req.Lat)
-	if timezone == "" {
-		c.JSON(http.StatusInternalServerError, gin.H{"err": "no timezone found"})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"timezone": timezone})
-}
-
-func GetTimezoneNames(c *gin.Context) {
-	req := &LocationRequest{}
-	err := c.ShouldBindQuery(req)
-	if err != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{"err": err.Error(), "uri": c.Request.RequestURI})
-		return
-	}
-	timezones, err := finder.GetTimezoneNames(req.Lng, req.Lat)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"err": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"timezones": timezones})
-}
-
-func GetAllSupportTimezoneNames(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"timezones": finder.TimezoneNames()})
-}
-
-type GetTimezoneInfoRequest struct {
-	Name string  `form:"name"`
-	Lng  float64 `form:"lng"`
-	Lat  float64 `form:"lat"`
-}
-
-func GetTimezoneShape(c *gin.Context) {
-	req := &GetTimezoneInfoRequest{}
-	err := c.ShouldBindQuery(req)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"err": err.Error()})
-		return
-	}
-	if req.Name == "" {
-		req.Name = finder.GetTimezoneName(req.Lng, req.Lat)
-	}
-	shape, err := tzData.GetShape(req.Name)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"err": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, shape)
-}
-
-func GetTimezoneInfoPage(c *gin.Context) {
-	req := &GetTimezoneInfoRequest{}
-	if err := c.ShouldBindQuery(req); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{"err": err.Error(), "uri": c.Request.RequestURI})
-		return
-	}
-
-	timezone := finder.GetTimezoneName(req.Lng, req.Lat)
-	if timezone == "" {
-		c.JSON(http.StatusInternalServerError, gin.H{"err": "no timezone found"})
-		return
-	}
-
-	viewerURL := fmt.Sprintf("http://%v/tz/geojson/viewer?lng=%v&lat=%v&name=%v", string(c.Request.Host), req.Lng, req.Lat, req.Name)
-
-	c.HTML(200, "info.html", map[string]any{
-		"Title": timezone,
-		"URL":   template.URL(viewerURL),
-		"Name":  fmt.Sprintf("View Polygon for %v", timezone),
-	})
-}
-
-type GetTimezoneInfoPageResponseItem struct {
-	Name string
-	URL  string
-}
-
-type GetTimezoneInfoPageResponse struct {
-	Title string
-	Items []*GetTimezoneInfoPageResponseItem
-}
-
-func GetAllSupportTimezoneNamesPage(c *gin.Context) {
-	resp := &GetTimezoneInfoPageResponse{
-		Title: "All timezones",
-		Items: make([]*GetTimezoneInfoPageResponseItem, 0),
-	}
-
-	for _, name := range finder.TimezoneNames() {
-		viewerURL := fmt.Sprintf("http://%v/tz/geojson/viewer?name=%v", string(c.Request.Host), name)
-		resp.Items = append(resp.Items, &GetTimezoneInfoPageResponseItem{
-			Name: name,
-			URL:  viewerURL,
-		})
-	}
-	c.HTML(200, "info_multi.html", resp)
-}
-
-func GetGeoJSONViewerForTimezone(c *gin.Context) {
-	req := &GetTimezoneInfoRequest{}
-	if err := c.ShouldBindQuery(req); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{"err": err.Error(), "uri": c.Request.RequestURI})
-		return
-	}
-
-	timezone := finder.GetTimezoneName(req.Lng, req.Lat)
-	if timezone == "" {
-		c.JSON(http.StatusInternalServerError, gin.H{"err": "no timezone found"})
-		return
-	}
-
-	url := fmt.Sprintf("http://%v/tz/geojson?lng=%v&lat=%v&name=%v", c.Request.Host, req.Lng, req.Lat, req.Name)
-	c.HTML(http.StatusOK, "viewer.html", map[string]any{
-		"URL": url,
-	})
-}
