@@ -2,16 +2,12 @@ package handler
 
 import (
 	"embed"
-	_ "embed"
 	"errors"
 	"fmt"
 	"html/template"
-	"io/fs"
 	"net/http"
 	"os"
-	"time"
 
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/paulmach/orb/maptile"
 	"github.com/ringsaturn/tzf"
@@ -24,9 +20,6 @@ import (
 
 //go:embed template/*
 var f embed.FS
-
-//go:embed static/*
-var staticFS embed.FS
 
 func check(err error) {
 	if err != nil {
@@ -169,18 +162,6 @@ func setupEngine() *gin.Engine {
 
 	templates := template.Must(template.New("").ParseFS(f, "template/*.html"))
 	engine.SetHTMLTemplate(templates)
-
-	fe, _ := fs.Sub(staticFS, "static")
-	engine.StaticFS("/static", http.FS(fe))
-
-	engine.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"https://geojson.io", "http://geojson.io"},
-		AllowMethods:     []string{"PUT", "GET", "OPTIONS"},
-		AllowHeaders:     []string{"Origin"},
-		ExposeHeaders:    []string{"Content-Length"},
-		AllowCredentials: true,
-		MaxAge:           12 * time.Hour,
-	}))
 
 	engine.GET("/ping", Ping)
 	engine.GET("/tz", GetTimezoneName)
