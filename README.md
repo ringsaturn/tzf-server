@@ -1,7 +1,7 @@
 # Simple HTTP API convert longitude&latitude to timezone name
 
-> **Note**: It's designed as a debugger tool for packages [tzf], not production
-> ready.
+> **Note**: It's designed as a debugger tool for package
+> [tzf](https://github.com/ringsaturn/tzf), not production ready.
 
 ```bash
 go install github.com/ringsaturn/tzf-server@latest
