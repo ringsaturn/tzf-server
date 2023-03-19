@@ -15,5 +15,5 @@ func main() {
 		FinderType:     handler.FinderType((*finderType)),
 		CustomDataPath: *dataPath,
 	})
-	engine.Run()
+	panic(engine.Run())
 }
