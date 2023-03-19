@@ -77,6 +77,11 @@ func GetAllSupportTimezoneNamesPage(c *gin.Context) {
 		Items: make([]*GetTimezoneInfoPageResponseItem, 0),
 	}
 
+	resp.Items = append(resp.Items, &GetTimezoneInfoPageResponseItem{
+		Name: "All",
+		URL:  fmt.Sprintf("http://%v/web/tz/geojson/viewer?name=%v", string(c.Request.Host), "all"),
+	})
+
 	for _, name := range finder.TimezoneNames() {
 		viewerURL := fmt.Sprintf("http://%v/web/tz/geojson/viewer?name=%v", string(c.Request.Host), name)
 		resp.Items = append(resp.Items, &GetTimezoneInfoPageResponseItem{

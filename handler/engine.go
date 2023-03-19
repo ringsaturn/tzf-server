@@ -44,7 +44,7 @@ func (d *fuzzyData) GetShape(name string) (interface{}, error) {
 	var hit bool
 	tileSet := maptile.Set{}
 	for _, key := range d.data.Keys {
-		if name == key.Name {
+		if name == key.Name || name == "all" {
 			hit = true
 			tileSet[maptile.New(uint32(key.X), uint32(key.Y), maptile.Zoom(key.Z))] = true
 		}
@@ -60,6 +60,9 @@ type polygonData struct {
 }
 
 func (d *polygonData) GetShape(name string) (interface{}, error) {
+	if name == "all" {
+		return convert.Revert(d.data), nil
+	}
 	for _, shape := range d.data.Timezones {
 		if shape.Name == name {
 			return convert.RevertItem(shape), nil
