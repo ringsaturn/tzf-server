@@ -6,8 +6,8 @@ import (
 	"errors"
 	"fmt"
 	"html/template"
+	"io/fs"
 	"net/http"
-	"net/url"
 	"os"
 	"time"
 
@@ -22,8 +22,11 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-//go:embed static/*
+//go:embed template/*
 var f embed.FS
+
+//go:embed static/*
+var staticFS embed.FS
 
 func check(err error) {
 	if err != nil {
@@ -164,8 +167,11 @@ func Setup(option *SetupFinderOptions) *gin.Engine {
 func setupEngine() *gin.Engine {
 	engine := gin.Default()
 
-	templates := template.Must(template.New("").ParseFS(f, "static/*.html"))
+	templates := template.Must(template.New("").ParseFS(f, "template/*.html"))
 	engine.SetHTMLTemplate(templates)
+
+	fe, _ := fs.Sub(staticFS, "static")
+	engine.StaticFS("/static", http.FS(fe))
 
 	engine.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"https://geojson.io", "http://geojson.io"},
@@ -180,8 +186,10 @@ func setupEngine() *gin.Engine {
 	engine.GET("/tz", GetTimezoneName)
 	engine.GET("/tz/info", GetTimezoneInfoPage)
 	engine.GET("/tzs", GetTimezoneNames)
-	engine.GET("/tzs/list", GetAllSupportTimezoneNamesPage)
+	engine.GET("/tzs/list", GetAllSupportTimezoneNames)
+	engine.GET("/tzs/list/page", GetAllSupportTimezoneNamesPage)
 	engine.GET("/tz/geojson", GetTimezoneShape)
+	engine.GET("/tz/geojson/viewer", GetGeoJSONViewerForTimezone)
 	return engine
 }
 
@@ -263,8 +271,7 @@ func GetTimezoneInfoPage(c *gin.Context) {
 		return
 	}
 
-	dataURL := fmt.Sprintf("http://%v/tz/geojson?lng=%v&lat=%v&name=%v", string(c.Request.Host), req.Lng, req.Lat, req.Name)
-	viewerURL := fmt.Sprintf("http://geojson.io/#data=data:text/x-url,%v", url.QueryEscape(dataURL))
+	viewerURL := fmt.Sprintf("http://%v/tz/geojson/viewer?lng=%v&lat=%v&name=%v", string(c.Request.Host), req.Lng, req.Lat, req.Name)
 
 	c.HTML(200, "info.html", map[string]any{
 		"Title": timezone,
@@ -290,12 +297,30 @@ func GetAllSupportTimezoneNamesPage(c *gin.Context) {
 	}
 
 	for _, name := range finder.TimezoneNames() {
-		dataURL := fmt.Sprintf("http://%v/tz/geojson?name=%v", string(c.Request.Host), name)
-		viewerURL := fmt.Sprintf("http://geojson.io/#data=data:text/x-url,%v", url.QueryEscape(dataURL))
+		viewerURL := fmt.Sprintf("http://%v/tz/geojson/viewer?name=%v", string(c.Request.Host), name)
 		resp.Items = append(resp.Items, &GetTimezoneInfoPageResponseItem{
 			Name: name,
 			URL:  viewerURL,
 		})
 	}
 	c.HTML(200, "info_multi.html", resp)
+}
+
+func GetGeoJSONViewerForTimezone(c *gin.Context) {
+	req := &GetTimezoneInfoRequest{}
+	if err := c.ShouldBindQuery(req); err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"err": err.Error(), "uri": c.Request.RequestURI})
+		return
+	}
+
+	timezone := finder.GetTimezoneName(req.Lng, req.Lat)
+	if timezone == "" {
+		c.JSON(http.StatusInternalServerError, gin.H{"err": "no timezone found"})
+		return
+	}
+
+	url := fmt.Sprintf("http://%v/tz/geojson?lng=%v&lat=%v&name=%v", c.Request.Host, req.Lng, req.Lat, req.Name)
+	c.HTML(http.StatusOK, "viewer.html", map[string]any{
+		"URL": url,
+	})
 }

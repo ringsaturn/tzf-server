@@ -7,7 +7,6 @@ import (
 )
 
 func main() {
-
 	finderType := flag.Int("type", 0, "which finder to use Polygon(0) or Fuzzy(1)")
 	dataPath := flag.String("path", "", "custom data")
 	flag.Parse()
