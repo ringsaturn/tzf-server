@@ -20,14 +20,14 @@ tzf-server --help
 
 ### All supported timezone names
 
-[`http://localhost:8080/tzs/list/page`](http://localhost:8080/tzs/list/page)
+[`http://localhost:8080/web/tzs/all`](http://localhost:8080/web/tzs/all)
 
 ## API
 
 ### Lookup Location's timezone
 
 ```bash
-curl "http://localhost:8080/tz?lng=116.3883&lat=39.9289"
+curl "http://localhost:8080/api/v1/tz?lng=116.3883&lat=39.9289"
 ```
 
 Output:
@@ -41,7 +41,7 @@ Output:
 ### Lookup Location's timezones
 
 ```bash
-curl "http://localhost:8080/tzs?lng=87.6168&lat=43.8254"
+curl "http://localhost:8080/api/v1/tzs?lng=87.6168&lat=43.8254"
 ```
 
 Output:
@@ -55,7 +55,7 @@ Output:
 ### All supported timezone names
 
 ```bash
-curl "http://localhost:8080/tzs/list"
+curl "http://localhost:8080/api/v1/tzs"
 ```
 
 Output:
