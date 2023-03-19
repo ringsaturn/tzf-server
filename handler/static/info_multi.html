@@ -1,11 +1,9 @@
 <html>
 <h1>{{ .Title }}</h1>
+<ul class="item"></ul>
 {{ range .Items }}
-<div class="item">
-
-    <p><a href={{ .URL }}> {{ .Name }} </a></p>
-
-</div>
+    <li><a href={{ .URL }}>{{ .Name }}</a></li>
 {{ end }}
+</ul>
 
 </html>
