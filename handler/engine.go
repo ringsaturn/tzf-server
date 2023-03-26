@@ -26,12 +26,6 @@ func check(err error) {
 	}
 }
 
-type Finder interface {
-	GetTimezoneName(lng float64, lat float64) string
-	GetTimezoneNames(lng float64, lat float64) ([]string, error)
-	TimezoneNames() []string
-}
-
 type VisualizableTimezoneData interface {
 	GetShape(name string) (interface{}, error)
 }
@@ -72,7 +66,7 @@ func (d *polygonData) GetShape(name string) (interface{}, error) {
 }
 
 var (
-	finder Finder
+	finder tzf.F
 	tzData VisualizableTimezoneData
 )
 
@@ -88,7 +82,7 @@ type SetupFinderOptions struct {
 	CustomDataPath string
 }
 
-func setupFuzzyFinder(dataPath string) (Finder, VisualizableTimezoneData, error) {
+func setupFuzzyFinder(dataPath string) (tzf.F, VisualizableTimezoneData, error) {
 	var err error
 	tzpb := &pb.PreindexTimezones{}
 	if dataPath == "" {
@@ -110,7 +104,7 @@ func setupFuzzyFinder(dataPath string) (Finder, VisualizableTimezoneData, error)
 	return finder, &fuzzyData{data: tzpb}, err
 }
 
-func setupPolygonFinder(dataPath string) (Finder, VisualizableTimezoneData, error) {
+func setupPolygonFinder(dataPath string) (tzf.F, VisualizableTimezoneData, error) {
 	var err error
 	tzpb := &pb.Timezones{}
 
