@@ -6,8 +6,8 @@ require (
 	github.com/gin-gonic/gin v1.9.0
 	github.com/paulmach/orb v0.9.0
 	github.com/ringsaturn/gtu v0.0.0-20211128160806-850d778b2143
-	github.com/ringsaturn/tzf v0.12.0
-	github.com/ringsaturn/tzf-rel v0.0.2022-g1
+	github.com/ringsaturn/tzf v0.13.0
+	github.com/ringsaturn/tzf-rel v0.0.2023-b
 	github.com/stretchr/testify v1.8.2
 	google.golang.org/protobuf v1.30.0
 )
