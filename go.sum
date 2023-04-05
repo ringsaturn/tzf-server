@@ -63,8 +63,8 @@ github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINE
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/ringsaturn/go-cities.json v0.3.5 h1:MCRHTdXyXwh6EVbHp17otHrktDulK0Vu/UPd7tX0Inc=
-github.com/ringsaturn/gtu v0.0.0-20211128160806-850d778b2143 h1:WAgALpzXsdUuzN09a8Hh9QSFEozPrJsOU6Wyuk54OfM=
-github.com/ringsaturn/gtu v0.0.0-20211128160806-850d778b2143/go.mod h1:f8tMjXpWpMIkxZy6slPk09AHI7G3M/9AwvM/Skjp65E=
+github.com/ringsaturn/gtu v0.1.0 h1:r2ZFKQjzZ3/SasC75/vcCbtd9MkjT+LXaUjRd2NA5ts=
+github.com/ringsaturn/gtu v0.1.0/go.mod h1:f8tMjXpWpMIkxZy6slPk09AHI7G3M/9AwvM/Skjp65E=
 github.com/ringsaturn/tzf v0.13.0 h1:a2A5XXcXq8PmzaXzrBDtqFKUq8BbfgSV5bBG7AkTIdE=
 github.com/ringsaturn/tzf v0.13.0/go.mod h1:5ujpU1Z4p8wnXsDOU73ieHG2saFwqF3aXpwWlXuUins=
 github.com/ringsaturn/tzf-rel v0.0.2023-b h1:27Kt3ewlXJ/nkYFedYWmKbj7CUWzG0UxFYXQAjzPgBE=
