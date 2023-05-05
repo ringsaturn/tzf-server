@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/gin-gonic/gin v1.9.0
-	github.com/paulmach/orb v0.9.1
+	github.com/paulmach/orb v0.9.2
 	github.com/ringsaturn/gtu v0.1.0
 	github.com/ringsaturn/tzf v0.13.0
 	github.com/ringsaturn/tzf-rel v0.0.2023-b
