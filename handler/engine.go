@@ -1,13 +1,16 @@
 package handler
 
 import (
+	"context"
 	"embed"
 	"errors"
 	"html/template"
 	"net/http"
 	"os"
 
-	"github.com/gin-gonic/gin"
+	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/cloudwego/hertz/pkg/app/server"
+	"github.com/cloudwego/hertz/pkg/common/utils"
 	"github.com/paulmach/orb/maptile"
 	"github.com/ringsaturn/tzf"
 	tzfrel "github.com/ringsaturn/tzf-rel"
@@ -132,7 +135,7 @@ func setupPolygonFinder(dataPath string) (tzf.F, VisualizableTimezoneData, error
 	return finder, &polygonData{data: tzpb}, err
 }
 
-func Setup(option *SetupFinderOptions) *gin.Engine {
+func Setup(option *SetupFinderOptions) *server.Hertz {
 	if option == nil {
 		option = &SetupFinderOptions{
 			FinderType: PolygonFinder,
@@ -149,32 +152,31 @@ func Setup(option *SetupFinderOptions) *gin.Engine {
 	return setupEngine()
 }
 
-func setupEngine() *gin.Engine {
-	engine := gin.Default()
+func setupEngine() *server.Hertz {
+	h := server.Default(server.WithHostPorts(":8080"))
 
-	engine.SetHTMLTemplate(template.Must(template.New("").ParseFS(f, "template/*.html")))
+	h.SetHTMLTemplate(template.Must(template.New("").ParseFS(f, "template/*.html")))
 
-	engine.GET("/", Index)
-	engine.GET("/ping", Ping)
+	h.GET("/", Index)
+	h.GET("/ping", Ping)
 
-	apiV1Group := engine.Group("/api/v1")
-	{
-		apiV1Group.GET("/tz", GetTimezoneName)
-		apiV1Group.GET("/tzs", GetTimezoneNames)
-		apiV1Group.GET("/tzs/all", GetAllSupportTimezoneNames)
-		apiV1Group.GET("/tz/geojson", GetTimezoneShape)
-	}
+	apiV1Group := h.Group("/api/v1")
+	apiV1Group.GET("/tz", GetTimezoneName)
+	apiV1Group.GET("/tzs", GetTimezoneNames)
+	apiV1Group.GET("/tzs/all", GetAllSupportTimezoneNames)
+	apiV1Group.GET("/tz/geojson", GetTimezoneShape)
 
-	webPageGroup := engine.Group("/web")
-	{
-		webPageGroup.GET("/tz", GetTimezoneInfoPage)
-		webPageGroup.GET("/tzs", GetTimezonesInfoPage)
-		webPageGroup.GET("/tzs/all", GetAllSupportTimezoneNamesPage)
-		webPageGroup.GET("/tz/geojson/viewer", GetGeoJSONViewerForTimezone)
-	}
-	return engine
+	webPageGroup := h.Group("/web")
+	webPageGroup.GET("/tz", GetTimezoneInfoPage)
+	webPageGroup.GET("/tzs", GetTimezonesInfoPage)
+	webPageGroup.GET("/tzs/all", GetAllSupportTimezoneNamesPage)
+	webPageGroup.GET("/tz/geojson/viewer", GetGeoJSONViewerForTimezone)
+
+	return h
 }
 
-func Index(c *gin.Context) { c.Redirect(http.StatusTemporaryRedirect, "/web/tzs/all") }
+func Index(ctx context.Context, c *app.RequestContext) {
+	c.Redirect(http.StatusTemporaryRedirect, []byte("/web/tzs/all"))
+}
 
-func Ping(c *gin.Context) { c.JSON(http.StatusOK, gin.H{}) }
+func Ping(ctx context.Context, c *app.RequestContext) { c.JSON(http.StatusOK, utils.H{}) }
