@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
-	"net/http/httptest"
 	"testing"
 
-	"github.com/gin-gonic/gin"
+	"github.com/cloudwego/hertz/pkg/app/server"
+	"github.com/cloudwego/hertz/pkg/common/ut"
 	"github.com/ringsaturn/gtu"
 	"github.com/ringsaturn/tzf-server/handler"
+	"github.com/ringsaturn/tzf-server/pkg/htu"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -21,12 +22,11 @@ var (
 func TestEngine(t *testing.T) {
 	type args struct {
 		t        *testing.T
-		engine   *gin.Engine
+		engine   *server.Hertz
 		method   string
 		url      string
 		body     io.Reader
-		validate gtu.ValidationFunc
-		options  []gtu.RequestOption
+		validate htu.ValidationFunc
 	}
 	tests := []struct {
 		name string
@@ -40,8 +40,8 @@ func TestEngine(t *testing.T) {
 				method: gtu.GET,
 				url:    "/",
 				body:   nil,
-				validate: func(t *testing.T, httpResp *httptest.ResponseRecorder) {
-					assert.Equal(t, httpResp.Result().StatusCode, http.StatusTemporaryRedirect)
+				validate: func(t *testing.T, httpResp *ut.ResponseRecorder) {
+					assert.Equal(t, httpResp.Result().StatusCode(), http.StatusTemporaryRedirect)
 				},
 			},
 		},
@@ -53,8 +53,8 @@ func TestEngine(t *testing.T) {
 				method: gtu.GET,
 				url:    "/ping",
 				body:   nil,
-				validate: func(t *testing.T, httpResp *httptest.ResponseRecorder) {
-					assert.Equal(t, httpResp.Result().StatusCode, http.StatusOK)
+				validate: func(t *testing.T, httpResp *ut.ResponseRecorder) {
+					assert.Equal(t, httpResp.Result().StatusCode(), http.StatusOK)
 				},
 			},
 		},
@@ -66,8 +66,8 @@ func TestEngine(t *testing.T) {
 				method: gtu.GET,
 				url:    "/api/v1/tz?lng=116.3883&lat=39.9289",
 				body:   nil,
-				validate: func(t *testing.T, httpResp *httptest.ResponseRecorder) {
-					assert.Equal(t, httpResp.Result().StatusCode, http.StatusOK)
+				validate: func(t *testing.T, httpResp *ut.ResponseRecorder) {
+					assert.Equal(t, httpResp.Result().StatusCode(), http.StatusOK)
 					resp := map[string]string{}
 					err := json.Unmarshal(httpResp.Body.Bytes(), &resp)
 					if err != nil {
@@ -85,8 +85,8 @@ func TestEngine(t *testing.T) {
 				method: gtu.GET,
 				url:    "/api/v1/tz?lng=116.3883&lat=39.9289",
 				body:   nil,
-				validate: func(t *testing.T, httpResp *httptest.ResponseRecorder) {
-					assert.Equal(t, httpResp.Result().StatusCode, http.StatusOK)
+				validate: func(t *testing.T, httpResp *ut.ResponseRecorder) {
+					assert.Equal(t, httpResp.Result().StatusCode(), http.StatusOK)
 					resp := map[string]string{}
 					err := json.Unmarshal(httpResp.Body.Bytes(), &resp)
 					if err != nil {
@@ -99,7 +99,7 @@ func TestEngine(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gtu.Simple(tt.args.t, tt.args.engine, tt.args.method, tt.args.url, tt.args.body, tt.args.validate, tt.args.options...)
+			htu.Simple(tt.args.t, tt.args.engine, tt.args.method, tt.args.url, tt.args.body, tt.args.validate)
 		})
 	}
 }

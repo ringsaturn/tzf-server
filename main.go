@@ -11,9 +11,9 @@ func main() {
 	dataPath := flag.String("path", "", "custom data")
 	flag.Parse()
 
-	engine := handler.Setup(&handler.SetupFinderOptions{
+	h := handler.Setup(&handler.SetupFinderOptions{
 		FinderType:     handler.FinderType((*finderType)),
 		CustomDataPath: *dataPath,
 	})
-	panic(engine.Run())
+	panic(h.Run())
 }
