@@ -8,7 +8,7 @@ require (
 	github.com/ringsaturn/gtu v0.1.0
 	github.com/ringsaturn/tzf v0.13.0
 	github.com/ringsaturn/tzf-rel v0.0.2023-b
-	github.com/stretchr/testify v1.8.3
+	github.com/stretchr/testify v1.8.4
 	google.golang.org/protobuf v1.30.0
 )
 
