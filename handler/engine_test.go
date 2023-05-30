@@ -8,7 +8,6 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/ut"
-	"github.com/ringsaturn/gtu"
 	"github.com/ringsaturn/tzf-server/handler"
 	"github.com/ringsaturn/tzf-server/pkg/htu"
 	"github.com/stretchr/testify/assert"
@@ -37,7 +36,7 @@ func TestEngine(t *testing.T) {
 			args: args{
 				t:      t,
 				engine: engine,
-				method: gtu.GET,
+				method: htu.GET,
 				url:    "/",
 				body:   nil,
 				validate: func(t *testing.T, httpResp *ut.ResponseRecorder) {
@@ -50,7 +49,7 @@ func TestEngine(t *testing.T) {
 			args: args{
 				t:      t,
 				engine: engine,
-				method: gtu.GET,
+				method: htu.GET,
 				url:    "/ping",
 				body:   nil,
 				validate: func(t *testing.T, httpResp *ut.ResponseRecorder) {
@@ -63,7 +62,7 @@ func TestEngine(t *testing.T) {
 			args: args{
 				t:      t,
 				engine: engine,
-				method: gtu.GET,
+				method: htu.GET,
 				url:    "/api/v1/tz?lng=116.3883&lat=39.9289",
 				body:   nil,
 				validate: func(t *testing.T, httpResp *ut.ResponseRecorder) {
@@ -82,7 +81,7 @@ func TestEngine(t *testing.T) {
 			args: args{
 				t:      t,
 				engine: fuzzyEngine,
-				method: gtu.GET,
+				method: htu.GET,
 				url:    "/api/v1/tz?lng=116.3883&lat=39.9289",
 				body:   nil,
 				validate: func(t *testing.T, httpResp *ut.ResponseRecorder) {
