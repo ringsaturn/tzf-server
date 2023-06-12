@@ -1,4 +1,4 @@
-# Simple HTTP API convert longitude&latitude to timezone name
+# Simple server convert longitude&latitude to timezone name
 
 > **Note**: It's designed as a debugger tool for package
 > [tzf](https://github.com/ringsaturn/tzf), not production ready.
@@ -68,4 +68,34 @@ Output:
     "Pacific/Tongatapu"
   ]
 }
+```
+
+## Redis Protocol Commands
+
+### `redis-cli`
+
+```
+$ redis-cli -p 6380
+127.0.0.1:6380> GET_TZ 116.3883 39.9289
+Asia/Shanghai
+127.0.0.1:6380> GET_TZS 87.4160 44.0400
+1) "Asia/Shanghai"
+2) "Asia/Urumqi"
+```
+
+## `redis-py`
+
+```python
+from redis import Redis
+
+rc = Redis.from_url("redis://localhost:6380")
+
+print(rc.ping())
+# Output: True
+
+print(rc.execute_command("get_tz", 116.3883, 39.9289).decode())
+# Output: Asia/Shanghai
+
+print(rc.execute_command("get_tzs", 87.4160, 44.0400))
+# Output: [b'Asia/Shanghai', b'Asia/Urumqi']
 ```

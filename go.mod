@@ -5,9 +5,12 @@ go 1.20
 require (
 	github.com/cloudwego/hertz v0.6.4
 	github.com/paulmach/orb v0.9.2
+	github.com/pkg/errors v0.9.1
 	github.com/ringsaturn/tzf v0.13.0
 	github.com/ringsaturn/tzf-rel v0.0.2023-b
 	github.com/stretchr/testify v1.8.4
+	github.com/tidwall/redcon v1.6.2
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	google.golang.org/protobuf v1.30.0
 )
 
@@ -28,6 +31,7 @@ require (
 	github.com/nyaruka/phonenumbers v1.0.55 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rogpeppe/go-internal v1.8.0 // indirect
+	github.com/tidwall/btree v1.1.0 // indirect
 	github.com/tidwall/geoindex v1.7.0 // indirect
 	github.com/tidwall/geojson v1.4.3 // indirect
 	github.com/tidwall/gjson v1.13.0 // indirect
