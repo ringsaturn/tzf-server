@@ -22,7 +22,7 @@ tzf-server --help
 
 [`http://localhost:8080/web/tzs/all`](http://localhost:8080/web/tzs/all)
 
-## API
+## HTTP API
 
 ### Lookup Location's timezone
 
