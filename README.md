@@ -86,16 +86,12 @@ Asia/Shanghai
 ## `redis-py`
 
 ```python
-from redis import Redis
-
-rc = Redis.from_url("redis://localhost:6380")
-
-print(rc.ping())
-# Output: True
-
-print(rc.execute_command("get_tz", 116.3883, 39.9289).decode())
-# Output: Asia/Shanghai
-
-print(rc.execute_command("get_tzs", 87.4160, 44.0400))
-# Output: [b'Asia/Shanghai', b'Asia/Urumqi']
+>>> from redis import Redis
+>>> rc = Redis.from_url("redis://localhost:6380")
+>>> rc.ping()
+True
+>>> rc.execute_command("get_tz", 116.3883, 39.9289).decode()
+'Asia/Shanghai'
+>>> rc.execute_command("get_tzs", 87.4160, 44.0400)
+[b'Asia/Shanghai', b'Asia/Urumqi']
 ```
