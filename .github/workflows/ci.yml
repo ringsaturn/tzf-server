@@ -7,6 +7,30 @@ on:
     branches: [main]
 
 jobs:
+  golangci:
+    name: golangci-lint
+    strategy:
+      matrix:
+        go: ["1.21"]
+    permissions:
+      contents: read
+      pull-requests: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.go }}
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: latest
+          args: --timeout=5m
+
   build:
     runs-on: ubuntu-latest
     strategy:
@@ -20,25 +44,22 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
 
-      - uses: actions/cache@v3
+      - run: go install github.com/mfridman/tparse@latest
+
+      - run: make build
+      - run: make test
+      - run: make bench
+
+      - name: Build Coverage Report
+        run: |
+          make cover
+          mkdir coverage-report
+          mv coverage.html ./coverage-report/
+          ls -alh coverage-report
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v3
         with:
-          path: |
-            ~/.cache/go-build
-            ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
-
-      - name: Install test related deps
-        run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin latest
-
-      - name: Lint
-        run: golangci-lint run ./...
-
-      - name: Build
-        run: |
-          go build
-
-      - name: Test
-        run: |
-          go test ./...
+          name: "Coverage Report"
+          path: "./coverage-report"
+          retention-days: 3
