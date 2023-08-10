@@ -7,7 +7,7 @@ test:
 	go test -json -race ./... -v -coverprofile=coverage.out | tparse -all
 
 .PHONY:bench
-test:
+bench:
 	go test -bench=. ./...
 
 .PHONY:cover
