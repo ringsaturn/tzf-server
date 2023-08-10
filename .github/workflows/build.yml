@@ -2,8 +2,11 @@ name: build
 
 on:
   push:
+    branches: [main]
     tags:
-      - "*"
+      - "*"    
+  pull_request:
+    branches: [main]
 
 jobs:
   build-image:
@@ -45,8 +48,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          # push: ${{ github.event_name == 'release' }}
-          push: true
+          push: ${{ github.event_name == 'release' }}
           tags: ${{ steps.gen-image-info.outputs.image_name }}:${{ steps.gen-image-info.outputs.image_tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
