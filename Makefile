@@ -8,7 +8,7 @@ test:
 
 .PHONY:bench
 bench:
-	go test -bench=. ./...
+	go test -benchmem=. ./...
 
 .PHONY:cover
 cover:
