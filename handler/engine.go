@@ -154,6 +154,7 @@ func Setup(option *SetupFinderOptions) *server.Hertz {
 
 func setupEngine() *server.Hertz {
 	h := server.Default(server.WithHostPorts(":8080"))
+	// h := server.New(server.WithHostPorts(":8080"))
 
 	h.SetHTMLTemplate(template.Must(template.New("").ParseFS(f, "template/*.html")))
 
