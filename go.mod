@@ -7,7 +7,7 @@ require (
 	github.com/paulmach/orb v0.10.0
 	github.com/pkg/errors v0.9.1
 	github.com/redis/go-redis/v9 v9.0.5
-	github.com/ringsaturn/tzf v0.13.0
+	github.com/ringsaturn/tzf v0.14.0
 	github.com/ringsaturn/tzf-rel v0.0.2023-b
 	github.com/tidwall/redcon v1.6.2
 	golang.org/x/sync v0.3.0

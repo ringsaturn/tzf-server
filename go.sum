@@ -85,10 +85,10 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/redis/go-redis/v9 v9.0.5 h1:CuQcn5HIEeK7BgElubPP8CGtE0KakrnbBSTLjathl5o=
 github.com/redis/go-redis/v9 v9.0.5/go.mod h1:WqMKv5vnQbRuZstUwxQI195wHy+t4PuXDOjzMvcuQHk=
-github.com/ringsaturn/go-cities.json v0.3.5 h1:MCRHTdXyXwh6EVbHp17otHrktDulK0Vu/UPd7tX0Inc=
-github.com/ringsaturn/go-cities.json v0.3.5/go.mod h1:qpTYJsvNi40oTJs0WEdRdNAbWcLBWSL7oRHUxMrF4g8=
-github.com/ringsaturn/tzf v0.13.0 h1:a2A5XXcXq8PmzaXzrBDtqFKUq8BbfgSV5bBG7AkTIdE=
-github.com/ringsaturn/tzf v0.13.0/go.mod h1:5ujpU1Z4p8wnXsDOU73ieHG2saFwqF3aXpwWlXuUins=
+github.com/ringsaturn/go-cities.json v0.4.0 h1:7w47Wy9Xq4sMrPKzhk6p1ney8qadnRtfAa9qzWtvsYM=
+github.com/ringsaturn/go-cities.json v0.4.0/go.mod h1:qpTYJsvNi40oTJs0WEdRdNAbWcLBWSL7oRHUxMrF4g8=
+github.com/ringsaturn/tzf v0.14.0 h1:1PelDZ8N1UUmDPdVY7/Fnh2P61OOPoLNYKkuDrc8kPI=
+github.com/ringsaturn/tzf v0.14.0/go.mod h1:ywbnZmJjMzrRTp+Ee8NZ8tV1VcEKGgpm8tXqMmCjD9c=
 github.com/ringsaturn/tzf-rel v0.0.2023-b h1:27Kt3ewlXJ/nkYFedYWmKbj7CUWzG0UxFYXQAjzPgBE=
 github.com/ringsaturn/tzf-rel v0.0.2023-b/go.mod h1:TvyUIUpF3aCH98QYjTmMb1cqK7pFswdFLoIVZwGNV/M=
 github.com/smartystreets/assertions v0.0.0-20180927180507-b2de0cb4f26d h1:zE9ykElWQ6/NYmHa3jpm/yHnI4xSofP+UP6SpjHcSeM=
