@@ -1,80 +1,108 @@
 package handler_test
 
 import (
-	"context"
-	"sync"
 	"testing"
-	"time"
 
-	"github.com/cloudwego/hertz/pkg/common/test/assert"
-	"github.com/redis/go-redis/v9"
 	"github.com/ringsaturn/tzf-server/handler"
+	"github.com/tidwall/redcon"
+	gomock "go.uber.org/mock/gomock"
 )
-
-var (
-	redisServerOnce = sync.Once{}
-
-	redisClient = func() *redis.Client {
-		redisOpt, err := redis.ParseURL("redis://localhost:6380")
-		if err != nil {
-			panic(err)
-		}
-		client := redis.NewClient(redisOpt)
-		return client
-	}()
-)
-
-func mustStartServer() {
-	redisServerOnce.Do(func() {
-		go func() { _ = handler.StartRedisServer() }()
-		time.Sleep(100 * time.Millisecond)
-	})
-}
 
 func TestRedisServerGetTimezoneName(t *testing.T) {
-	mustStartServer()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
 
-	ctx := context.Background()
+	conn := NewMockConn(ctrl)
+	conn.EXPECT().WriteString("Asia/Shanghai").MaxTimes(1)
 
-	var testCases = []struct {
-		lng float64
-		lat float64
-		tz  string
-	}{
-		{116.3883, 39.9289, "Asia/Shanghai"},
+	cmd := redcon.Command{
+		Raw: []byte("get_tz 116.3883 39.9289"),
+		Args: [][]byte{
+			[]byte("get_tz"),
+			[]byte("116.3883"),
+			[]byte("39.9289"),
+		},
 	}
+	handler.RedisGetTZCmd(conn, cmd)
+}
 
-	for _, case_ := range testCases {
-		tz, err := redisClient.Do(ctx, "get_tz", case_.lng, case_.lat).Result()
-		if err != nil {
-			t.Fatal(err)
-		}
-		assert.True(t, case_.tz == tz)
+func BenchmarkRedisServerGetTimezoneName(b *testing.B) {
+	ctrl := gomock.NewController(b)
+	defer ctrl.Finish()
+
+	conn := NewMockConn(ctrl)
+	conn.EXPECT().WriteString("Asia/Shanghai").MinTimes(1)
+
+	cmd := redcon.Command{
+		Raw: []byte("get_tz 116.3883 39.9289"),
+		Args: [][]byte{
+			[]byte("get_tz"),
+			[]byte("116.3883"),
+			[]byte("39.9289"),
+		},
 	}
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		handler.RedisGetTZCmd(conn, cmd)
+	}
+}
+
+func TestRedisServerGetTimezoneNameWithInvalidArgs(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	conn := NewMockConn(ctrl)
+	conn.EXPECT().WriteError(gomock.Any()).MaxTimes(1)
+
+	cmd := redcon.Command{
+		Raw: []byte("get_tz 116.3883"),
+		Args: [][]byte{
+			[]byte("get_tz"),
+			[]byte("116.3883"),
+		},
+	}
+	handler.RedisGetTZCmd(conn, cmd)
 }
 
 func TestRedisServerGetTimezoneNames(t *testing.T) {
-	mustStartServer()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
 
-	ctx := context.Background()
+	conn := NewMockConn(ctrl)
+	conn.EXPECT().WriteArray(2).MaxTimes(1)
+	conn.EXPECT().WriteBulkString("Asia/Shanghai").MaxTimes(1)
+	conn.EXPECT().WriteBulkString("Asia/Urumqi").MaxTimes(1)
 
-	var testCases = []struct {
-		lng float64
-		lat float64
-		tz  []string
-	}{
-		{116.3883, 39.9289, []string{"Asia/Shanghai"}},
+	cmd := redcon.Command{
+		Raw: []byte("get_tzs 87.6168 43.8254"),
+		Args: [][]byte{
+			[]byte("get_tzs"),
+			[]byte("87.6168"),
+			[]byte("43.8254"),
+		},
 	}
+	handler.RedisGetTZsCmd(conn, cmd)
+}
 
-	for _, case_ := range testCases {
-		_tz, err := redisClient.Do(ctx, "get_tzs", case_.lng, case_.lat).Result()
-		if err != nil {
-			t.Fatal(err)
-		}
-		tz := _tz.([]interface{})
-		assert.True(t, len(case_.tz) == len(tz))
-		for i := 0; i < len(tz); i++ {
-			assert.True(t, case_.tz[i] == tz[i])
-		}
+func BenchmarkRedisServerGetTimezoneNames(b *testing.B) {
+	ctrl := gomock.NewController(b)
+	defer ctrl.Finish()
+
+	conn := NewMockConn(ctrl)
+	conn.EXPECT().WriteArray(2).MinTimes(1)
+	conn.EXPECT().WriteBulkString("Asia/Shanghai").MinTimes(1)
+	conn.EXPECT().WriteBulkString("Asia/Urumqi").MinTimes(1)
+
+	cmd := redcon.Command{
+		Raw: []byte("get_tzs 87.6168 43.8254"),
+		Args: [][]byte{
+			[]byte("get_tzs"),
+			[]byte("87.6168"),
+			[]byte("43.8254"),
+		},
+	}
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		handler.RedisGetTZsCmd(conn, cmd)
 	}
 }

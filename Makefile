@@ -1,10 +1,12 @@
+GOBASEPATH=$(shell go env var GOPATH | xargs)
+
 .PHONY:build
 build:
 	go build
 
 .PHONY:test
 test:
-	go test -json -race ./... -v -coverprofile=coverage.out | tparse -all
+	go test -json ./... -v -coverprofile=coverage.txt -covermode=atomic | tparse -all
 
 .PHONY:bench
 bench:
@@ -12,4 +14,7 @@ bench:
 
 .PHONY:cover
 cover:
-	go tool cover -html=coverage.out -o=coverage.html
+	go tool cover -html=coverage.txt -o=coverage.html
+
+gen:
+	mockgen -source=$(GOBASEPATH)/pkg/mod/github.com/tidwall/redcon@v1.6.2/redcon.go -destination="handler/mock_redcon_test.go" -package=handler_test
