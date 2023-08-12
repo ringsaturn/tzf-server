@@ -84,16 +84,16 @@ func TestGetAllSupportTimezoneNames(t *testing.T) {
 	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
 }
 
-// func TestWebGetAllTimezoneNames(t *testing.T) {
-// 	w := ut.PerformRequest(h.Engine, "GET", "/web/tzs/all", nil)
-// 	resp := w.Result()
-// 	fmt.Println(string(resp.BodyBytes()))
-// 	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
-// }
+func TestWebGetAllTimezoneNames(t *testing.T) {
+	w := ut.PerformRequest(h.Engine, "GET", "/web/tzs/all", nil)
+	resp := w.Result()
+	t.Logf(string(resp.BodyBytes()))
+	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
+}
 
-// func TestWebGetTimezoneName(t *testing.T) {
-// 	w := ut.PerformRequest(h.Engine, "GET", "/web/tz?lng=116.3883&lat=39.9289", nil)
-// 	resp := w.Result()
-// 	fmt.Println(string(resp.BodyBytes()))
-// 	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
-// }
+func TestWebGetTimezoneName(t *testing.T) {
+	w := ut.PerformRequest(h.Engine, "GET", "/web/tz?lng=116.3883&lat=39.9289", nil)
+	resp := w.Result()
+	t.Log(string(resp.BodyBytes()))
+	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
+}
