@@ -4,11 +4,13 @@ import (
 	"context"
 	"embed"
 	"errors"
+	"fmt"
 	"html/template"
 	"net/http"
 	"os"
 
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/cloudwego/hertz/pkg/app/middlewares/server/recovery"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"github.com/paulmach/orb/maptile"
@@ -153,8 +155,16 @@ func Setup(option *SetupFinderOptions) *server.Hertz {
 }
 
 func setupEngine() *server.Hertz {
-	h := server.Default(server.WithHostPorts(":8080"))
-	// h := server.New(server.WithHostPorts(":8080"))
+	h := server.New(server.WithHostPorts(":8080"))
+	h.Use(
+		recovery.Recovery(recovery.WithRecoveryHandler(
+			func(ctx context.Context, c *app.RequestContext, err interface{}, stack []byte) {
+				c.JSON(http.StatusInternalServerError, utils.H{
+					"error": fmt.Sprintf("[Recovery] err=%v\nstack=%s", err, stack),
+				})
+			},
+		)),
+	)
 
 	h.SetHTMLTemplate(template.Must(template.New("").ParseFS(f, "template/*.html")))
 
