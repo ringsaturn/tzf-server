@@ -13,7 +13,7 @@ func TestRedisServerGetTimezoneName(t *testing.T) {
 	defer ctrl.Finish()
 
 	conn := NewMockConn(ctrl)
-	conn.EXPECT().WriteString("Asia/Shanghai").MaxTimes(1)
+	conn.EXPECT().WriteString("Asia/Shanghai").MaxTimes(1).MinTimes(1)
 
 	cmd := redcon.Command{
 		Raw: []byte("get_tz 116.3883 39.9289"),
@@ -23,7 +23,7 @@ func TestRedisServerGetTimezoneName(t *testing.T) {
 			[]byte("39.9289"),
 		},
 	}
-	handler.RedisGetTZCmd(conn, cmd)
+	handler.RedisHandler(conn, cmd)
 }
 
 func BenchmarkRedisServerGetTimezoneName(b *testing.B) {
@@ -43,7 +43,7 @@ func BenchmarkRedisServerGetTimezoneName(b *testing.B) {
 	}
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		handler.RedisGetTZCmd(conn, cmd)
+		handler.RedisHandler(conn, cmd)
 	}
 }
 
@@ -61,7 +61,7 @@ func TestRedisServerGetTimezoneNameWithInvalidArgs(t *testing.T) {
 			[]byte("116.3883"),
 		},
 	}
-	handler.RedisGetTZCmd(conn, cmd)
+	handler.RedisHandler(conn, cmd)
 }
 
 func TestRedisServerGetTimezoneNames(t *testing.T) {
@@ -69,9 +69,9 @@ func TestRedisServerGetTimezoneNames(t *testing.T) {
 	defer ctrl.Finish()
 
 	conn := NewMockConn(ctrl)
-	conn.EXPECT().WriteArray(2).MaxTimes(1)
-	conn.EXPECT().WriteBulkString("Asia/Shanghai").MaxTimes(1)
-	conn.EXPECT().WriteBulkString("Asia/Urumqi").MaxTimes(1)
+	conn.EXPECT().WriteArray(2).MaxTimes(1).MinTimes(1)
+	conn.EXPECT().WriteBulkString("Asia/Shanghai").MaxTimes(1).MinTimes(1)
+	conn.EXPECT().WriteBulkString("Asia/Urumqi").MaxTimes(1).MinTimes(1)
 
 	cmd := redcon.Command{
 		Raw: []byte("get_tzs 87.6168 43.8254"),
@@ -81,7 +81,7 @@ func TestRedisServerGetTimezoneNames(t *testing.T) {
 			[]byte("43.8254"),
 		},
 	}
-	handler.RedisGetTZsCmd(conn, cmd)
+	handler.RedisHandler(conn, cmd)
 }
 
 func BenchmarkRedisServerGetTimezoneNames(b *testing.B) {
@@ -103,6 +103,22 @@ func BenchmarkRedisServerGetTimezoneNames(b *testing.B) {
 	}
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		handler.RedisGetTZsCmd(conn, cmd)
+		handler.RedisHandler(conn, cmd)
 	}
+}
+
+func TestRedisServerPing(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	conn := NewMockConn(ctrl)
+	conn.EXPECT().WriteString("PONG").MaxTimes(1).MinTimes(1)
+
+	cmd := redcon.Command{
+		Raw: []byte("ping"),
+		Args: [][]byte{
+			[]byte("ping"),
+		},
+	}
+	handler.RedisHandler(conn, cmd)
 }
