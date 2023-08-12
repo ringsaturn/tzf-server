@@ -6,7 +6,7 @@ build:
 
 .PHONY:test
 test:
-	go test -json ./... -v -coverprofile=coverage.txt -covermode=atomic | tparse -all
+	go test -json -race ./... -v -coverprofile=coverage.txt -covermode=atomic | tparse -all
 
 .PHONY:bench
 bench:
