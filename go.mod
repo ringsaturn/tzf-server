@@ -10,6 +10,7 @@ require (
 	github.com/ringsaturn/tzf v0.14.0
 	github.com/ringsaturn/tzf-rel v0.0.2023-b
 	github.com/tidwall/redcon v1.6.2
+	go.uber.org/mock v0.2.0
 	golang.org/x/sync v0.3.0
 	google.golang.org/protobuf v1.31.0
 )
