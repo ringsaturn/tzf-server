@@ -23,7 +23,7 @@ func parseCoordinates(cmd redcon.Command) (float64, float64, error) {
 	return lng, lat, nil
 }
 
-func RedisGetTZCmd(conn redcon.Conn, cmd redcon.Command) {
+func redisGetTZCmd(conn redcon.Conn, cmd redcon.Command) {
 	lng, lat, err := parseCoordinates(cmd)
 	if err != nil {
 		conn.WriteError(err.Error())
@@ -38,7 +38,7 @@ func RedisGetTZCmd(conn redcon.Conn, cmd redcon.Command) {
 	conn.WriteString(timezone_name)
 }
 
-func RedisGetTZsCmd(conn redcon.Conn, cmd redcon.Command) {
+func redisGetTZsCmd(conn redcon.Conn, cmd redcon.Command) {
 	lng, lat, err := parseCoordinates(cmd)
 	if err != nil {
 		conn.WriteError(err.Error())
@@ -56,24 +56,26 @@ func RedisGetTZsCmd(conn redcon.Conn, cmd redcon.Command) {
 	}
 }
 
-func RedisDefaultCmd(conn redcon.Conn, cmd redcon.Command) {
+func redisDefaultCmd(conn redcon.Conn, cmd redcon.Command) {
 	conn.WriteError("ERR unknown command '" + string(cmd.Args[0]) + "'")
 }
-func RedisPingCmd(conn redcon.Conn, cmd redcon.Command) { conn.WriteString("PONG") }
-func RedisQuitCmd(conn redcon.Conn, cmd redcon.Command) { conn.WriteString("OK"); conn.Close() }
+
+func redisPingCmd(conn redcon.Conn, cmd redcon.Command) { conn.WriteString("PONG") }
+
+func redisQuitCmd(conn redcon.Conn, cmd redcon.Command) { conn.WriteString("OK"); conn.Close() }
 
 func RedisHandler(conn redcon.Conn, cmd redcon.Command) {
 	switch strings.ToLower(string(cmd.Args[0])) {
 	case "ping":
-		RedisPingCmd(conn, cmd)
+		redisPingCmd(conn, cmd)
 	case "quit":
-		RedisQuitCmd(conn, cmd)
+		redisQuitCmd(conn, cmd)
 	case "get_tz":
-		RedisGetTZCmd(conn, cmd)
+		redisGetTZCmd(conn, cmd)
 	case "get_tzs":
-		RedisGetTZsCmd(conn, cmd)
+		redisGetTZsCmd(conn, cmd)
 	default:
-		RedisDefaultCmd(conn, cmd)
+		redisDefaultCmd(conn, cmd)
 	}
 }
 
