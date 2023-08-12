@@ -122,3 +122,20 @@ func TestRedisServerPing(t *testing.T) {
 	}
 	handler.RedisHandler(conn, cmd)
 }
+
+func TestRedisServerQuit(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	conn := NewMockConn(ctrl)
+	conn.EXPECT().WriteString("OK").MaxTimes(1).MinTimes(1)
+	conn.EXPECT().Close().MaxTimes(1).MinTimes(1)
+
+	cmd := redcon.Command{
+		Raw: []byte("quit"),
+		Args: [][]byte{
+			[]byte("quit"),
+		},
+	}
+	handler.RedisHandler(conn, cmd)
+}
