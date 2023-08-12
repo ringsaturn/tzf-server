@@ -15,10 +15,10 @@ var (
 	hFuzzy = handler.Setup(&handler.SetupFinderOptions{FinderType: handler.FuzzyFinder})
 )
 
-func TestIndex(t *testing.T) {
-	w := ut.PerformRequest(h.Engine, "GET", "/ping", nil)
+func TestRoot(t *testing.T) {
+	w := ut.PerformRequest(h.Engine, "GET", "/", nil)
 	resp := w.Result()
-	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
+	assert.DeepEqual(t, http.StatusTemporaryRedirect, resp.StatusCode())
 }
 
 func TestPing(t *testing.T) {
@@ -64,6 +64,24 @@ func TestFuzzyGetTimezoneNames(t *testing.T) {
 		t.Fatalf(err.Error())
 	}
 	assert.DeepEqual(t, result.Timezones, []string{"Asia/Shanghai", "Asia/Urumqi"})
+}
+
+func TestGetTimezoneShape(t *testing.T) {
+	w := ut.PerformRequest(h.Engine, "GET", "/api/v1/tz/geojson?lng=116.3883&lat=39.9289", nil)
+	resp := w.Result()
+	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
+}
+
+func TestFuzzyGetTimezoneShape(t *testing.T) {
+	w := ut.PerformRequest(hFuzzy.Engine, "GET", "/api/v1/tz/geojson?lng=116.3883&lat=39.9289", nil)
+	resp := w.Result()
+	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
+}
+
+func TestGetAllSupportTimezoneNames(t *testing.T) {
+	w := ut.PerformRequest(h.Engine, "GET", "/api/v1/tzs/all", nil)
+	resp := w.Result()
+	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
 }
 
 // func TestWebGetAllTimezoneNames(t *testing.T) {
