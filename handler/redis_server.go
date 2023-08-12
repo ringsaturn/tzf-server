@@ -56,23 +56,30 @@ func RedisGetTZsCmd(conn redcon.Conn, cmd redcon.Command) {
 	}
 }
 
+func RedisDefaultCmd(conn redcon.Conn, cmd redcon.Command) {
+	conn.WriteError("ERR unknown command '" + string(cmd.Args[0]) + "'")
+}
+func RedisPingCmd(conn redcon.Conn, cmd redcon.Command) { conn.WriteString("PONG") }
+func RedisQuitCmd(conn redcon.Conn, cmd redcon.Command) { conn.WriteString("OK"); conn.Close() }
+
+func RedisHandler(conn redcon.Conn, cmd redcon.Command) {
+	switch strings.ToLower(string(cmd.Args[0])) {
+	case "ping":
+		RedisPingCmd(conn, cmd)
+	case "quit":
+		RedisQuitCmd(conn, cmd)
+	case "get_tz":
+		RedisGetTZCmd(conn, cmd)
+	case "get_tzs":
+		RedisGetTZsCmd(conn, cmd)
+	default:
+		RedisDefaultCmd(conn, cmd)
+	}
+}
+
 func StartRedisServer() error {
 	err := redcon.ListenAndServe(":6380",
-		func(conn redcon.Conn, cmd redcon.Command) {
-			switch strings.ToLower(string(cmd.Args[0])) {
-			default:
-				conn.WriteError("ERR unknown command '" + string(cmd.Args[0]) + "'")
-			case "ping":
-				conn.WriteString("PONG")
-			case "quit":
-				conn.WriteString("OK")
-				conn.Close()
-			case "get_tz":
-				RedisGetTZCmd(conn, cmd)
-			case "get_tzs":
-				RedisGetTZsCmd(conn, cmd)
-			}
-		},
+		RedisHandler,
 		func(conn redcon.Conn) bool { return true },
 		func(conn redcon.Conn, err error) {},
 	)
