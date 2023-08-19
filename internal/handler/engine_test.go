@@ -7,7 +7,7 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/common/test/assert"
 	"github.com/cloudwego/hertz/pkg/common/ut"
-	"github.com/ringsaturn/tzf-server/handler"
+	"github.com/ringsaturn/tzf-server/internal/handler"
 )
 
 var (

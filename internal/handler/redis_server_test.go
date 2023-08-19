@@ -3,7 +3,7 @@ package handler_test
 import (
 	"testing"
 
-	"github.com/ringsaturn/tzf-server/handler"
+	"github.com/ringsaturn/tzf-server/internal/handler"
 	"github.com/tidwall/redcon"
 	gomock "go.uber.org/mock/gomock"
 )

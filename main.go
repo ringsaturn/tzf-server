@@ -4,7 +4,7 @@ import (
 	"context"
 	"flag"
 
-	"github.com/ringsaturn/tzf-server/handler"
+	"github.com/ringsaturn/tzf-server/internal/handler"
 	"golang.org/x/sync/errgroup"
 )
 
