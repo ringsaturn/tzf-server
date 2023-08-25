@@ -1,10 +1,10 @@
 package handler
 
 import (
+	"errors"
 	"strconv"
 	"strings"
 
-	"github.com/pkg/errors"
 	"github.com/tidwall/redcon"
 )
 
