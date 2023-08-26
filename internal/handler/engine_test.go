@@ -8,11 +8,12 @@ import (
 	"github.com/cloudwego/hertz/pkg/common/test/assert"
 	"github.com/cloudwego/hertz/pkg/common/ut"
 	"github.com/ringsaturn/tzf-server/internal/handler"
+	"go.uber.org/zap"
 )
 
 var (
-	h      = handler.Setup(nil)
-	hFuzzy = handler.Setup(&handler.SetupFinderOptions{FinderType: handler.FuzzyFinder})
+	h      = handler.Setup(zap.Must(zap.NewProduction()), nil)
+	hFuzzy = handler.Setup(zap.Must(zap.NewProduction()), &handler.SetupFinderOptions{FinderType: handler.FuzzyFinder})
 )
 
 func TestRoot(t *testing.T) {

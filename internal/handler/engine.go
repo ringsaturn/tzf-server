@@ -12,13 +12,18 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/middlewares/server/recovery"
 	"github.com/cloudwego/hertz/pkg/app/server"
+	"github.com/cloudwego/hertz/pkg/common/config"
+	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/hertz/pkg/common/utils"
+	hertzzap "github.com/hertz-contrib/logger/zap"
 	"github.com/paulmach/orb/maptile"
 	"github.com/ringsaturn/tzf"
 	tzfrel "github.com/ringsaturn/tzf-rel"
 	"github.com/ringsaturn/tzf/convert"
 	"github.com/ringsaturn/tzf/pb"
 	"github.com/ringsaturn/tzf/reduce"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -87,33 +92,40 @@ type SetupFinderOptions struct {
 	CustomDataPath string
 }
 
-func setupFuzzyFinder(dataPath string) (tzf.F, VisualizableTimezoneData, error) {
+func setupFuzzyFinder(logger *zap.Logger, dataPath string) (tzf.F, VisualizableTimezoneData, error) {
 	var err error
 	tzpb := &pb.PreindexTimezones{}
 	if dataPath == "" {
+		logger.Debug("Fuzzy finder will use data from tzf-rel")
 		err = proto.Unmarshal(tzfrel.PreindexData, tzpb)
 		if err != nil {
+			logger.Sugar().Error("Unmarshal failed", "err", err)
 			return nil, nil, err
 		}
 	} else {
+		logger.Debug("Fuzzy finder use custom data")
 		rawFile, err := os.ReadFile(dataPath)
 		if err != nil {
+			logger.Sugar().Error("Unable to load custom data", "err", err)
 			return nil, nil, err
 		}
 		err = proto.Unmarshal(rawFile, tzpb)
 		if err != nil {
+			logger.Sugar().Error("Unmarshal failed", "err", err)
 			return nil, nil, err
 		}
 	}
 	finder, err = tzf.NewFuzzyFinderFromPB(tzpb)
+	logger.Sugar().Debug("FuzzyFinder setup finished", "err", err)
 	return finder, &fuzzyData{data: tzpb}, err
 }
 
-func setupPolygonFinder(dataPath string) (tzf.F, VisualizableTimezoneData, error) {
+func setupPolygonFinder(logger *zap.Logger, dataPath string) (tzf.F, VisualizableTimezoneData, error) {
 	var err error
 	tzpb := &pb.Timezones{}
 
 	if dataPath == "" {
+		logger.Debug("Finder will use data from tzf-rel")
 		compressPb := &pb.CompressedTimezones{}
 		err = proto.Unmarshal(tzfrel.LiteCompressData, compressPb)
 		if err != nil {
@@ -124,6 +136,7 @@ func setupPolygonFinder(dataPath string) (tzf.F, VisualizableTimezoneData, error
 			return nil, nil, err
 		}
 	} else {
+		logger.Debug("Finder will use data from tzf-rel")
 		rawFile, err := os.ReadFile(dataPath)
 		if err != nil {
 			return nil, nil, err
@@ -137,25 +150,27 @@ func setupPolygonFinder(dataPath string) (tzf.F, VisualizableTimezoneData, error
 	return finder, &polygonData{data: tzpb}, err
 }
 
-func Setup(option *SetupFinderOptions) *server.Hertz {
-	if option == nil {
-		option = &SetupFinderOptions{
+func Setup(logger *zap.Logger, finderOption *SetupFinderOptions, cfg ...config.Option) *server.Hertz {
+	if finderOption == nil {
+		logger.Debug("option is nil, use default polygon finder")
+		finderOption = &SetupFinderOptions{
 			FinderType: PolygonFinder,
 		}
 	}
 	var err error
-	switch option.FinderType {
+	switch finderOption.FinderType {
 	case FuzzyFinder:
-		finder, tzData, err = setupFuzzyFinder(option.CustomDataPath)
+		finder, tzData, err = setupFuzzyFinder(logger, finderOption.CustomDataPath)
 	default:
-		finder, tzData, err = setupPolygonFinder(option.CustomDataPath)
+		finder, tzData, err = setupPolygonFinder(logger, finderOption.CustomDataPath)
 	}
 	check(err)
-	return setupEngine()
+	hlog.SetLogger(hertzzap.NewLogger(hertzzap.WithZapOptions(zap.WithFatalHook(zapcore.WriteThenPanic))))
+	return setupEngine(cfg...)
 }
 
-func setupEngine() *server.Hertz {
-	h := server.New(server.WithHostPorts(":8080"))
+func setupEngine(cfg ...config.Option) *server.Hertz {
+	h := server.New(cfg...)
 	h.Use(
 		recovery.Recovery(recovery.WithRecoveryHandler(
 			func(ctx context.Context, c *app.RequestContext, err interface{}, stack []byte) {
