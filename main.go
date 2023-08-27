@@ -8,6 +8,7 @@ import (
 	prometheus "github.com/hertz-contrib/monitor-prometheus"
 	"github.com/ringsaturn/tzf-server/internal/handler"
 	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -19,9 +20,18 @@ func main() {
 	prometheusPath := flag.String("prometheus-path", "/hertz", "Prometheus Path")
 	prometheusEnableGoCollector := flag.Bool("prometheus-enable-go-coll", true, "Enable Go Collector")
 	disablePrintRoute := flag.Bool("disable-print-route", false, "Disable Print Route")
+	debug := flag.Bool("debug", false, "Enable debug mode")
 	flag.Parse()
 
-	logger, err := zap.NewProduction()
+	var logger *zap.Logger
+	var err error
+	if *debug {
+		cfg := zap.NewProductionConfig()
+		cfg.Level = zap.NewAtomicLevelAt(zapcore.DebugLevel)
+		logger, err = cfg.Build()
+	} else {
+		logger, err = zap.NewProduction()
+	}
 	if err != nil {
 		panic(err)
 	}
