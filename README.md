@@ -5,10 +5,29 @@
 
 ```bash
 go install github.com/ringsaturn/tzf-server@latest
+```
 
-# check args
-tzf-server --help
+```console
+Usage of ./tzf-server:
+  -debug
+        Enable debug mode
+  -disable-print-route
+        Disable Print Route
+  -http-addr string
+        HTTP Host&Port (default "localhost:8080")
+  -path string
+        custom data
+  -prometheus-enable-go-coll
+        Enable Go Collector (default true)
+  -prometheus-host-port string
+        Prometheus Host&Port (default "localhost:8090")
+  -prometheus-path string
+        Prometheus Path (default "/hertz")
+  -type int
+        which finder to use Polygon(0) or Fuzzy(1)
+```
 
+```bash
 # start general server
 ./tzf-server
 
