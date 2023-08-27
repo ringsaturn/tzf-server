@@ -8,7 +8,7 @@ go install github.com/ringsaturn/tzf-server@latest
 ```
 
 ```console
-Usage of ./tzf-server:
+Usage of tzf-server:
   -debug
         Enable debug mode
   -disable-print-route
