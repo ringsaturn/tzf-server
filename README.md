@@ -1,6 +1,8 @@
 # Simple server convert longitude&latitude to timezone name
 
-> **Note**: It's designed as a debugger tool for package
+> **Note**
+>
+> It's designed as a debugger tool for package
 > [tzf](https://github.com/ringsaturn/tzf), not production ready.
 
 ```bash
