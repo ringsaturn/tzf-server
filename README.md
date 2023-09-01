@@ -148,7 +148,7 @@ Output:
 
 ### `redis-cli`
 
-```
+```console
 $ redis-cli -p 6380
 127.0.0.1:6380> GET_TZ 116.3883 39.9289
 Asia/Shanghai
