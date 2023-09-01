@@ -8,6 +8,7 @@ import (
 	"html/template"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/middlewares/server/recovery"
@@ -76,8 +77,10 @@ func (d *polygonData) GetShape(name string) (interface{}, error) {
 }
 
 var (
-	finder tzf.F
-	tzData VisualizableTimezoneData
+	finder              tzf.F
+	tzData              VisualizableTimezoneData
+	tzName2Abbreviation = make(map[string]string)
+	tzName2Offset       = make(map[string]int)
 )
 
 type FinderType int
@@ -90,6 +93,20 @@ const (
 type SetupFinderOptions struct {
 	FinderType     FinderType
 	CustomDataPath string
+}
+
+func postSetUp(finder tzf.F) error {
+	for _, tzName := range finder.TimezoneNames() {
+		location, err := time.LoadLocation(tzName)
+
+		if err != nil {
+			return err
+		}
+		abbreviation, offset := time.Now().In(location).Zone()
+		tzName2Abbreviation[tzName] = abbreviation
+		tzName2Offset[tzName] = offset
+	}
+	return nil
 }
 
 func setupFuzzyFinder(logger *zap.Logger, dataPath string) (tzf.F, VisualizableTimezoneData, error) {
@@ -165,6 +182,7 @@ func Setup(logger *zap.Logger, finderOption *SetupFinderOptions, cfg ...config.O
 		finder, tzData, err = setupPolygonFinder(logger, finderOption.CustomDataPath)
 	}
 	check(err)
+	check(postSetUp(finder))
 	hlog.SetLogger(hertzzap.NewLogger(hertzzap.WithZapOptions(zap.WithFatalHook(zapcore.WriteThenPanic))))
 	return setupEngine(cfg...)
 }

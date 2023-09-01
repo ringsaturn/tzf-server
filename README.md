@@ -1,13 +1,41 @@
-# Simple server convert longitude&latitude to timezone name
+<h1>Simple server convert longitude&latitude to timezone name</h1>
 
 > **Note**
 >
 > It's designed as a debugger tool for package
 > [tzf](https://github.com/ringsaturn/tzf), not production ready.
 
+- [Quick Start](#quick-start)
+  - [Install](#install)
+    - [Install via `go install`](#install-via-go-install)
+    - [Download from release page](#download-from-release-page)
+  - [Usage](#usage)
+- [Web Pages](#web-pages)
+  - [All supported timezone names](#all-supported-timezone-names)
+- [HTTP API](#http-api)
+  - [Lookup Location's timezone](#lookup-locations-timezone)
+  - [Lookup Location's timezones](#lookup-locations-timezones)
+  - [All supported timezone names](#all-supported-timezone-names-1)
+- [Redis Protocol Commands](#redis-protocol-commands)
+  - [`redis-cli`](#redis-cli)
+  - [`redis-py`](#redis-py)
+
+## Quick Start
+
+### Install
+
+#### Install via `go install`
+
 ```bash
 go install github.com/ringsaturn/tzf-server@latest
 ```
+
+#### Download from release page
+
+Please visit <https://github.com/ringsaturn/tzf-server/releases> to get latest
+release.
+
+### Usage
 
 ```console
 Usage of tzf-server:
@@ -29,12 +57,16 @@ Usage of tzf-server:
         which finder to use Polygon(0) or Fuzzy(1)
 ```
 
-```bash
-# start general server
-./tzf-server
+For example, start general server:
 
-# start FuzzyFinder based server
-./tzf-server -type 1
+```bash
+tzf-server
+```
+
+Or start FuzzyFinder based server:
+
+```bash
+tzf-server -type 1
 ```
 
 ## Web Pages
@@ -55,7 +87,9 @@ Output:
 
 ```json
 {
-  "timezone": "Asia/Shanghai"
+  "timezone": "Asia/Shanghai",
+  "abbreviation": "CST",
+  "offset": 28800
 }
 ```
 
@@ -69,14 +103,25 @@ Output:
 
 ```json
 {
-  "timezones": ["Asia/Shanghai", "Asia/Urumqi"]
+  "timezones": [
+    {
+      "timezone": "Asia/Shanghai",
+      "abbreviation": "CST",
+      "offset": 28800
+    },
+    {
+      "timezone": "Asia/Urumqi",
+      "abbreviation": "+06",
+      "offset": 21600
+    }
+  ]
 }
 ```
 
 ### All supported timezone names
 
 ```bash
-curl "http://localhost:8080/api/v1/tzs"
+curl "http://localhost:8080/api/v1/tzs/all"
 ```
 
 Output:
@@ -84,9 +129,17 @@ Output:
 ```json
 {
   "timezones": [
-    "Africa/Abidjan",
+    {
+      "timezone": "Africa/Abidjan",
+      "abbreviation": "GMT",
+      "offset": 0
+    },
     // ...
-    "Pacific/Tongatapu"
+    {
+      "timezone": "Etc/GMT+12",
+      "abbreviation": "-12",
+      "offset": -43200
+    }
   ]
 }
 ```
