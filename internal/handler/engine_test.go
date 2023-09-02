@@ -7,6 +7,7 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/common/test/assert"
 	"github.com/cloudwego/hertz/pkg/common/ut"
+	"github.com/google/go-cmp/cmp"
 	"github.com/ringsaturn/tzf-server/internal/handler"
 	"go.uber.org/zap"
 )
@@ -15,6 +16,14 @@ var (
 	h      = handler.Setup(zap.Must(zap.NewProduction()), nil)
 	hFuzzy = handler.Setup(zap.Must(zap.NewProduction()), &handler.SetupFinderOptions{FinderType: handler.FuzzyFinder})
 )
+
+func mustEqual(t *testing.T, expected interface{}, actual interface{}) {
+	eq := cmp.Equal(expected, actual)
+	if !eq {
+		diff := cmp.Diff(expected, actual)
+		t.Fatalf(diff)
+	}
+}
 
 func TestRoot(t *testing.T) {
 	w := ut.PerformRequest(h.Engine, "GET", "/", nil)
@@ -38,7 +47,12 @@ func TestGetTimezoneName(t *testing.T) {
 	if err != nil {
 		t.Fatalf(err.Error())
 	}
-	assert.True(t, result.Timezone == "Asia/Shanghai")
+	expected := &handler.GetTimezoneNameResponse{
+		Timezone:     "Asia/Shanghai",
+		Abbreviation: "CST",
+		Offset:       28800,
+	}
+	mustEqual(t, expected, result)
 }
 
 func TestFuzzyGetTimezoneName(t *testing.T) {
@@ -51,7 +65,12 @@ func TestFuzzyGetTimezoneName(t *testing.T) {
 	if err != nil {
 		t.Fatalf(err.Error())
 	}
-	assert.True(t, result.Timezone == "Asia/Shanghai")
+	expected := &handler.GetTimezoneNameResponse{
+		Timezone:     "Asia/Shanghai",
+		Abbreviation: "CST",
+		Offset:       28800,
+	}
+	mustEqual(t, expected, result)
 }
 
 func TestFuzzyGetTimezoneNames(t *testing.T) {
@@ -64,7 +83,21 @@ func TestFuzzyGetTimezoneNames(t *testing.T) {
 	if err != nil {
 		t.Fatalf(err.Error())
 	}
-	assert.DeepEqual(t, result.Timezones, []string{"Asia/Shanghai", "Asia/Urumqi"})
+	expected := &handler.GetTimezoneNamesResponse{
+		Timezones: []*handler.GetTimezoneNameResponse{
+			{
+				Timezone:     "Asia/Shanghai",
+				Abbreviation: "CST",
+				Offset:       28800,
+			},
+			{
+				Timezone:     "Asia/Urumqi",
+				Abbreviation: "+06",
+				Offset:       21600,
+			},
+		},
+	}
+	mustEqual(t, expected, result)
 }
 
 func TestGetTimezoneShape(t *testing.T) {

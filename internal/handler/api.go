@@ -14,7 +14,9 @@ type LocationRequest struct {
 }
 
 type GetTimezoneNameResponse struct {
-	Timezone string `json:"timezone"`
+	Timezone     string `json:"timezone"`
+	Abbreviation string `json:"abbreviation"`
+	Offset       int    `json:"offset"`
 }
 
 func GetTimezoneName(ctx context.Context, c *app.RequestContext) {
@@ -29,11 +31,15 @@ func GetTimezoneName(ctx context.Context, c *app.RequestContext) {
 		c.JSON(http.StatusInternalServerError, utils.H{"err": "no timezone found"})
 		return
 	}
-	c.JSON(http.StatusOK, &GetTimezoneNameResponse{Timezone: timezone})
+	c.JSON(http.StatusOK, &GetTimezoneNameResponse{
+		Timezone:     timezone,
+		Abbreviation: tzName2Abbreviation[timezone],
+		Offset:       tzName2Offset[timezone],
+	})
 }
 
 type GetTimezoneNamesResponse struct {
-	Timezones []string `json:"timezones"`
+	Timezones []*GetTimezoneNameResponse `json:"timezones"`
 }
 
 func GetTimezoneNames(ctx context.Context, c *app.RequestContext) {
@@ -48,11 +54,27 @@ func GetTimezoneNames(ctx context.Context, c *app.RequestContext) {
 		c.JSON(http.StatusInternalServerError, utils.H{"err": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, &GetTimezoneNamesResponse{Timezones: timezones})
+	items := make([]*GetTimezoneNameResponse, len(timezones))
+	for i, timezone := range timezones {
+		items[i] = &GetTimezoneNameResponse{
+			Timezone:     timezone,
+			Abbreviation: tzName2Abbreviation[timezone],
+			Offset:       tzName2Offset[timezone],
+		}
+	}
+	c.JSON(http.StatusOK, &GetTimezoneNamesResponse{Timezones: items})
 }
 
 func GetAllSupportTimezoneNames(ctx context.Context, c *app.RequestContext) {
-	c.JSON(http.StatusOK, utils.H{"timezones": finder.TimezoneNames()})
+	items := make([]*GetTimezoneNameResponse, len(finder.TimezoneNames()))
+	for i, timezone := range finder.TimezoneNames() {
+		items[i] = &GetTimezoneNameResponse{
+			Timezone:     timezone,
+			Abbreviation: tzName2Abbreviation[timezone],
+			Offset:       tzName2Offset[timezone],
+		}
+	}
+	c.JSON(http.StatusOK, &GetTimezoneNamesResponse{Timezones: items})
 }
 
 type GetTimezoneInfoRequest struct {
