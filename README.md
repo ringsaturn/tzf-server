@@ -53,6 +53,8 @@ Usage of tzf-server:
         Prometheus Host&Port (default "localhost:8090")
   -prometheus-path string
         Prometheus Path (default "/hertz")
+  -redis-addr string
+        Redis Server Host&Port (default "localhost:6380")
   -type int
         which finder to use Polygon(0) or Fuzzy(1)
 ```
