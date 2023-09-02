@@ -131,7 +131,7 @@ curl "http://localhost:8080/api/v1/tzs/all"
 
 Output:
 
-```json
+```jsonc
 {
   "timezones": [
     {
