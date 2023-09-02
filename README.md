@@ -57,13 +57,16 @@ Usage of tzf-server:
         which finder to use Polygon(0) or Fuzzy(1)
 ```
 
-For example, start general server:
+For example, start
+[DefaultFinder](https://pkg.go.dev/github.com/ringsaturn/tzf#DefaultFinder)
+server:
 
 ```bash
 tzf-server
 ```
 
-Or start FuzzyFinder based server:
+Or start [FuzzyFinder](https://pkg.go.dev/github.com/ringsaturn/tzf#FuzzyFinder)
+based server:
 
 ```bash
 tzf-server -type 1
