@@ -26,7 +26,7 @@ var (
 
 func mustStartServer() {
 	redisServerOnce.Do(func() {
-		go func() { _ = handler.StartRedisServer() }()
+		go func() { _ = handler.StartRedisServer(":6380") }()
 		time.Sleep(100 * time.Millisecond)
 	})
 }

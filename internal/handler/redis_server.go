@@ -79,8 +79,8 @@ func RedisHandler(conn redcon.Conn, cmd redcon.Command) {
 	}
 }
 
-func StartRedisServer() error {
-	err := redcon.ListenAndServe(":6380",
+func StartRedisServer(addr string) error {
+	err := redcon.ListenAndServe(addr,
 		RedisHandler,
 		func(conn redcon.Conn) bool { return true },
 		func(conn redcon.Conn, err error) {},
