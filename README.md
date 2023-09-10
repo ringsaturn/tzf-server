@@ -89,7 +89,7 @@ tzf-server -type 1
 
 I have little knowledge about frontend development so it's just a experiment,
 most codes are written by ChatGPT 3.5. You can access the prompts from
-[gist](https://gist.github.com/ringsaturn/12b5509d80f69e7bca13da8745f7ce15)
+[gist](https://gist.github.com/ringsaturn/12b5509d80f69e7bca13da8745f7ce15).
 
 ## HTTP API
 
