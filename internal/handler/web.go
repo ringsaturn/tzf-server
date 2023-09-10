@@ -112,3 +112,7 @@ func GetGeoJSONViewerForTimezone(ctx context.Context, c *app.RequestContext) {
 		"URL": fmt.Sprintf("http://%v/api/v1/tz/geojson?lng=%v&lat=%v&name=%v", string(c.Request.Host()), req.Lng, req.Lat, req.Name),
 	})
 }
+
+func GetClickPage(ctx context.Context, c *app.RequestContext) {
+	c.HTML(http.StatusOK, "click.html", nil)
+}

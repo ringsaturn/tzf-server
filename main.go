@@ -38,12 +38,15 @@ func main() {
 	}
 	logger.Info("starting")
 	logger.Sugar().Infow("Get config",
+		"debug", *debug,
 		"type", *finderType,
 		"path", *dataPath,
 		"http-addr", *httpAddr,
+		"redis-addr", *redisAddr,
 		"prometheus-host-port", *prometheusHostPorts,
 		"prometheus-path", prometheusPath,
 		"prometheus-enable-go-coll", *prometheusEnableGoCollector,
+		"disable-print-route", *disablePrintRoute,
 	)
 
 	switch *finderType {
