@@ -215,6 +215,7 @@ func setupEngine(cfg ...config.Option) *server.Hertz {
 	webPageGroup.GET("/tzs", GetTimezonesInfoPage)
 	webPageGroup.GET("/tzs/all", GetAllSupportTimezoneNamesPage)
 	webPageGroup.GET("/tz/geojson/viewer", GetGeoJSONViewerForTimezone)
+	webPageGroup.GET("/click", GetClickPage)
 
 	return h
 }

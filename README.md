@@ -12,6 +12,7 @@
   - [Usage](#usage)
 - [Web Pages](#web-pages)
   - [All supported timezone names](#all-supported-timezone-names)
+  - [\[Experiment\] Clickable debugger](#experiment-clickable-debugger)
 - [HTTP API](#http-api)
   - [Lookup Location's timezone](#lookup-locations-timezone)
   - [Lookup Location's timezones](#lookup-locations-timezones)
@@ -79,6 +80,14 @@ tzf-server -type 1
 ### All supported timezone names
 
 [`http://localhost:8080/web/tzs/all`](http://localhost:8080/web/tzs/all)
+
+### [Experiment] Clickable debugger
+
+[`http://localhost:8080/web/click`](http://localhost:8080/web/click)
+
+I have little knowledge about frontend development so it's just a experiment,
+most codes are written by ChatGPT 3.5. You can access the prompts from
+[gist](https://gist.github.com/ringsaturn/12b5509d80f69e7bca13da8745f7ce15)
 
 ## HTTP API
 
