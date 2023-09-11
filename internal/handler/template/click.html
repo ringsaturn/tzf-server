@@ -20,6 +20,17 @@
   </head>
   <body>
     <div id="map"></div>
+    <span
+      id="mousecoord"
+      style="
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 9999;
+        background-color: white;
+      "
+    ></span>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/axios@1.5.0/dist/axios.min.js"></script>
@@ -33,6 +44,7 @@
         worldCopyJump: true,
         maxZoom: 18,
         minZoom: 3,
+        cursor: true,
       }).setView([40.7128, -74.006], 5);
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -43,6 +55,14 @@
 
       var markers = [];
       var polygons = [];
+
+      map.on("mousemove", function (e) {
+        var lng = e.latlng.wrap().lng.toFixed(4);
+        var lat = e.latlng.wrap().lat.toFixed(4);
+        document.getElementById(
+          "mousecoord"
+        ).innerHTML = `Lat: ${lat} Lng: ${lng}`;
+      });
 
       map.on("click", function (e) {
         var lng = e.latlng.wrap().lng.toFixed(4);
