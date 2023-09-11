@@ -30,8 +30,8 @@
     var polygons = [];
 
     map.on('click', function(e) {
-      var lng = e.latlng.lng.toFixed(4);
-      var lat = e.latlng.lat.toFixed(4);
+      var lng = e.latlng.wrap().lng.toFixed(4);
+      var lat = e.latlng.wrap().lat.toFixed(4);
 
       axios.get('/api/v1/tz', {
         params: {
