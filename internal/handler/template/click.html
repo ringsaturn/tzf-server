@@ -60,12 +60,12 @@
             var abbreviation = response.data.abbreviation;
             var offset = response.data.offset;
             var popupContent = `
-          <b>Timezone:</b> ${timezone}<br>
-          <b>Abbreviation:</b> ${abbreviation}<br>
-          <b>Offset:</b> ${offset}<br>
-          <b>Latitude:</b> ${lat}<br>
-          <b>Longitude:</b> ${lng}
-        `;
+            <b>Timezone:</b> ${timezone}<br>
+            <b>Abbreviation:</b> ${abbreviation}<br>
+            <b>Offset:</b> ${offset}<br>
+            <b>Latitude:</b> ${lat}<br>
+            <b>Longitude:</b> ${lng}
+          `;
 
             var marker = L.marker(e.latlng).addTo(map);
             marker.bindPopup(popupContent).openPopup();
