@@ -8,7 +8,7 @@ require (
 	github.com/hertz-contrib/logger/zap v1.0.0
 	github.com/hertz-contrib/monitor-prometheus v0.0.0-20221109015426-47eab4e08245
 	github.com/paulmach/orb v0.10.0
-	github.com/redis/go-redis/v9 v9.1.0
+	github.com/redis/go-redis/v9 v9.2.0
 	github.com/ringsaturn/tzf v0.14.0
 	github.com/ringsaturn/tzf-rel v0.0.2023-b
 	github.com/tidwall/redcon v1.6.2
