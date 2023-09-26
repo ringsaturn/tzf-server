@@ -3,7 +3,7 @@ module github.com/ringsaturn/tzf-server
 go 1.21
 
 require (
-	github.com/cloudwego/hertz v0.6.8
+	github.com/cloudwego/hertz v0.7.0
 	github.com/google/go-cmp v0.5.9
 	github.com/hertz-contrib/logger/zap v1.1.0
 	github.com/hertz-contrib/monitor-prometheus v0.0.0-20221109015426-47eab4e08245
@@ -28,7 +28,7 @@ require (
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20230717121745-296ad89f973d // indirect
 	github.com/chenzhuoyu/iasm v0.9.0 // indirect
-	github.com/cloudwego/netpoll v0.4.1 // indirect
+	github.com/cloudwego/netpoll v0.5.0 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
@@ -45,6 +45,7 @@ require (
 	github.com/tidwall/btree v1.6.0 // indirect
 	github.com/tidwall/geoindex v1.7.0 // indirect
 	github.com/tidwall/geojson v1.4.3 // indirect
+	github.com/tidwall/gjson v1.14.4 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/tidwall/rtree v1.10.0 // indirect

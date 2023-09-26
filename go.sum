@@ -79,12 +79,11 @@ github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e/go.mod h1:nSuG5e5P
 github.com/chzyer/test v0.0.0-20180213035817-a1ea475d72b1/go.mod h1:Q3SI9o4m/ZMnBNeIyt5eFwwo7qiLfzFZmjNmxjkiQlU=
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/cloudwego/hertz v0.4.0/go.mod h1:QSD2254yaf43BIy4isrlfKR42R3uFAT+6G5CpeROOJs=
-github.com/cloudwego/hertz v0.6.8 h1:nuUp2YuD3DJ4jjL9gP2IJRb84aSigbEUumuwQt0mjfc=
-github.com/cloudwego/hertz v0.6.8/go.mod h1:KhztQcZtMQ46gOjZcmCy557AKD29cbumGEV0BzwevwA=
+github.com/cloudwego/hertz v0.7.0 h1:9LFXPqHkGBNH/k/Y1h3udEloS5LVPNOUWekDfH0bQNM=
+github.com/cloudwego/hertz v0.7.0/go.mod h1:WliNtVbwihWHHgAaIQEbVXl0O3aWj0ks1eoPrcEAnjs=
 github.com/cloudwego/netpoll v0.2.6/go.mod h1:1T2WVuQ+MQw6h6DpE45MohSvDTKdy2DlzCx2KsnPI4E=
-github.com/cloudwego/netpoll v0.3.2/go.mod h1:xVefXptcyheopwNDZjDPcfU6kIjZXZ4nY550k1yH9eQ=
-github.com/cloudwego/netpoll v0.4.1 h1:/pGsY7Rs09KqEXEniB9fcsEWfi1iY+66bKUO3/NO6hc=
-github.com/cloudwego/netpoll v0.4.1/go.mod h1:xVefXptcyheopwNDZjDPcfU6kIjZXZ4nY550k1yH9eQ=
+github.com/cloudwego/netpoll v0.5.0 h1:oRrOp58cPCvK2QbMozZNDESvrxQaEHW2dCimmwH1lcU=
+github.com/cloudwego/netpoll v0.5.0/go.mod h1:xVefXptcyheopwNDZjDPcfU6kIjZXZ4nY550k1yH9eQ=
 github.com/cncf/udpa/go v0.0.0-20191209042840-269d4d468f6f/go.mod h1:M8M6+tZqaGXZJjfX53e64911xZQV5JYwmTeXPW+k8Sc=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -305,6 +304,8 @@ github.com/tidwall/geojson v1.4.3/go.mod h1:1cn3UWfSYCJOq53NZoQ9rirdw89+DM0vw+ZO
 github.com/tidwall/gjson v1.9.3/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
 github.com/tidwall/gjson v1.12.1/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
 github.com/tidwall/gjson v1.13.0/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
+github.com/tidwall/gjson v1.14.4 h1:uo0p8EbA09J7RQaflQ1aBRffTR7xedD2bcIVSYxLnkM=
+github.com/tidwall/gjson v1.14.4/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
 github.com/tidwall/lotsa v1.0.2/go.mod h1:X6NiU+4yHA3fE3Puvpnn1XMDrFZrE9JO2/w+UMuqgR8=
 github.com/tidwall/lotsa v1.0.3 h1:lFAp3PIsS58FPmz+LzhE1mcZ67tBBCRPv5j66g6y7sg=
 github.com/tidwall/lotsa v1.0.3/go.mod h1:cPF+z88hamDNDjvE+u3suxCtRMVw24Gvze9eeWGYook=
