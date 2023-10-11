@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/cloudwego/hertz v0.7.1
-	github.com/google/go-cmp v0.5.9
+	github.com/google/go-cmp v0.6.0
 	github.com/hertz-contrib/logger/zap v1.1.0
 	github.com/hertz-contrib/monitor-prometheus v0.0.0-20221109015426-47eab4e08245
 	github.com/paulmach/orb v0.10.0
