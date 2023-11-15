@@ -21,8 +21,8 @@ type GetTimezoneInfoPageResponse struct {
 
 func GetTimezoneInfoPage(ctx context.Context, c *app.RequestContext) {
 	req := &GetTimezoneInfoRequest{}
-	if err := c.Bind(req); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, utils.H{"err": err.Error(), "uri": c.Request.RequestURI})
+	if err := c.BindAndValidate(req); err != nil {
+		c.JSON(http.StatusUnprocessableEntity, utils.H{"err": err.Error(), "uri": string(c.Request.RequestURI())})
 		return
 	}
 
@@ -47,7 +47,7 @@ func GetTimezoneInfoPage(ctx context.Context, c *app.RequestContext) {
 
 func GetTimezonesInfoPage(ctx context.Context, c *app.RequestContext) {
 	req := &LocationRequest{}
-	err := c.Bind(req)
+	err := c.BindAndValidate(req)
 	if err != nil {
 		c.JSON(http.StatusUnprocessableEntity, utils.H{"err": err.Error(), "uri": string(c.Request.RequestURI())})
 		return
@@ -97,7 +97,7 @@ func GetAllSupportTimezoneNamesPage(ctx context.Context, c *app.RequestContext) 
 // Render GeoJSON on web
 func GetGeoJSONViewerForTimezone(ctx context.Context, c *app.RequestContext) {
 	req := &GetTimezoneInfoRequest{}
-	if err := c.Bind(req); err != nil {
+	if err := c.BindAndValidate(req); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, utils.H{"err": err.Error(), "uri": string(c.Request.RequestURI())})
 		return
 	}

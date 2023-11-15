@@ -9,8 +9,8 @@ import (
 )
 
 type LocationRequest struct {
-	Lng float64 `query:"lng"`
-	Lat float64 `query:"lat"`
+	Lng float64 `query:"lng" vd:"$>=-180 && $<=180"`
+	Lat float64 `query:"lat" vd:"$>=-90 && $<=90"`
 }
 
 type GetTimezoneNameResponse struct {
@@ -21,9 +21,9 @@ type GetTimezoneNameResponse struct {
 
 func GetTimezoneName(ctx context.Context, c *app.RequestContext) {
 	req := &LocationRequest{}
-	err := c.Bind(req)
+	err := c.BindAndValidate(req)
 	if err != nil {
-		c.JSON(http.StatusUnprocessableEntity, utils.H{"err": err.Error(), "uri": c.Request.RequestURI})
+		c.JSON(http.StatusUnprocessableEntity, utils.H{"err": err.Error(), "uri": string(c.Request.RequestURI())})
 		return
 	}
 	timezone := finder.GetTimezoneName(req.Lng, req.Lat)
@@ -44,9 +44,9 @@ type GetTimezoneNamesResponse struct {
 
 func GetTimezoneNames(ctx context.Context, c *app.RequestContext) {
 	req := &LocationRequest{}
-	err := c.Bind(req)
+	err := c.BindAndValidate(req)
 	if err != nil {
-		c.JSON(http.StatusUnprocessableEntity, utils.H{"err": err.Error(), "uri": c.Request.RequestURI})
+		c.JSON(http.StatusUnprocessableEntity, utils.H{"err": err.Error(), "uri": string(c.Request.RequestURI())})
 		return
 	}
 	timezones, err := finder.GetTimezoneNames(req.Lng, req.Lat)
@@ -85,7 +85,7 @@ type GetTimezoneInfoRequest struct {
 
 func GetTimezoneShape(ctx context.Context, c *app.RequestContext) {
 	req := &GetTimezoneInfoRequest{}
-	err := c.Bind(req)
+	err := c.BindAndValidate(req)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, utils.H{"err": err.Error()})
 		return
