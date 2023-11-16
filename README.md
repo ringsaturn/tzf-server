@@ -41,11 +41,15 @@ release.
 ### Usage
 
 ```console
-Usage of tzf-server:
+Usage of ./tzf-server:
   -debug
         Enable debug mode
   -disable-print-route
         Disable Print Route
+  -hertz-prometheus-host-port string
+        Hertz Prometheus Host&Port (default "0.0.0.0:8090")
+  -hertz-prometheus-path string
+        Hertz Prometheus Path (default "/hertz")
   -http-addr string
         HTTP Host&Port (default "localhost:8080")
   -path string
@@ -53,9 +57,9 @@ Usage of tzf-server:
   -prometheus-enable-go-coll
         Enable Go Collector (default true)
   -prometheus-host-port string
-        Prometheus Host&Port (default "localhost:8090")
+        Prometheus Host&Port (default "0.0.0.0:2112")
   -prometheus-path string
-        Prometheus Path (default "/hertz")
+        Prometheus Path (default "/metrics")
   -redis-addr string
         Redis Server Host&Port (default "localhost:6380")
   -type int

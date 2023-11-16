@@ -5,7 +5,20 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/tidwall/redcon"
+)
+
+var (
+	redisServerCmdHistogram = promauto.NewHistogramVec(
+		prometheus.HistogramOpts{
+			Name:    "tzf_server_redis_server_cmd_histogram",
+			Help:    "",
+			Buckets: []float64{0.001, 0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009, 0.01, 0.1},
+		},
+		[]string{"cmd"},
+	)
 )
 
 func parseCoordinates(cmd redcon.Command) (float64, float64, error) {
@@ -65,7 +78,10 @@ func redisPingCmd(conn redcon.Conn, cmd redcon.Command) { conn.WriteString("PONG
 func redisQuitCmd(conn redcon.Conn, cmd redcon.Command) { conn.WriteString("OK"); conn.Close() }
 
 func RedisHandler(conn redcon.Conn, cmd redcon.Command) {
-	switch strings.ToLower(string(cmd.Args[0])) {
+	inputCmd := strings.ToLower(string(cmd.Args[0]))
+	timer := prometheus.NewTimer(redisServerCmdHistogram.WithLabelValues(inputCmd))
+	defer timer.ObserveDuration()
+	switch inputCmd {
 	case "ping":
 		redisPingCmd(conn, cmd)
 	case "quit":

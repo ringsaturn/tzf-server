@@ -8,6 +8,7 @@ require (
 	github.com/hertz-contrib/logger/zap v1.1.0
 	github.com/hertz-contrib/monitor-prometheus v0.0.0-20221109015426-47eab4e08245
 	github.com/paulmach/orb v0.10.0
+	github.com/prometheus/client_golang v1.14.0
 	github.com/redis/go-redis/v9 v9.3.0
 	github.com/ringsaturn/tzf v0.14.0
 	github.com/ringsaturn/tzf-rel v0.0.2023-b
@@ -37,7 +38,6 @@ require (
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/nyaruka/phonenumbers v1.1.8 // indirect
-	github.com/prometheus/client_golang v1.14.0 // indirect
 	github.com/prometheus/client_model v0.3.0 // indirect
 	github.com/prometheus/common v0.37.0 // indirect
 	github.com/prometheus/procfs v0.8.0 // indirect
