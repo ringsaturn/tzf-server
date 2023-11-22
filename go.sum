@@ -180,8 +180,8 @@ github.com/henrylee2cn/ameda v1.4.10/go.mod h1:liZulR8DgHxdK+MEwvZIylGnmcjzQ6N6f
 github.com/henrylee2cn/goutil v0.0.0-20210127050712-89660552f6f8/go.mod h1:Nhe/DM3671a5udlv2AdV2ni/MZzgfv2qrPL5nIi3EGQ=
 github.com/hertz-contrib/logger/zap v1.1.0 h1:4efINiIDJrXEtAFeEdDJvc3Hye0VFxp+0X4BwaZgxNs=
 github.com/hertz-contrib/logger/zap v1.1.0/go.mod h1:D/rJJgsYn+SGaHVfVqWS3vHTbbc7ODAlJO+6smWgTeE=
-github.com/hertz-contrib/monitor-prometheus v0.0.0-20221109015426-47eab4e08245 h1:sC6qEvzQOBBGZMYDp4HAO6HEWSfyDbwVr6+f/i+mqCE=
-github.com/hertz-contrib/monitor-prometheus v0.0.0-20221109015426-47eab4e08245/go.mod h1:pCX6yIssexH2/SWV6da/WnFvoTucxTZP0KLg6bO4GeI=
+github.com/hertz-contrib/monitor-prometheus v0.1.0 h1:WpfRZ1TMvJceguV9MNEjfnbkZQ4ltXgCbiieEbh0i4I=
+github.com/hertz-contrib/monitor-prometheus v0.1.0/go.mod h1:pCX6yIssexH2/SWV6da/WnFvoTucxTZP0KLg6bO4GeI=
 github.com/ianlancetaylor/demangle v0.0.0-20181102032728-5e5cf60278f6/go.mod h1:aSSvb/t6k1mPoxDqO4vJh6VOCGPwU4O0C2/Eqndh1Sc=
 github.com/jpillora/backoff v1.0.0/go.mod h1:J/6gKK9jxlEcS3zixgDgUAsiuZ7yrSoa/FX5e0EB2j4=
 github.com/json-iterator/go v1.1.6/go.mod h1:+SdeFBvtyEkXs7REEP0seUULqWtbJapLOCVDaaPEHmU=
