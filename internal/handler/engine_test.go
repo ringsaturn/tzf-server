@@ -9,7 +9,9 @@ import (
 	"github.com/cloudwego/hertz/pkg/common/ut"
 	"github.com/google/go-cmp/cmp"
 	"github.com/ringsaturn/tzf-server/internal/handler"
+	v1 "github.com/ringsaturn/tzf-server/proto/v1"
 	"go.uber.org/zap"
+	"google.golang.org/protobuf/proto"
 )
 
 var (
@@ -17,8 +19,8 @@ var (
 	hFuzzy = handler.Setup(zap.Must(zap.NewProduction()), &handler.SetupFinderOptions{FinderType: handler.FuzzyFinder})
 )
 
-func mustEqual(t *testing.T, expected interface{}, actual interface{}) {
-	eq := cmp.Equal(expected, actual)
+func mustEqualForProto(t *testing.T, expected proto.Message, actual proto.Message) {
+	eq := proto.Equal(expected, actual)
 	if !eq {
 		diff := cmp.Diff(expected, actual)
 		t.Fatalf(diff)
@@ -42,17 +44,17 @@ func TestGetTimezoneName(t *testing.T) {
 	resp := w.Result()
 	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
 
-	result := &handler.GetTimezoneNameResponse{}
+	result := &v1.GetTimezoneResponse{}
 	err := json.Unmarshal(resp.BodyBytes(), &result)
 	if err != nil {
 		t.Fatalf(err.Error())
 	}
-	expected := &handler.GetTimezoneNameResponse{
+	expected := &v1.GetTimezoneResponse{
 		Timezone:     "Asia/Shanghai",
 		Abbreviation: "CST",
 		Offset:       28800,
 	}
-	mustEqual(t, expected, result)
+	mustEqualForProto(t, expected, result)
 }
 
 func TestFuzzyGetTimezoneName(t *testing.T) {
@@ -60,17 +62,17 @@ func TestFuzzyGetTimezoneName(t *testing.T) {
 	resp := w.Result()
 	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
 
-	result := &handler.GetTimezoneNameResponse{}
+	result := &v1.GetTimezoneResponse{}
 	err := json.Unmarshal(resp.BodyBytes(), &result)
 	if err != nil {
 		t.Fatalf(err.Error())
 	}
-	expected := &handler.GetTimezoneNameResponse{
+	expected := &v1.GetTimezoneResponse{
 		Timezone:     "Asia/Shanghai",
 		Abbreviation: "CST",
 		Offset:       28800,
 	}
-	mustEqual(t, expected, result)
+	mustEqualForProto(t, expected, result)
 }
 
 func TestFuzzyGetTimezoneNames(t *testing.T) {
@@ -78,13 +80,13 @@ func TestFuzzyGetTimezoneNames(t *testing.T) {
 	resp := w.Result()
 	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
 
-	result := &handler.GetTimezoneNamesResponse{}
+	result := &v1.GetTimezonesResponse{}
 	err := json.Unmarshal(resp.BodyBytes(), &result)
 	if err != nil {
 		t.Fatalf(err.Error())
 	}
-	expected := &handler.GetTimezoneNamesResponse{
-		Timezones: []*handler.GetTimezoneNameResponse{
+	expected := &v1.GetTimezonesResponse{
+		Timezones: []*v1.GetTimezoneResponse{
 			{
 				Timezone:     "Asia/Shanghai",
 				Abbreviation: "CST",
@@ -97,7 +99,7 @@ func TestFuzzyGetTimezoneNames(t *testing.T) {
 			},
 		},
 	}
-	mustEqual(t, expected, result)
+	mustEqualForProto(t, expected, result)
 }
 
 func TestGetTimezoneShape(t *testing.T) {

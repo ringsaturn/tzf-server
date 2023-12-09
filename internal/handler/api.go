@@ -2,79 +2,53 @@ package handler
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
+	v1 "github.com/ringsaturn/tzf-server/proto/v1"
 )
 
-type LocationRequest struct {
-	Lng float64 `query:"lng" vd:"$>=-180 && $<=180"`
-	Lat float64 `query:"lat" vd:"$>=-90 && $<=90"`
-}
-
-type GetTimezoneNameResponse struct {
-	Timezone     string `json:"timezone"`
-	Abbreviation string `json:"abbreviation"`
-	Offset       int    `json:"offset"`
-}
-
-func GetTimezoneName(ctx context.Context, c *app.RequestContext) {
-	req := &LocationRequest{}
-	err := c.BindAndValidate(req)
-	if err != nil {
-		c.JSON(http.StatusUnprocessableEntity, utils.H{"err": err.Error(), "uri": string(c.Request.RequestURI())})
-		return
-	}
-	timezone := finder.GetTimezoneName(req.Lng, req.Lat)
+func GetTimezoneName(ctx context.Context, in *v1.GetTimezoneRequest) (*v1.GetTimezoneResponse, error) {
+	timezone := finder.GetTimezoneName(in.Longitude, in.Latitude)
 	if timezone == "" {
-		c.JSON(http.StatusInternalServerError, utils.H{"err": "no timezone found"})
-		return
+		return nil, errors.New("no timezone found")
 	}
-	c.JSON(http.StatusOK, &GetTimezoneNameResponse{
+	return &v1.GetTimezoneResponse{
 		Timezone:     timezone,
 		Abbreviation: tzName2Abbreviation[timezone],
 		Offset:       tzName2Offset[timezone],
-	})
+	}, nil
 }
 
-type GetTimezoneNamesResponse struct {
-	Timezones []*GetTimezoneNameResponse `json:"timezones"`
-}
-
-func GetTimezoneNames(ctx context.Context, c *app.RequestContext) {
-	req := &LocationRequest{}
-	err := c.BindAndValidate(req)
+func GetTimezoneNames(ctx context.Context, in *v1.GetTimezonesRequest) (*v1.GetTimezonesResponse, error) {
+	timezones, err := finder.GetTimezoneNames(in.Longitude, in.Latitude)
 	if err != nil {
-		c.JSON(http.StatusUnprocessableEntity, utils.H{"err": err.Error(), "uri": string(c.Request.RequestURI())})
-		return
+		return nil, fmt.Errorf("failed to get timezone names: %w", err)
 	}
-	timezones, err := finder.GetTimezoneNames(req.Lng, req.Lat)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, utils.H{"err": err.Error()})
-		return
-	}
-	items := make([]*GetTimezoneNameResponse, len(timezones))
+	items := make([]*v1.GetTimezoneResponse, len(timezones))
 	for i, timezone := range timezones {
-		items[i] = &GetTimezoneNameResponse{
+		items[i] = &v1.GetTimezoneResponse{
 			Timezone:     timezone,
 			Abbreviation: tzName2Abbreviation[timezone],
 			Offset:       tzName2Offset[timezone],
 		}
 	}
-	c.JSON(http.StatusOK, &GetTimezoneNamesResponse{Timezones: items})
+	return &v1.GetTimezonesResponse{Timezones: items}, nil
 }
 
-func GetAllSupportTimezoneNames(ctx context.Context, c *app.RequestContext) {
-	items := make([]*GetTimezoneNameResponse, len(finder.TimezoneNames()))
+func GetAllSupportTimezoneNames(ctx context.Context, in *v1.GetAllTimezonesRequest) (*v1.GetAllTimezonesResponse, error) {
+	items := make([]*v1.GetTimezoneResponse, len(finder.TimezoneNames()))
 	for i, timezone := range finder.TimezoneNames() {
-		items[i] = &GetTimezoneNameResponse{
+		items[i] = &v1.GetTimezoneResponse{
 			Timezone:     timezone,
 			Abbreviation: tzName2Abbreviation[timezone],
 			Offset:       tzName2Offset[timezone],
 		}
 	}
-	c.JSON(http.StatusOK, &GetTimezoneNamesResponse{Timezones: items})
+	return &v1.GetAllTimezonesResponse{Timezones: items}, nil
 }
 
 type GetTimezoneInfoRequest struct {

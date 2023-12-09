@@ -20,6 +20,7 @@ import (
 	"github.com/paulmach/orb/maptile"
 	"github.com/ringsaturn/tzf"
 	tzfrel "github.com/ringsaturn/tzf-rel"
+	v1 "github.com/ringsaturn/tzf-server/proto/v1"
 	"github.com/ringsaturn/tzf/convert"
 	"github.com/ringsaturn/tzf/pb"
 	"github.com/ringsaturn/tzf/reduce"
@@ -80,7 +81,7 @@ var (
 	finder              tzf.F
 	tzData              VisualizableTimezoneData
 	tzName2Abbreviation = make(map[string]string)
-	tzName2Offset       = make(map[string]int)
+	tzName2Offset       = make(map[string]int64)
 )
 
 type FinderType int
@@ -104,7 +105,7 @@ func postSetUp(finder tzf.F) error {
 		}
 		abbreviation, offset := time.Now().In(location).Zone()
 		tzName2Abbreviation[tzName] = abbreviation
-		tzName2Offset[tzName] = offset
+		tzName2Offset[tzName] = int64(offset)
 	}
 	return nil
 }
@@ -187,6 +188,20 @@ func Setup(logger *zap.Logger, finderOption *SetupFinderOptions, cfg ...config.O
 	return setupEngine(cfg...)
 }
 
+type apiService struct{}
+
+func (apiSrv *apiService) GetAllTimezones(ctx context.Context, in *v1.GetAllTimezonesRequest) (*v1.GetAllTimezonesResponse, error) {
+	return GetAllSupportTimezoneNames(ctx, in)
+}
+
+func (apiSrv *apiService) GetTimezone(ctx context.Context, in *v1.GetTimezoneRequest) (*v1.GetTimezoneResponse, error) {
+	return GetTimezoneName(ctx, in)
+}
+
+func (apiSrv *apiService) GetTimezones(ctx context.Context, in *v1.GetTimezonesRequest) (*v1.GetTimezonesResponse, error) {
+	return GetTimezoneNames(ctx, in)
+}
+
 func setupEngine(cfg ...config.Option) *server.Hertz {
 	h := server.New(cfg...)
 	h.Use(
@@ -204,11 +219,9 @@ func setupEngine(cfg ...config.Option) *server.Hertz {
 	h.GET("/", Index)
 	h.GET("/ping", Ping)
 
-	apiV1Group := h.Group("/api/v1")
-	apiV1Group.GET("/tz", GetTimezoneName)
-	apiV1Group.GET("/tzs", GetTimezoneNames)
-	apiV1Group.GET("/tzs/all", GetAllSupportTimezoneNames)
-	apiV1Group.GET("/tz/geojson", GetTimezoneShape)
+	v1.RegisterTZFServiceHTTPServer(h, &apiService{})
+
+	h.GET("/api/v1/tz/geojson", GetTimezoneShape)
 
 	webPageGroup := h.Group("/web")
 	webPageGroup.GET("/tz", GetTimezoneInfoPage)
