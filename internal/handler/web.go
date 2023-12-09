@@ -7,6 +7,7 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
+	v1 "github.com/ringsaturn/tzf-server/proto/v1"
 )
 
 type GetTimezoneInfoPageResponseItem struct {
@@ -46,21 +47,21 @@ func GetTimezoneInfoPage(ctx context.Context, c *app.RequestContext) {
 }
 
 func GetTimezonesInfoPage(ctx context.Context, c *app.RequestContext) {
-	req := &LocationRequest{}
+	req := &v1.GetTimezoneRequest{}
 	err := c.BindAndValidate(req)
 	if err != nil {
 		c.JSON(http.StatusUnprocessableEntity, utils.H{"err": err.Error(), "uri": string(c.Request.RequestURI())})
 		return
 	}
 
-	names, err := finder.GetTimezoneNames(req.Lng, req.Lat)
+	names, err := finder.GetTimezoneNames(req.Longitude, req.Latitude)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, utils.H{"err": "no timezone found"})
 		return
 	}
 
 	resp := &GetTimezoneInfoPageResponse{
-		Title: fmt.Sprintf("Timezones for lng=%.4f, lat=%.4f", req.Lng, req.Lat),
+		Title: fmt.Sprintf("Timezones for lng=%.4f, lat=%.4f", req.Longitude, req.Latitude),
 		Items: make([]*GetTimezoneInfoPageResponseItem, 0),
 	}
 
