@@ -10,7 +10,7 @@ require (
 	github.com/paulmach/orb v0.10.0
 	github.com/prometheus/client_golang v1.17.0
 	github.com/redis/go-redis/v9 v9.3.0
-	github.com/ringsaturn/protoc-gen-go-hertz v0.2.0
+	github.com/ringsaturn/protoc-gen-go-hertz v0.2.1
 	github.com/ringsaturn/tzf v0.14.0
 	github.com/ringsaturn/tzf-rel v0.0.2023-b
 	github.com/tidwall/redcon v1.6.2

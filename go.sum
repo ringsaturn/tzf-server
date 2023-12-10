@@ -269,8 +269,8 @@ github.com/redis/go-redis/v9 v9.3.0 h1:RiVDjmig62jIWp7Kk4XVLs0hzV6pI3PyTnnL0cnn0
 github.com/redis/go-redis/v9 v9.3.0/go.mod h1:hdY0cQFCN4fnSYT6TkisLufl/4W5UIXyv0b/CLO2V2M=
 github.com/ringsaturn/go-cities.json v0.4.0 h1:7w47Wy9Xq4sMrPKzhk6p1ney8qadnRtfAa9qzWtvsYM=
 github.com/ringsaturn/go-cities.json v0.4.0/go.mod h1:qpTYJsvNi40oTJs0WEdRdNAbWcLBWSL7oRHUxMrF4g8=
-github.com/ringsaturn/protoc-gen-go-hertz v0.2.0 h1:aN1vanaICefAO9kx9iBYXiH0PznyLppQa3Oy0U6c5To=
-github.com/ringsaturn/protoc-gen-go-hertz v0.2.0/go.mod h1:EKFHnRX0tX/79D0HFM93RdQxAvxpX5gM+de1ylgtE3Y=
+github.com/ringsaturn/protoc-gen-go-hertz v0.2.1 h1:UVC2Yen2DNXE8olzZlkXB2zoVHG1k/V9ky/Cg47YJbg=
+github.com/ringsaturn/protoc-gen-go-hertz v0.2.1/go.mod h1:EKFHnRX0tX/79D0HFM93RdQxAvxpX5gM+de1ylgtE3Y=
 github.com/ringsaturn/tzf v0.14.0 h1:1PelDZ8N1UUmDPdVY7/Fnh2P61OOPoLNYKkuDrc8kPI=
 github.com/ringsaturn/tzf v0.14.0/go.mod h1:ywbnZmJjMzrRTp+Ee8NZ8tV1VcEKGgpm8tXqMmCjD9c=
 github.com/ringsaturn/tzf-rel v0.0.2023-b h1:27Kt3ewlXJ/nkYFedYWmKbj7CUWzG0UxFYXQAjzPgBE=
