@@ -6,7 +6,7 @@ import (
 	context "context"
 	app "github.com/cloudwego/hertz/pkg/app"
 	server "github.com/cloudwego/hertz/pkg/app/server"
-	utils "github.com/cloudwego/hertz/pkg/common/utils"
+	xhertz "github.com/ringsaturn/protoc-gen-go-hertz/xhertz"
 	http "net/http"
 )
 
@@ -15,7 +15,7 @@ import (
 
 // app.app.
 // server.server.
-// utils.utils.
+// xhertz.xhertz.
 
 type TZFServiceHTTPServer interface {
 	GetAllTimezones(context.Context, *GetAllTimezonesRequest) (*GetAllTimezonesResponse, error)
@@ -42,12 +42,12 @@ func (s *TZFService) GetTimezone_0(c context.Context, ctx *app.RequestContext) {
 	var in GetTimezoneRequest
 
 	if err := ctx.BindAndValidate(&in); err != nil {
-		ctx.JSON(http.StatusBadRequest, utils.H{"error": err.Error()})
+		xhertz.HandleBadRequest(ctx, err)
 		return
 	}
 	out, err := s.server.(TZFServiceHTTPServer).GetTimezone(c, &in)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, utils.H{"error": err.Error()})
+		xhertz.HandleError(ctx, err)
 		return
 	}
 
@@ -58,12 +58,12 @@ func (s *TZFService) GetTimezones_0(c context.Context, ctx *app.RequestContext) 
 	var in GetTimezonesRequest
 
 	if err := ctx.BindAndValidate(&in); err != nil {
-		ctx.JSON(http.StatusBadRequest, utils.H{"error": err.Error()})
+		xhertz.HandleBadRequest(ctx, err)
 		return
 	}
 	out, err := s.server.(TZFServiceHTTPServer).GetTimezones(c, &in)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, utils.H{"error": err.Error()})
+		xhertz.HandleError(ctx, err)
 		return
 	}
 
@@ -74,12 +74,12 @@ func (s *TZFService) GetAllTimezones_0(c context.Context, ctx *app.RequestContex
 	var in GetAllTimezonesRequest
 
 	if err := ctx.BindAndValidate(&in); err != nil {
-		ctx.JSON(http.StatusBadRequest, utils.H{"error": err.Error()})
+		xhertz.HandleBadRequest(ctx, err)
 		return
 	}
 	out, err := s.server.(TZFServiceHTTPServer).GetAllTimezones(c, &in)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, utils.H{"error": err.Error()})
+		xhertz.HandleError(ctx, err)
 		return
 	}
 
