@@ -27,6 +27,7 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/known/durationpb"
 )
 
 //go:embed template/*
@@ -81,7 +82,7 @@ var (
 	finder              tzf.F
 	tzData              VisualizableTimezoneData
 	tzName2Abbreviation = make(map[string]string)
-	tzName2Offset       = make(map[string]int64)
+	tzName2Offset       = make(map[string]*durationpb.Duration)
 )
 
 type FinderType int
@@ -105,7 +106,7 @@ func postSetUp(finder tzf.F) error {
 		}
 		abbreviation, offset := time.Now().In(location).Zone()
 		tzName2Abbreviation[tzName] = abbreviation
-		tzName2Offset[tzName] = int64(offset)
+		tzName2Offset[tzName] = durationpb.New(time.Duration(offset * int(time.Second)))
 	}
 	return nil
 }

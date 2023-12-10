@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"testing"
+	"time"
 
 	"github.com/cloudwego/hertz/pkg/common/test/assert"
 	"github.com/cloudwego/hertz/pkg/common/ut"
@@ -12,6 +13,8 @@ import (
 	v1 "github.com/ringsaturn/tzf-server/proto/v1"
 	"go.uber.org/zap"
 	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/testing/protocmp"
+	"google.golang.org/protobuf/types/known/durationpb"
 )
 
 var (
@@ -22,7 +25,7 @@ var (
 func mustEqualForProto(t *testing.T, expected proto.Message, actual proto.Message) {
 	eq := proto.Equal(expected, actual)
 	if !eq {
-		diff := cmp.Diff(expected, actual)
+		diff := cmp.Diff(expected, actual, protocmp.Transform())
 		t.Fatalf(diff)
 	}
 }
@@ -52,7 +55,7 @@ func TestGetTimezoneName(t *testing.T) {
 	expected := &v1.GetTimezoneResponse{
 		Timezone:     "Asia/Shanghai",
 		Abbreviation: "CST",
-		Offset:       28800,
+		Offset:       durationpb.New(28800 * time.Second),
 	}
 	mustEqualForProto(t, expected, result)
 }
@@ -70,7 +73,7 @@ func TestFuzzyGetTimezoneName(t *testing.T) {
 	expected := &v1.GetTimezoneResponse{
 		Timezone:     "Asia/Shanghai",
 		Abbreviation: "CST",
-		Offset:       28800,
+		Offset:       durationpb.New(28800 * time.Second),
 	}
 	mustEqualForProto(t, expected, result)
 }
@@ -90,12 +93,12 @@ func TestFuzzyGetTimezoneNames(t *testing.T) {
 			{
 				Timezone:     "Asia/Shanghai",
 				Abbreviation: "CST",
-				Offset:       28800,
+				Offset:       durationpb.New(28800 * time.Second),
 			},
 			{
 				Timezone:     "Asia/Urumqi",
 				Abbreviation: "+06",
-				Offset:       21600,
+				Offset:       durationpb.New(21600 * time.Second),
 			},
 		},
 	}

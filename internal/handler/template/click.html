@@ -78,7 +78,7 @@
           .then(function (response) {
             var timezone = response.data.timezone;
             var abbreviation = response.data.abbreviation;
-            var offset = response.data.offset;
+            var offset = response.data.offset.seconds;
             var popupContent = `
             <b>Timezone:</b> ${timezone}<br>
             <b>Abbreviation:</b> ${abbreviation}<br>

@@ -6,6 +6,8 @@ package proto.v1;
 
 import "google/api/annotations.proto";
 import "google/api/client.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/duration.proto";
 
 // Simple server convert longitude&latitude to timezone name
 service TZFService {
@@ -33,7 +35,7 @@ service TZFService {
 
 message GetTimezoneRequest {
   // @gotags: query:"lng" vd:"$>=-180 && $<=180"
-  double longitude = 1;
+  double longitude = 1 [(google.api.field_behavior) = REQUIRED];
 
   // @gotags: query:"lat" vd:"$>=-90 && $<=90"
   double latitude = 2;
@@ -50,7 +52,7 @@ message GetTimezonesRequest {
 message GetTimezoneResponse {
   string timezone = 1;
   string abbreviation = 2;
-  int64 offset = 3;
+  google.protobuf.Duration offset = 3;
 }
 
 message GetTimezonesResponse {
