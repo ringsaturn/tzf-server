@@ -19,7 +19,7 @@ import (
 var (
 	finderType                  = flag.Int("type", 0, "which finder to use Polygon(0) or Fuzzy(1)")
 	dataPath                    = flag.String("path", "", "custom data")
-	httpAddr                    = flag.String("http-addr", "localhost:8080", "HTTP Host&Port")
+	httpAddr                    = flag.String("http-addr", "0.0.0.0:8080", "HTTP Host&Port")
 	redisAddr                   = flag.String("redis-addr", "localhost:6380", "Redis Server Host&Port")
 	prometheusHostPorts         = flag.String("prometheus-host-port", "0.0.0.0:2112", "Prometheus Host&Port")
 	prometheusPath              = flag.String("prometheus-path", "/metrics", "Prometheus Path")
