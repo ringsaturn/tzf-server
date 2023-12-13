@@ -6,7 +6,7 @@ require (
 	github.com/cloudwego/hertz v0.7.3
 	github.com/google/go-cmp v0.6.0
 	github.com/hertz-contrib/logger/zap v1.1.0
-	github.com/hertz-contrib/monitor-prometheus v0.1.0
+	github.com/hertz-contrib/monitor-prometheus v0.1.1
 	github.com/paulmach/orb v0.10.0
 	github.com/prometheus/client_golang v1.17.0
 	github.com/redis/go-redis/v9 v9.3.0
@@ -44,7 +44,6 @@ require (
 	github.com/prometheus/client_model v0.5.0 // indirect
 	github.com/prometheus/common v0.45.0 // indirect
 	github.com/prometheus/procfs v0.12.0 // indirect
-	github.com/stretchr/testify v1.8.4 // indirect
 	github.com/tidwall/btree v1.7.0 // indirect
 	github.com/tidwall/geoindex v1.7.0 // indirect
 	github.com/tidwall/geojson v1.4.3 // indirect
