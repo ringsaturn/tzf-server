@@ -8,7 +8,7 @@ require (
 	github.com/hertz-contrib/logger/zap v1.1.0
 	github.com/hertz-contrib/monitor-prometheus v0.1.1
 	github.com/paulmach/orb v0.10.0
-	github.com/prometheus/client_golang v1.17.0
+	github.com/prometheus/client_golang v1.18.0
 	github.com/redis/go-redis/v9 v9.3.1
 	github.com/ringsaturn/protoc-gen-go-hertz v0.2.1
 	github.com/ringsaturn/tzf v0.14.0
