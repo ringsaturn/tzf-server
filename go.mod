@@ -11,8 +11,8 @@ require (
 	github.com/prometheus/client_golang v1.18.0
 	github.com/redis/go-redis/v9 v9.3.1
 	github.com/ringsaturn/protoc-gen-go-hertz v0.2.1
-	github.com/ringsaturn/tzf v0.14.0
-	github.com/ringsaturn/tzf-rel v0.0.2023-b
+	github.com/ringsaturn/tzf v0.14.1
+	github.com/ringsaturn/tzf-rel v0.0.2023-d
 	github.com/tidwall/redcon v1.6.2
 	go.uber.org/mock v0.4.0
 	go.uber.org/zap v1.26.0
@@ -46,7 +46,7 @@ require (
 	github.com/prometheus/procfs v0.12.0 // indirect
 	github.com/tidwall/btree v1.7.0 // indirect
 	github.com/tidwall/geoindex v1.7.0 // indirect
-	github.com/tidwall/geojson v1.4.3 // indirect
+	github.com/tidwall/geojson v1.4.5 // indirect
 	github.com/tidwall/gjson v1.17.0 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.1 // indirect
