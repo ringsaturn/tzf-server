@@ -3,7 +3,7 @@ module github.com/ringsaturn/tzf-server
 go 1.21
 
 require (
-	github.com/cloudwego/hertz v0.7.3
+	github.com/cloudwego/hertz v0.8.0
 	github.com/google/go-cmp v0.6.0
 	github.com/hertz-contrib/logger/zap v1.1.0
 	github.com/hertz-contrib/monitor-prometheus v0.1.2
