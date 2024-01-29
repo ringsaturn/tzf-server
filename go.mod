@@ -12,7 +12,7 @@ require (
 	github.com/redis/go-redis/v9 v9.4.0
 	github.com/ringsaturn/protoc-gen-go-hertz v0.2.1
 	github.com/ringsaturn/tzf v0.14.1
-	github.com/ringsaturn/tzf-rel v0.0.2023-d
+	github.com/ringsaturn/tzf-rel v0.0.2023-d1
 	github.com/tidwall/redcon v1.6.2
 	go.uber.org/mock v0.4.0
 	go.uber.org/zap v1.26.0
