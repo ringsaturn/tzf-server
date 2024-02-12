@@ -1,6 +1,6 @@
 module github.com/ringsaturn/tzf-server
 
-go 1.21
+go 1.22.0
 
 require (
 	github.com/cloudwego/hertz v0.8.0
