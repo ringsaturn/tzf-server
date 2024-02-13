@@ -19,7 +19,7 @@ import (
 	hertzzap "github.com/hertz-contrib/logger/zap"
 	"github.com/paulmach/orb/maptile"
 	"github.com/ringsaturn/tzf"
-	tzfrel "github.com/ringsaturn/tzf-rel"
+	tzfrellite "github.com/ringsaturn/tzf-rel-lite"
 	v1 "github.com/ringsaturn/tzf-server/proto/v1"
 	"github.com/ringsaturn/tzf/convert"
 	"github.com/ringsaturn/tzf/pb"
@@ -116,7 +116,7 @@ func setupFuzzyFinder(logger *zap.Logger, dataPath string) (tzf.F, VisualizableT
 	tzpb := &pb.PreindexTimezones{}
 	if dataPath == "" {
 		logger.Debug("Fuzzy finder will use data from tzf-rel")
-		err = proto.Unmarshal(tzfrel.PreindexData, tzpb)
+		err = proto.Unmarshal(tzfrellite.PreindexData, tzpb)
 		if err != nil {
 			logger.Sugar().Error("Unmarshal failed", "err", err)
 			return nil, nil, err
@@ -146,7 +146,7 @@ func setupPolygonFinder(logger *zap.Logger, dataPath string) (tzf.F, Visualizabl
 	if dataPath == "" {
 		logger.Debug("Finder will use data from tzf-rel")
 		compressPb := &pb.CompressedTimezones{}
-		err = proto.Unmarshal(tzfrel.LiteCompressData, compressPb)
+		err = proto.Unmarshal(tzfrellite.LiteCompressData, compressPb)
 		if err != nil {
 			return nil, nil, err
 		}
