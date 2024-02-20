@@ -30,8 +30,8 @@ github.com/chenzhuoyu/base64x v0.0.0-20230717121745-296ad89f973d/go.mod h1:8EPpV
 github.com/chenzhuoyu/iasm v0.9.0/go.mod h1:Xjy2NpN3h7aUqeqM+woSuuvxmIe6+DDsiNLIrkAmYog=
 github.com/chenzhuoyu/iasm v0.9.1 h1:tUHQJXo3NhBqw6s33wkGn9SP3bvrWLdlVIJ3hQBL7P0=
 github.com/chenzhuoyu/iasm v0.9.1/go.mod h1:Xjy2NpN3h7aUqeqM+woSuuvxmIe6+DDsiNLIrkAmYog=
-github.com/cloudwego/hertz v0.8.0 h1:rjALfbD/E3IkaNDksQ4oF0nA5d03FfSEx3yc2PkJklo=
-github.com/cloudwego/hertz v0.8.0/go.mod h1:WliNtVbwihWHHgAaIQEbVXl0O3aWj0ks1eoPrcEAnjs=
+github.com/cloudwego/hertz v0.8.1 h1:3Upzd9o5yNPz6rLx70J5xpo5emosKNkmwW00WgQhf/0=
+github.com/cloudwego/hertz v0.8.1/go.mod h1:WliNtVbwihWHHgAaIQEbVXl0O3aWj0ks1eoPrcEAnjs=
 github.com/cloudwego/netpoll v0.5.0/go.mod h1:xVefXptcyheopwNDZjDPcfU6kIjZXZ4nY550k1yH9eQ=
 github.com/cloudwego/netpoll v0.5.1 h1:zDUF7xF0C97I10fGlQFJ4jg65khZZMUvSu/TWX44Ohc=
 github.com/cloudwego/netpoll v0.5.1/go.mod h1:xVefXptcyheopwNDZjDPcfU6kIjZXZ4nY550k1yH9eQ=
@@ -110,8 +110,6 @@ github.com/ringsaturn/tzf v0.14.2 h1:zq+U2ZvBo6hXLfu3uC3Jx3yrfx+zz7ekBpOZWvuHrHI
 github.com/ringsaturn/tzf v0.14.2/go.mod h1:cJshHQL2CATsKxcBcLK6Yg53UBZzX4npTp5bOtCupGs=
 github.com/ringsaturn/tzf-rel v0.0.2023-d1 h1:q/MnXb7E9+o1Y16AzluocxQ2WQjuPK/x7IItc+JKElo=
 github.com/ringsaturn/tzf-rel v0.0.2023-d1/go.mod h1:TvyUIUpF3aCH98QYjTmMb1cqK7pFswdFLoIVZwGNV/M=
-github.com/ringsaturn/tzf-rel-lite v0.0.2023-d h1:t2Mf36eAyOil+6h8j6YUB8CcEBPF4u61sMk7aR1EmuA=
-github.com/ringsaturn/tzf-rel-lite v0.0.2023-d/go.mod h1:Kb32pggRZUJ06a6Y261pDbVeThW0Pvkr8CWP0ZIMvzg=
 github.com/ringsaturn/tzf-rel-lite v0.0.2023-d.0.20240213130808-b7388807a517 h1:ljIQwnG/lGr0LY/OCi4IIHp9AstlGl4QeSNKWpXELZM=
 github.com/ringsaturn/tzf-rel-lite v0.0.2023-d.0.20240213130808-b7388807a517/go.mod h1:Kb32pggRZUJ06a6Y261pDbVeThW0Pvkr8CWP0ZIMvzg=
 github.com/smartystreets/assertions v0.0.0-20180927180507-b2de0cb4f26d h1:zE9ykElWQ6/NYmHa3jpm/yHnI4xSofP+UP6SpjHcSeM=
