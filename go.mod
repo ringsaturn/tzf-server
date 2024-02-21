@@ -9,7 +9,7 @@ require (
 	github.com/hertz-contrib/monitor-prometheus v0.1.2
 	github.com/paulmach/orb v0.11.1
 	github.com/prometheus/client_golang v1.18.0
-	github.com/redis/go-redis/v9 v9.4.0
+	github.com/redis/go-redis/v9 v9.5.1
 	github.com/ringsaturn/protoc-gen-go-hertz v0.2.1
 	github.com/ringsaturn/tzf v0.14.2
 	github.com/ringsaturn/tzf-rel-lite v0.0.2023-d.0.20240213130808-b7388807a517
