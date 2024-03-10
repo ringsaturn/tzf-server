@@ -31,8 +31,13 @@ jobs:
       - name: Generate image info
         id: gen-image-info
         run: |
-          echo "::set-output name=image_name::${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_OWNER }}/${{ github.event.repository.name }}"
-          echo "::set-output name=image_tag::$(echo ${{ github.ref_name }}-${{ steps.gen-short-sha.outputs.sha }} | tr '/' '-')"
+          if [[ "${{ github.ref }}" == "refs/tags/"* ]]; then
+            echo "::set-output name=image_name::${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_OWNER }}/${{ github.event.repository.name }}"
+            echo "::set-output name=image_tag::${{ github.ref }}"
+          else
+            echo "::set-output name=image_name::${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_OWNER }}/${{ github.event.repository.name }}"
+            echo "::set-output name=image_tag::$(echo ${{ github.ref_name }}-${{ steps.gen-short-sha.outputs.sha }} | tr '/' '-')"
+          fi
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -48,7 +53,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: ${{ github.event_name == 'release' }}
+          push: ${{ startsWith(github.ref, 'refs/tags/') }}
           tags: ${{ steps.gen-image-info.outputs.image_name }}:${{ steps.gen-image-info.outputs.image_tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
