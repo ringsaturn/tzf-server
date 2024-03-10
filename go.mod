@@ -11,7 +11,7 @@ require (
 	github.com/paulmach/orb v0.11.1
 	github.com/prometheus/client_golang v1.19.0
 	github.com/redis/go-redis/v9 v9.5.1
-	github.com/ringsaturn/protoc-gen-go-hertz v0.3.0
+	github.com/ringsaturn/protoc-gen-go-hertz v0.3.1
 	github.com/ringsaturn/tzf v0.14.2
 	github.com/ringsaturn/tzf-rel-lite v0.0.2023-d.0.20240213130808-b7388807a517
 	github.com/swaggo/files v1.0.1

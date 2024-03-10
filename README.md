@@ -112,9 +112,7 @@ Output:
 {
   "timezone": "Asia/Shanghai",
   "abbreviation": "CST",
-  "offset": {
-    "seconds": 28800
-  }
+  "offset": "28800s"
 }
 ```
 
@@ -132,16 +130,12 @@ Output:
     {
       "timezone": "Asia/Shanghai",
       "abbreviation": "CST",
-      "offset": {
-        "seconds": 28800
-      }
+      "offset": "28800s"
     },
     {
       "timezone": "Asia/Urumqi",
       "abbreviation": "+06",
-      "offset": {
-        "seconds": 21600
-      }
+      "offset": "21600s"
     }
   ]
 }
@@ -161,15 +155,13 @@ Output:
     {
       "timezone": "Africa/Abidjan",
       "abbreviation": "GMT",
-      "offset": {}
+      "offset": "0s"
     },
     // ...
     {
       "timezone": "Etc/GMT+12",
       "abbreviation": "-12",
-      "offset": {
-        "seconds": -43200
-      }
+      "offset": "-43200s"
     }
   ]
 }

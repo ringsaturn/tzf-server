@@ -1,7 +1,6 @@
 package handler_test
 
 import (
-	"encoding/json"
 	"net/http"
 	"testing"
 	"time"
@@ -12,6 +11,7 @@ import (
 	"github.com/ringsaturn/tzf-server/internal/handler"
 	v1 "github.com/ringsaturn/tzf-server/tzf/v1"
 	"go.uber.org/zap"
+	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/testing/protocmp"
 	"google.golang.org/protobuf/types/known/durationpb"
@@ -48,7 +48,7 @@ func TestGetTimezoneName(t *testing.T) {
 	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
 
 	result := &v1.GetTimezoneResponse{}
-	err := json.Unmarshal(resp.BodyBytes(), &result)
+	err := protojson.Unmarshal(resp.BodyBytes(), result)
 	if err != nil {
 		t.Fatalf(err.Error())
 	}
@@ -66,7 +66,7 @@ func TestFuzzyGetTimezoneName(t *testing.T) {
 	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
 
 	result := &v1.GetTimezoneResponse{}
-	err := json.Unmarshal(resp.BodyBytes(), &result)
+	err := protojson.Unmarshal(resp.BodyBytes(), result)
 	if err != nil {
 		t.Fatalf(err.Error())
 	}
@@ -84,7 +84,7 @@ func TestFuzzyGetTimezoneNames(t *testing.T) {
 	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
 
 	result := &v1.GetTimezonesResponse{}
-	err := json.Unmarshal(resp.BodyBytes(), &result)
+	err := protojson.Unmarshal(resp.BodyBytes(), result)
 	if err != nil {
 		t.Fatalf(err.Error())
 	}

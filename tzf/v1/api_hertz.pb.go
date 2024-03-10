@@ -52,7 +52,7 @@ func _TZFService_GetTimezone0_HTTP_Handler(srv TZFServiceHTTPServer) func(c cont
 			xhertz.HandleError(ctx, err)
 			return
 		}
-		ctx.JSON(http.StatusOK, out)
+		xhertz.Render(ctx, http.StatusOK, out)
 	}
 }
 
@@ -69,7 +69,7 @@ func _TZFService_GetTimezones0_HTTP_Handler(srv TZFServiceHTTPServer) func(c con
 			xhertz.HandleError(ctx, err)
 			return
 		}
-		ctx.JSON(http.StatusOK, out)
+		xhertz.Render(ctx, http.StatusOK, out)
 	}
 }
 
@@ -86,6 +86,6 @@ func _TZFService_GetAllTimezones0_HTTP_Handler(srv TZFServiceHTTPServer) func(c 
 			xhertz.HandleError(ctx, err)
 			return
 		}
-		ctx.JSON(http.StatusOK, out)
+		xhertz.Render(ctx, http.StatusOK, out)
 	}
 }
