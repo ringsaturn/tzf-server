@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     tags:
-      - "*"    
+      - "*"
   pull_request:
     branches: [main]
 
@@ -24,20 +24,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Generate short SHA
-        uses: benjlevesque/short-sha@v3.0
-        id: gen-short-sha
-
-      - name: Generate image info
-        id: gen-image-info
-        run: |
-          if [[ "${{ github.ref }}" == "refs/tags/"* ]]; then
-            echo "::set-output name=image_name::${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_OWNER }}/${{ github.event.repository.name }}"
-            echo "::set-output name=image_tag::${{ github.ref }}"
-          else
-            echo "::set-output name=image_name::${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_OWNER }}/${{ github.event.repository.name }}"
-            echo "::set-output name=image_tag::$(echo ${{ github.ref_name }}-${{ steps.gen-short-sha.outputs.sha }} | tr '/' '-')"
-          fi
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_OWNER }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -54,6 +45,7 @@ jobs:
         with:
           context: .
           push: ${{ startsWith(github.ref, 'refs/tags/') }}
-          tags: ${{ steps.gen-image-info.outputs.image_name }}:${{ steps.gen-image-info.outputs.image_tag }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
