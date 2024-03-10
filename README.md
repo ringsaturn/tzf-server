@@ -97,6 +97,9 @@ most codes are written by ChatGPT 3.5. You can access the prompts from
 
 ## HTTP API
 
+A swagger UI can be found at
+[`http://localhost:8080/swagger/index.html`](http://localhost:8080/swagger/index.html).
+
 ### Lookup Location's timezone
 
 ```bash
