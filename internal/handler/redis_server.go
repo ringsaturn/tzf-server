@@ -73,9 +73,9 @@ func redisDefaultCmd(conn redcon.Conn, cmd redcon.Command) {
 	conn.WriteError("ERR unknown command '" + string(cmd.Args[0]) + "'")
 }
 
-func redisPingCmd(conn redcon.Conn, cmd redcon.Command) { conn.WriteString("PONG") }
+func redisPingCmd(conn redcon.Conn, _ redcon.Command) { conn.WriteString("PONG") }
 
-func redisQuitCmd(conn redcon.Conn, cmd redcon.Command) { conn.WriteString("OK"); conn.Close() }
+func redisQuitCmd(conn redcon.Conn, _ redcon.Command) { conn.WriteString("OK"); conn.Close() }
 
 func RedisHandler(conn redcon.Conn, cmd redcon.Command) {
 	inputCmd := strings.ToLower(string(cmd.Args[0]))

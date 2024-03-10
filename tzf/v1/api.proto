@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option go_package = "github.com/ringsaturn/tzf-server/proto/v1;v1";
+option go_package = "github.com/ringsaturn/tzf-server/tzf/v1;v1";
 
-package proto.v1;
+package tzf.v1;
 
 import "google/api/annotations.proto";
 import "google/api/client.proto";

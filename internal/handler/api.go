@@ -8,7 +8,7 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
-	v1 "github.com/ringsaturn/tzf-server/proto/v1"
+	v1 "github.com/ringsaturn/tzf-server/tzf/v1"
 )
 
 func GetTimezoneName(ctx context.Context, in *v1.GetTimezoneRequest) (*v1.GetTimezoneResponse, error) {

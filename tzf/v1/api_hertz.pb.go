@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-hertz v0.3.0
 // - protoc             (unknown)
-// source: proto/v1/api.proto
+// source: tzf/v1/api.proto
 
 package v1
 
@@ -22,9 +22,9 @@ var _ = new(app.Handler)
 var _ = new(http.Handler)
 var _ = new(xhertz.Error)
 
-const OperationTZFServiceGetAllTimezones = "/proto.v1.TZFService/GetAllTimezones"
-const OperationTZFServiceGetTimezone = "/proto.v1.TZFService/GetTimezone"
-const OperationTZFServiceGetTimezones = "/proto.v1.TZFService/GetTimezones"
+const OperationTZFServiceGetAllTimezones = "/tzf.v1.TZFService/GetAllTimezones"
+const OperationTZFServiceGetTimezone = "/tzf.v1.TZFService/GetTimezone"
+const OperationTZFServiceGetTimezones = "/tzf.v1.TZFService/GetTimezones"
 
 type TZFServiceHTTPServer interface {
 	GetAllTimezones(context.Context, *GetAllTimezonesRequest) (*GetAllTimezonesResponse, error)

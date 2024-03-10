@@ -7,7 +7,7 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
-	v1 "github.com/ringsaturn/tzf-server/proto/v1"
+	v1 "github.com/ringsaturn/tzf-server/tzf/v1"
 )
 
 type GetTimezoneInfoPageResponseItem struct {

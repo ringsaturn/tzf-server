@@ -28,7 +28,7 @@ install:
 pb:
 	buf build
 	buf generate
-	protoc-go-inject-tag -input="proto/v1/*.pb.go" -remove_tag_comment
+	protoc-go-inject-tag -input="tzf/v1/*.pb.go" -remove_tag_comment
 	go fmt ./...
 
 fmt:

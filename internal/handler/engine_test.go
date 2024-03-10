@@ -10,7 +10,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/common/ut"
 	"github.com/google/go-cmp/cmp"
 	"github.com/ringsaturn/tzf-server/internal/handler"
-	v1 "github.com/ringsaturn/tzf-server/proto/v1"
+	v1 "github.com/ringsaturn/tzf-server/tzf/v1"
 	"go.uber.org/zap"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/testing/protocmp"

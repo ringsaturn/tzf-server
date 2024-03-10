@@ -20,7 +20,7 @@ import (
 	"github.com/paulmach/orb/maptile"
 	"github.com/ringsaturn/tzf"
 	tzfrellite "github.com/ringsaturn/tzf-rel-lite"
-	v1 "github.com/ringsaturn/tzf-server/proto/v1"
+	v1 "github.com/ringsaturn/tzf-server/tzf/v1"
 	"github.com/ringsaturn/tzf/convert"
 	"github.com/ringsaturn/tzf/pb"
 	"github.com/ringsaturn/tzf/reduce"
