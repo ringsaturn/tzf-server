@@ -27,9 +27,8 @@ type GetTimezoneRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	 
 	Longitude float64 `protobuf:"fixed64,1,opt,name=longitude,proto3" json:"longitude,omitempty" query:"longitude" vd:"$>=-180 && $<=180"`
-	 
+
 	Latitude float64 `protobuf:"fixed64,2,opt,name=latitude,proto3" json:"latitude,omitempty" query:"latitude" vd:"$>=-90 && $<=90"`
 }
 
@@ -84,9 +83,8 @@ type GetTimezonesRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	 
 	Longitude float64 `protobuf:"fixed64,1,opt,name=longitude,proto3" json:"longitude,omitempty" query:"longitude" vd:"$>=-180 && $<=180"`
-	 
+
 	Latitude float64 `protobuf:"fixed64,2,opt,name=latitude,proto3" json:"latitude,omitempty" query:"latitude" vd:"$>=-90 && $<=90"`
 }
 

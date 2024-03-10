@@ -29,6 +29,7 @@ pb:
 	buf build
 	buf generate
 	protoc-go-inject-tag -input="proto/v1/*.pb.go" -remove_tag_comment
+	go fmt ./...
 
 fmt:
 	find proto/v1 -iname *.proto | xargs clang-format -i --style=Google
