@@ -45,7 +45,7 @@ func bindSwagger(h *server.Hertz) {
 
 	h.GET("/openapi.yaml", func(c context.Context, ctx *app.RequestContext) {
 		ctx.Header("Content-Type", "application/x-yaml")
-		ctx.Write(openapiYAML)
+		_, _ = ctx.Write(openapiYAML)
 	})
 }
 
