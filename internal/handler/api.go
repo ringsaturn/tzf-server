@@ -53,8 +53,8 @@ func GetAllSupportTimezoneNames(ctx context.Context, in *v1.GetAllTimezonesReque
 
 type GetTimezoneInfoRequest struct {
 	Name string  `query:"name"`
-	Lng  float64 `query:"lng"`
-	Lat  float64 `query:"lat"`
+	Lng  float64 `query:"longitude"`
+	Lat  float64 `query:"latitude"`
 }
 
 func GetTimezoneShape(ctx context.Context, c *app.RequestContext) {

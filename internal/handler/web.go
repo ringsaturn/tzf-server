@@ -34,7 +34,7 @@ func GetTimezoneInfoPage(ctx context.Context, c *app.RequestContext) {
 	}
 
 	resp := &GetTimezoneInfoPageResponse{
-		Title: fmt.Sprintf("Timezone for lng=%.4f, lat=%.4f", req.Lng, req.Lat),
+		Title: fmt.Sprintf("Timezone for longitude=%.4f, latitude=%.4f", req.Lng, req.Lat),
 		Items: make([]*GetTimezoneInfoPageResponseItem, 0),
 	}
 
@@ -61,7 +61,7 @@ func GetTimezonesInfoPage(ctx context.Context, c *app.RequestContext) {
 	}
 
 	resp := &GetTimezoneInfoPageResponse{
-		Title: fmt.Sprintf("Timezones for lng=%.4f, lat=%.4f", req.Longitude, req.Latitude),
+		Title: fmt.Sprintf("Timezones for longitude=%.4f, latitude=%.4f", req.Longitude, req.Latitude),
 		Items: make([]*GetTimezoneInfoPageResponseItem, 0),
 	}
 
@@ -110,7 +110,7 @@ func GetGeoJSONViewerForTimezone(ctx context.Context, c *app.RequestContext) {
 	}
 
 	c.HTML(http.StatusOK, "viewer.html", map[string]any{
-		"URL": fmt.Sprintf("http://%v/api/v1/tz/geojson?lng=%v&lat=%v&name=%v", string(c.Request.Host()), req.Lng, req.Lat, req.Name),
+		"URL": fmt.Sprintf("http://%v/api/v1/tz/geojson?longitude=%v&latitude=%v&name=%v", string(c.Request.Host()), req.Lng, req.Lat, req.Name),
 	})
 }
 

@@ -43,7 +43,7 @@ func TestPing(t *testing.T) {
 }
 
 func TestGetTimezoneName(t *testing.T) {
-	w := ut.PerformRequest(h.Engine, "GET", "/api/v1/tz?lng=116.3883&lat=39.9289", nil)
+	w := ut.PerformRequest(h.Engine, "GET", "/api/v1/tz?longitude=116.3883&latitude=39.9289", nil)
 	resp := w.Result()
 	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
 
@@ -61,7 +61,7 @@ func TestGetTimezoneName(t *testing.T) {
 }
 
 func TestFuzzyGetTimezoneName(t *testing.T) {
-	w := ut.PerformRequest(hFuzzy.Engine, "GET", "/api/v1/tz?lng=116.3883&lat=39.9289", nil)
+	w := ut.PerformRequest(hFuzzy.Engine, "GET", "/api/v1/tz?longitude=116.3883&latitude=39.9289", nil)
 	resp := w.Result()
 	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
 
@@ -79,7 +79,7 @@ func TestFuzzyGetTimezoneName(t *testing.T) {
 }
 
 func TestFuzzyGetTimezoneNames(t *testing.T) {
-	w := ut.PerformRequest(hFuzzy.Engine, "GET", "/api/v1/tzs?lng=87.6168&lat=43.8254", nil)
+	w := ut.PerformRequest(hFuzzy.Engine, "GET", "/api/v1/tzs?longitude=87.6168&latitude=43.8254", nil)
 	resp := w.Result()
 	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
 
@@ -106,13 +106,13 @@ func TestFuzzyGetTimezoneNames(t *testing.T) {
 }
 
 func TestGetTimezoneShape(t *testing.T) {
-	w := ut.PerformRequest(h.Engine, "GET", "/api/v1/tz/geojson?lng=116.3883&lat=39.9289", nil)
+	w := ut.PerformRequest(h.Engine, "GET", "/api/v1/tz/geojson?longitude=116.3883&latitude=39.9289", nil)
 	resp := w.Result()
 	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
 }
 
 func TestFuzzyGetTimezoneShape(t *testing.T) {
-	w := ut.PerformRequest(hFuzzy.Engine, "GET", "/api/v1/tz/geojson?lng=116.3883&lat=39.9289", nil)
+	w := ut.PerformRequest(hFuzzy.Engine, "GET", "/api/v1/tz/geojson?longitude=116.3883&latitude=39.9289", nil)
 	resp := w.Result()
 	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
 }
@@ -131,7 +131,7 @@ func TestGetAllSupportTimezoneNames(t *testing.T) {
 // }
 
 // func TestWebGetTimezoneName(t *testing.T) {
-// 	w := ut.PerformRequest(h.Engine, "GET", "/web/tz?lng=116.3883&lat=39.9289", nil)
+// 	w := ut.PerformRequest(h.Engine, "GET", "/web/tz?longitude=116.3883&latitude=39.9289", nil)
 // 	resp := w.Result()
 // 	fmt.Println(string(resp.BodyBytes()))
 // 	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())

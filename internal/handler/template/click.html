@@ -71,8 +71,8 @@
         axios
           .get("/api/v1/tz", {
             params: {
-              lng: lng,
-              lat: lat,
+              longitude: lng,
+              latitude: lat,
             },
           })
           .then(function (response) {
@@ -98,8 +98,8 @@
         axios
           .get("/api/v1/tz/geojson", {
             params: {
-              lng: lng,
-              lat: lat,
+              longitude: lng,
+              latitude: lat,
             },
           })
           .then(function (response) {
