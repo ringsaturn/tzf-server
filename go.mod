@@ -38,7 +38,6 @@ require (
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.7 // indirect
-	github.com/matttproud/golang_protobuf_extensions/v2 v2.0.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/nyaruka/phonenumbers v1.3.2 // indirect
 	github.com/prometheus/client_model v0.6.0 // indirect
