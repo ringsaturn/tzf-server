@@ -11,6 +11,7 @@
   - [Install](#install)
     - [Install via `go install`](#install-via-go-install)
     - [Download from release page](#download-from-release-page)
+    - [Install from Docker Hub](#install-from-docker-hub)
   - [Usage](#usage)
 - [Web Pages](#web-pages)
   - [All supported timezone names](#all-supported-timezone-names)
@@ -38,10 +39,16 @@ go install github.com/ringsaturn/tzf-server@latest
 Please visit <https://github.com/ringsaturn/tzf-server/releases> to get latest
 release.
 
+#### Install from Docker Hub
+
+```bash
+docker pull ringsaturn/tzf-server
+```
+
 ### Usage
 
 ```console
-Usage of ./tzf-server:
+Usage of tzf-server:
   -debug
         Enable debug mode
   -disable-print-route
