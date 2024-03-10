@@ -17,7 +17,7 @@ jobs:
       packages: write
       contents: read
     env:
-      IMAGE_REGISTRY: "ghcr.io"
+      IMAGE_REGISTRY: "docker.io"
       IMAGE_OWNER: "ringsaturn"
 
     steps:
