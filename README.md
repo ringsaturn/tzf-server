@@ -100,7 +100,7 @@ most codes are written by ChatGPT 3.5. You can access the prompts from
 ### Lookup Location's timezone
 
 ```bash
-curl "http://localhost:8080/api/v1/tz?lng=116.3883&lat=39.9289"
+curl "http://localhost:8080/api/v1/tz?longitude=116.3883&latitude=39.9289"
 ```
 
 Output:
@@ -118,7 +118,7 @@ Output:
 ### Lookup Location's timezones
 
 ```bash
-curl "http://localhost:8080/api/v1/tzs?lng=87.6168&lat=43.8254"
+curl "http://localhost:8080/api/v1/tzs?longitude=87.6168&latitude=43.8254"
 ```
 
 Output:

@@ -33,18 +33,18 @@ service TZFService {
 }
 
 message GetTimezoneRequest {
-  // @gotags: query:"lng" vd:"$>=-180 && $<=180"
+  // @gotags: query:"longitude" vd:"$>=-180 && $<=180"
   double longitude = 1 [(google.api.field_behavior) = REQUIRED];
 
-  // @gotags: query:"lat" vd:"$>=-90 && $<=90"
+  // @gotags: query:"latitude" vd:"$>=-90 && $<=90"
   double latitude = 2 [(google.api.field_behavior) = REQUIRED];
 };
 
 message GetTimezonesRequest {
-  // @gotags: query:"lng" vd:"$>=-180 && $<=180"
+  // @gotags: query:"longitude" vd:"$>=-180 && $<=180"
   double longitude = 1 [(google.api.field_behavior) = REQUIRED];
 
-  // @gotags: query:"lat" vd:"$>=-90 && $<=90"
+  // @gotags: query:"latitude" vd:"$>=-90 && $<=90"
   double latitude = 2 [(google.api.field_behavior) = REQUIRED];
 };
 

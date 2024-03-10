@@ -2,15 +2,19 @@ package main
 
 import (
 	"context"
+	_ "embed"
 	"flag"
 	"net/http"
 	"os"
 	"time"
 
+	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	prometheus "github.com/hertz-contrib/monitor-prometheus"
+	"github.com/hertz-contrib/swagger"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/ringsaturn/tzf-server/internal/handler"
+	swaggerFiles "github.com/swaggo/files"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/sync/errgroup"
@@ -29,6 +33,21 @@ var (
 	disablePrintRoute           = flag.Bool("disable-print-route", false, "Disable Print Route")
 	debug                       = flag.Bool("debug", false, "Enable debug mode")
 )
+
+//go:embed openapi.yaml
+var openapiYAML []byte
+
+func bindSwagger(h *server.Hertz) {
+	h.GET("/swagger/*any", swagger.WrapHandler(
+		swaggerFiles.Handler,
+		swagger.URL("/openapi.yaml"),
+	))
+
+	h.GET("/openapi.yaml", func(c context.Context, ctx *app.RequestContext) {
+		ctx.Header("Content-Type", "application/x-yaml")
+		ctx.Write(openapiYAML)
+	})
+}
 
 func main() {
 	flag.Parse()
@@ -90,6 +109,8 @@ func main() {
 			),
 		),
 	)
+
+	bindSwagger(h)
 
 	rootCtx := context.Background()
 
