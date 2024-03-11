@@ -49,8 +49,6 @@ docker pull ringsaturn/tzf-server
 
 ```console
 Usage of tzf-server:
-  -debug
-        Enable debug mode
   -disable-print-route
         Disable Print Route
   -hertz-prometheus-host-port string
@@ -58,7 +56,7 @@ Usage of tzf-server:
   -hertz-prometheus-path string
         Hertz Prometheus Path (default "/hertz")
   -http-addr string
-        HTTP Host&Port (default "localhost:8080")
+        HTTP Host&Port (default "0.0.0.0:8080")
   -path string
         custom data
   -prometheus-enable-go-coll
