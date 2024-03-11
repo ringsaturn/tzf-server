@@ -2,7 +2,7 @@
 
 <img width="1920" src="https://github.com/ringsaturn/tzf-server/assets/13536789/9a820db1-1de9-49e6-9047-4e72c2fe41a8">
 
-> **Note**
+> [!NOTE]
 >
 > It's designed as a debugger tool for package
 > [tzf](https://github.com/ringsaturn/tzf), not production ready.
