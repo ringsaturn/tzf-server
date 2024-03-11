@@ -20,6 +20,7 @@ import (
 	"github.com/paulmach/orb/maptile"
 	"github.com/ringsaturn/tzf"
 	tzfrellite "github.com/ringsaturn/tzf-rel-lite"
+	"github.com/ringsaturn/tzf-server/internal"
 	v1 "github.com/ringsaturn/tzf-server/tzf/v1"
 	"github.com/ringsaturn/tzf/convert"
 	"github.com/ringsaturn/tzf/pb"
@@ -169,7 +170,8 @@ func setupPolygonFinder(logger *zap.Logger, dataPath string) (tzf.F, Visualizabl
 	return finder, &polygonData{data: tzpb}, err
 }
 
-func Setup(logger *zap.Logger, finderOption *SetupFinderOptions, cfg ...config.Option) *server.Hertz {
+func Setup(finderOption *SetupFinderOptions, cfg ...config.Option) *server.Hertz {
+	logger := internal.Loggger
 	if finderOption == nil {
 		logger.Debug("option is nil, use default polygon finder")
 		finderOption = &SetupFinderOptions{

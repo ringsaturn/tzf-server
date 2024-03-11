@@ -13,10 +13,10 @@ import (
 	prometheus "github.com/hertz-contrib/monitor-prometheus"
 	"github.com/hertz-contrib/swagger"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/ringsaturn/tzf-server/internal"
 	"github.com/ringsaturn/tzf-server/internal/handler"
 	swaggerFiles "github.com/swaggo/files"
 	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -31,7 +31,6 @@ var (
 	hertzPrometheusPath         = flag.String("hertz-prometheus-path", "/hertz", "Hertz Prometheus Path")
 	prometheusEnableGoCollector = flag.Bool("prometheus-enable-go-coll", true, "Enable Go Collector")
 	disablePrintRoute           = flag.Bool("disable-print-route", false, "Disable Print Route")
-	debug                       = flag.Bool("debug", false, "Enable debug mode")
 )
 
 //go:embed openapi.yaml
@@ -52,21 +51,9 @@ func bindSwagger(h *server.Hertz) {
 func main() {
 	flag.Parse()
 
-	var logger *zap.Logger
-	var err error
-	if *debug {
-		cfg := zap.NewProductionConfig()
-		cfg.Level = zap.NewAtomicLevelAt(zapcore.DebugLevel)
-		logger, err = cfg.Build()
-	} else {
-		logger, err = zap.NewProduction()
-	}
-	if err != nil {
-		panic(err)
-	}
+	logger := internal.Loggger
 	logger.Info("starting")
 	logger.Sugar().Infow("Get config",
-		"debug", *debug,
 		"type", *finderType,
 		"path", *dataPath,
 		"http-addr", *httpAddr,
@@ -93,8 +80,7 @@ func main() {
 		logger.Debug("Will use custom data")
 	}
 
-	h := handler.Setup(
-		logger,
+	hertz := handler.Setup(
 		&handler.SetupFinderOptions{
 			FinderType:     handler.FinderType((*finderType)),
 			CustomDataPath: *dataPath,
@@ -110,13 +96,13 @@ func main() {
 		),
 	)
 
-	bindSwagger(h)
+	bindSwagger(hertz)
 
 	rootCtx := context.Background()
 
 	g, gCtx := errgroup.WithContext(rootCtx)
 
-	g.Go(h.Run)
+	g.Go(hertz.Run)
 
 	g.Go(func() error {
 		mux := http.NewServeMux()
@@ -140,7 +126,7 @@ func main() {
 
 	g.Go(func() error { return handler.StartRedisServer(*redisAddr) })
 
-	err = g.Wait()
+	err := g.Wait()
 	if err != nil {
 		logger.Error("error", zap.Error(err))
 		os.Exit(1)

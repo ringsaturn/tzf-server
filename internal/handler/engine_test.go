@@ -10,7 +10,6 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/ringsaturn/tzf-server/internal/handler"
 	v1 "github.com/ringsaturn/tzf-server/tzf/v1"
-	"go.uber.org/zap"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/testing/protocmp"
@@ -18,8 +17,8 @@ import (
 )
 
 var (
-	h      = handler.Setup(zap.Must(zap.NewProduction()), nil)
-	hFuzzy = handler.Setup(zap.Must(zap.NewProduction()), &handler.SetupFinderOptions{FinderType: handler.FuzzyFinder})
+	h      = handler.Setup(nil)
+	hFuzzy = handler.Setup(&handler.SetupFinderOptions{FinderType: handler.FuzzyFinder})
 )
 
 func mustEqualForProto(t *testing.T, expected proto.Message, actual proto.Message) {
