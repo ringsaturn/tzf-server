@@ -19,6 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
+	TZFService_Ping_FullMethodName            = "/tzf.v1.TZFService/Ping"
 	TZFService_GetTimezone_FullMethodName     = "/tzf.v1.TZFService/GetTimezone"
 	TZFService_GetTimezones_FullMethodName    = "/tzf.v1.TZFService/GetTimezones"
 	TZFService_GetAllTimezones_FullMethodName = "/tzf.v1.TZFService/GetAllTimezones"
@@ -28,6 +29,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TZFServiceClient interface {
+	Ping(ctx context.Context, in *PingRequest, opts ...grpc.CallOption) (*PingResponse, error)
 	GetTimezone(ctx context.Context, in *GetTimezoneRequest, opts ...grpc.CallOption) (*GetTimezoneResponse, error)
 	GetTimezones(ctx context.Context, in *GetTimezonesRequest, opts ...grpc.CallOption) (*GetTimezonesResponse, error)
 	GetAllTimezones(ctx context.Context, in *GetAllTimezonesRequest, opts ...grpc.CallOption) (*GetAllTimezonesResponse, error)
@@ -39,6 +41,15 @@ type tZFServiceClient struct {
 
 func NewTZFServiceClient(cc grpc.ClientConnInterface) TZFServiceClient {
 	return &tZFServiceClient{cc}
+}
+
+func (c *tZFServiceClient) Ping(ctx context.Context, in *PingRequest, opts ...grpc.CallOption) (*PingResponse, error) {
+	out := new(PingResponse)
+	err := c.cc.Invoke(ctx, TZFService_Ping_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *tZFServiceClient) GetTimezone(ctx context.Context, in *GetTimezoneRequest, opts ...grpc.CallOption) (*GetTimezoneResponse, error) {
@@ -72,6 +83,7 @@ func (c *tZFServiceClient) GetAllTimezones(ctx context.Context, in *GetAllTimezo
 // All implementations must embed UnimplementedTZFServiceServer
 // for forward compatibility
 type TZFServiceServer interface {
+	Ping(context.Context, *PingRequest) (*PingResponse, error)
 	GetTimezone(context.Context, *GetTimezoneRequest) (*GetTimezoneResponse, error)
 	GetTimezones(context.Context, *GetTimezonesRequest) (*GetTimezonesResponse, error)
 	GetAllTimezones(context.Context, *GetAllTimezonesRequest) (*GetAllTimezonesResponse, error)
@@ -82,6 +94,9 @@ type TZFServiceServer interface {
 type UnimplementedTZFServiceServer struct {
 }
 
+func (UnimplementedTZFServiceServer) Ping(context.Context, *PingRequest) (*PingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
+}
 func (UnimplementedTZFServiceServer) GetTimezone(context.Context, *GetTimezoneRequest) (*GetTimezoneResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTimezone not implemented")
 }
@@ -102,6 +117,24 @@ type UnsafeTZFServiceServer interface {
 
 func RegisterTZFServiceServer(s grpc.ServiceRegistrar, srv TZFServiceServer) {
 	s.RegisterService(&TZFService_ServiceDesc, srv)
+}
+
+func _TZFService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TZFServiceServer).Ping(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TZFService_Ping_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TZFServiceServer).Ping(ctx, req.(*PingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _TZFService_GetTimezone_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -165,6 +198,10 @@ var TZFService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "tzf.v1.TZFService",
 	HandlerType: (*TZFServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Ping",
+			Handler:    _TZFService_Ping_Handler,
+		},
 		{
 			MethodName: "GetTimezone",
 			Handler:    _TZFService_GetTimezone_Handler,

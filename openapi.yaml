@@ -7,6 +7,24 @@ info:
     description: Simple server convert longitude&latitude to timezone name
     version: 0.0.1
 paths:
+    /api/v1/ping:
+        get:
+            tags:
+                - TZFService
+            operationId: TZFService_Ping
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PingResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
     /api/v1/tz:
         get:
             tags:
@@ -121,6 +139,9 @@ components:
                     description: The type of the serialized message.
             additionalProperties: true
             description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+        PingResponse:
+            type: object
+            properties: {}
         Status:
             type: object
             properties:

@@ -25,18 +25,38 @@ var _ = new(xhertz.Error)
 const OperationTZFServiceGetAllTimezones = "/tzf.v1.TZFService/GetAllTimezones"
 const OperationTZFServiceGetTimezone = "/tzf.v1.TZFService/GetTimezone"
 const OperationTZFServiceGetTimezones = "/tzf.v1.TZFService/GetTimezones"
+const OperationTZFServicePing = "/tzf.v1.TZFService/Ping"
 
 type TZFServiceHTTPServer interface {
 	GetAllTimezones(context.Context, *GetAllTimezonesRequest) (*GetAllTimezonesResponse, error)
 	GetTimezone(context.Context, *GetTimezoneRequest) (*GetTimezoneResponse, error)
 	GetTimezones(context.Context, *GetTimezonesRequest) (*GetTimezonesResponse, error)
+	Ping(context.Context, *PingRequest) (*PingResponse, error)
 }
 
 func RegisterTZFServiceHTTPServer(h *server.Hertz, srv TZFServiceHTTPServer) {
 	group := h.Group("/")
+	group.Handle("GET", "/api/v1/ping", _TZFService_Ping0_HTTP_Handler(srv))
 	group.Handle("GET", "/api/v1/tz", _TZFService_GetTimezone0_HTTP_Handler(srv))
 	group.Handle("GET", "/api/v1/tzs", _TZFService_GetTimezones0_HTTP_Handler(srv))
 	group.Handle("GET", "/api/v1/tzs/all", _TZFService_GetAllTimezones0_HTTP_Handler(srv))
+}
+
+func _TZFService_Ping0_HTTP_Handler(srv TZFServiceHTTPServer) func(c context.Context, ctx *app.RequestContext) {
+	return func(c context.Context, ctx *app.RequestContext) {
+		var in PingRequest
+		if err := ctx.BindAndValidate(&in); err != nil {
+			xhertz.HandleBadRequest(ctx, err)
+			return
+		}
+
+		out, err := srv.Ping(c, &in)
+		if err != nil {
+			xhertz.HandleError(ctx, err)
+			return
+		}
+		xhertz.Render(ctx, http.StatusOK, out)
+	}
 }
 
 func _TZFService_GetTimezone0_HTTP_Handler(srv TZFServiceHTTPServer) func(c context.Context, ctx *app.RequestContext) {

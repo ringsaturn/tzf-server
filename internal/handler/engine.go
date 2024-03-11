@@ -112,40 +112,40 @@ func postSetUp(finder tzf.F) error {
 	return nil
 }
 
-func setupFuzzyFinder(logger *zap.Logger, dataPath string) (tzf.F, VisualizableTimezoneData, error) {
+func setupFuzzyFinder(dataPath string) (tzf.F, VisualizableTimezoneData, error) {
 	var err error
 	tzpb := &pb.PreindexTimezones{}
 	if dataPath == "" {
-		logger.Debug("Fuzzy finder will use data from tzf-rel")
+		internal.Loggger.Debug("Fuzzy finder will use data from tzf-rel")
 		err = proto.Unmarshal(tzfrellite.PreindexData, tzpb)
 		if err != nil {
-			logger.Sugar().Error("Unmarshal failed", "err", err)
+			internal.Loggger.Sugar().Error("Unmarshal failed", "err", err)
 			return nil, nil, err
 		}
 	} else {
-		logger.Debug("Fuzzy finder use custom data")
+		internal.Loggger.Debug("Fuzzy finder use custom data")
 		rawFile, err := os.ReadFile(dataPath)
 		if err != nil {
-			logger.Sugar().Error("Unable to load custom data", "err", err)
+			internal.Loggger.Sugar().Error("Unable to load custom data", "err", err)
 			return nil, nil, err
 		}
 		err = proto.Unmarshal(rawFile, tzpb)
 		if err != nil {
-			logger.Sugar().Error("Unmarshal failed", "err", err)
+			internal.Loggger.Sugar().Error("Unmarshal failed", "err", err)
 			return nil, nil, err
 		}
 	}
 	finder, err = tzf.NewFuzzyFinderFromPB(tzpb)
-	logger.Sugar().Debug("FuzzyFinder setup finished", "err", err)
+	internal.Loggger.Sugar().Debug("FuzzyFinder setup finished", "err", err)
 	return finder, &fuzzyData{data: tzpb}, err
 }
 
-func setupPolygonFinder(logger *zap.Logger, dataPath string) (tzf.F, VisualizableTimezoneData, error) {
+func setupPolygonFinder(dataPath string) (tzf.F, VisualizableTimezoneData, error) {
 	var err error
 	tzpb := &pb.Timezones{}
 
 	if dataPath == "" {
-		logger.Debug("Finder will use data from tzf-rel")
+		internal.Loggger.Debug("Finder will use data from tzf-rel")
 		compressPb := &pb.CompressedTimezones{}
 		err = proto.Unmarshal(tzfrellite.LiteCompressData, compressPb)
 		if err != nil {
@@ -156,7 +156,7 @@ func setupPolygonFinder(logger *zap.Logger, dataPath string) (tzf.F, Visualizabl
 			return nil, nil, err
 		}
 	} else {
-		logger.Debug("Finder will use data from tzf-rel")
+		internal.Loggger.Debug("Finder will use data from tzf-rel")
 		rawFile, err := os.ReadFile(dataPath)
 		if err != nil {
 			return nil, nil, err
@@ -181,9 +181,9 @@ func Setup(finderOption *SetupFinderOptions, cfg ...config.Option) *server.Hertz
 	var err error
 	switch finderOption.FinderType {
 	case FuzzyFinder:
-		finder, tzData, err = setupFuzzyFinder(logger, finderOption.CustomDataPath)
+		finder, tzData, err = setupFuzzyFinder(finderOption.CustomDataPath)
 	default:
-		finder, tzData, err = setupPolygonFinder(logger, finderOption.CustomDataPath)
+		finder, tzData, err = setupPolygonFinder(finderOption.CustomDataPath)
 	}
 	check(err)
 	check(postSetUp(finder))
@@ -192,6 +192,10 @@ func Setup(finderOption *SetupFinderOptions, cfg ...config.Option) *server.Hertz
 }
 
 type apiService struct{}
+
+func (apiSrv *apiService) Ping(ctx context.Context, in *v1.PingRequest) (*v1.PingResponse, error) {
+	return &v1.PingResponse{}, nil
+}
 
 func (apiSrv *apiService) GetAllTimezones(ctx context.Context, in *v1.GetAllTimezonesRequest) (*v1.GetAllTimezonesResponse, error) {
 	return GetAllSupportTimezoneNames(ctx, in)
@@ -220,11 +224,9 @@ func setupEngine(cfg ...config.Option) *server.Hertz {
 	h.SetHTMLTemplate(template.Must(template.New("").ParseFS(f, "template/*.html")))
 
 	h.GET("/", Index)
-	h.GET("/ping", Ping)
+	h.GET("/api/v1/tz/geojson", GetTimezoneShape)
 
 	v1.RegisterTZFServiceHTTPServer(h, &apiService{})
-
-	h.GET("/api/v1/tz/geojson", GetTimezoneShape)
 
 	webPageGroup := h.Group("/web")
 	webPageGroup.GET("/tz", GetTimezoneInfoPage)
@@ -239,5 +241,3 @@ func setupEngine(cfg ...config.Option) *server.Hertz {
 func Index(ctx context.Context, c *app.RequestContext) {
 	c.Redirect(http.StatusTemporaryRedirect, []byte("/web/tzs/all"))
 }
-
-func Ping(ctx context.Context, c *app.RequestContext) { c.JSON(http.StatusOK, utils.H{}) }

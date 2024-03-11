@@ -36,7 +36,7 @@ func TestRoot(t *testing.T) {
 }
 
 func TestPing(t *testing.T) {
-	w := ut.PerformRequest(h.Engine, "GET", "/ping", nil)
+	w := ut.PerformRequest(h.Engine, "GET", "/api/v1/ping", nil)
 	resp := w.Result()
 	assert.DeepEqual(t, http.StatusOK, resp.StatusCode())
 }

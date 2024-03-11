@@ -13,6 +13,12 @@ import "google/protobuf/duration.proto";
 service TZFService {
   option (google.api.default_host) = "0.0.0.0:8080";
 
+  rpc Ping(PingRequest) returns (PingResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/ping"
+    };
+  }
+
   rpc GetTimezone(GetTimezoneRequest) returns (GetTimezoneResponse) {
     option (google.api.http) = {
       get: "/api/v1/tz"
@@ -31,6 +37,10 @@ service TZFService {
     };
   }
 }
+
+message PingRequest {}
+
+message PingResponse {}
 
 message GetTimezoneRequest {
   // @gotags: query:"longitude" vd:"$>=-180 && $<=180"
