@@ -1,4 +1,4 @@
-package handler_test
+package server_test
 
 import (
 	"testing"

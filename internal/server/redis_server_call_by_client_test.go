@@ -1,4 +1,4 @@
-package handler_test
+package server_test
 
 import (
 	"context"
@@ -8,7 +8,7 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/common/test/assert"
 	"github.com/redis/go-redis/v9"
-	"github.com/ringsaturn/tzf-server/internal/handler"
+	"github.com/ringsaturn/tzf-server/internal/server"
 )
 
 var (
@@ -26,7 +26,7 @@ var (
 
 func mustStartServer() {
 	redisServerOnce.Do(func() {
-		go func() { _ = handler.StartRedisServer(":6380") }()
+		go func() { _ = server.StartRedisServer(":6380") }()
 		time.Sleep(100 * time.Millisecond)
 	})
 }

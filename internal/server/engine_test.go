@@ -1,4 +1,4 @@
-package handler_test
+package server_test
 
 import (
 	"net/http"
@@ -8,7 +8,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/common/test/assert"
 	"github.com/cloudwego/hertz/pkg/common/ut"
 	"github.com/google/go-cmp/cmp"
-	"github.com/ringsaturn/tzf-server/internal/handler"
+	"github.com/ringsaturn/tzf-server/internal/server"
 	v1 "github.com/ringsaturn/tzf-server/tzf/v1"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
@@ -17,8 +17,8 @@ import (
 )
 
 var (
-	h      = handler.Setup(nil)
-	hFuzzy = handler.Setup(&handler.SetupFinderOptions{FinderType: handler.FuzzyFinder})
+	h      = server.Setup(nil)
+	hFuzzy = server.Setup(&server.SetupFinderOptions{FinderType: server.FuzzyFinder})
 )
 
 func mustEqualForProto(t *testing.T, expected proto.Message, actual proto.Message) {

@@ -1,9 +1,9 @@
-package handler_test
+package server_test
 
 import (
 	"testing"
 
-	"github.com/ringsaturn/tzf-server/internal/handler"
+	"github.com/ringsaturn/tzf-server/internal/server"
 	"github.com/tidwall/redcon"
 	gomock "go.uber.org/mock/gomock"
 )
@@ -23,7 +23,7 @@ func TestRedisServerGetTimezoneName(t *testing.T) {
 			[]byte("39.9289"),
 		},
 	}
-	handler.RedisHandler(conn, cmd)
+	server.RedisHandler(conn, cmd)
 }
 
 func BenchmarkRedisServerGetTimezoneName(b *testing.B) {
@@ -43,7 +43,7 @@ func BenchmarkRedisServerGetTimezoneName(b *testing.B) {
 	}
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		handler.RedisHandler(conn, cmd)
+		server.RedisHandler(conn, cmd)
 	}
 }
 
@@ -61,7 +61,7 @@ func TestRedisServerGetTimezoneNameWithInvalidArgs(t *testing.T) {
 			[]byte("116.3883"),
 		},
 	}
-	handler.RedisHandler(conn, cmd)
+	server.RedisHandler(conn, cmd)
 }
 
 func TestRedisServerGetTimezoneNames(t *testing.T) {
@@ -81,7 +81,7 @@ func TestRedisServerGetTimezoneNames(t *testing.T) {
 			[]byte("43.8254"),
 		},
 	}
-	handler.RedisHandler(conn, cmd)
+	server.RedisHandler(conn, cmd)
 }
 
 func BenchmarkRedisServerGetTimezoneNames(b *testing.B) {
@@ -103,7 +103,7 @@ func BenchmarkRedisServerGetTimezoneNames(b *testing.B) {
 	}
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		handler.RedisHandler(conn, cmd)
+		server.RedisHandler(conn, cmd)
 	}
 }
 
@@ -120,7 +120,7 @@ func TestRedisServerPing(t *testing.T) {
 			[]byte("ping"),
 		},
 	}
-	handler.RedisHandler(conn, cmd)
+	server.RedisHandler(conn, cmd)
 }
 
 func TestRedisServerQuit(t *testing.T) {
@@ -137,5 +137,5 @@ func TestRedisServerQuit(t *testing.T) {
 			[]byte("quit"),
 		},
 	}
-	handler.RedisHandler(conn, cmd)
+	server.RedisHandler(conn, cmd)
 }

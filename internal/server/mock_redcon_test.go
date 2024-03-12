@@ -2,7 +2,7 @@
 // Source: /Users/ringsaturn/go/pkg/mod/github.com/tidwall/redcon@v1.6.2/redcon.go
 
 // Package handler_test is a generated GoMock package.
-package handler_test
+package server_test
 
 import (
 	net "net"
