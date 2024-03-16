@@ -137,10 +137,8 @@ github.com/ringsaturn/go-cities.json v0.5.4 h1:gy5H7Lq+ZFfHbk/TFGEsmmTtGaOZe/6QM
 github.com/ringsaturn/go-cities.json v0.5.4/go.mod h1:qpTYJsvNi40oTJs0WEdRdNAbWcLBWSL7oRHUxMrF4g8=
 github.com/ringsaturn/protoc-gen-go-hertz v0.3.1 h1:Wl2ecML3yGMJk8fmh4ssPOKMFNbeMGR7aKYVnxmhr5Q=
 github.com/ringsaturn/protoc-gen-go-hertz v0.3.1/go.mod h1:RyO2fuzKxQxDbtfXpgEacXS4g3ejJOGFBxohhYfBJRg=
-github.com/ringsaturn/tzf v0.14.2 h1:zq+U2ZvBo6hXLfu3uC3Jx3yrfx+zz7ekBpOZWvuHrHI=
-github.com/ringsaturn/tzf v0.14.2/go.mod h1:cJshHQL2CATsKxcBcLK6Yg53UBZzX4npTp5bOtCupGs=
-github.com/ringsaturn/tzf-rel v0.0.2023-d1 h1:q/MnXb7E9+o1Y16AzluocxQ2WQjuPK/x7IItc+JKElo=
-github.com/ringsaturn/tzf-rel v0.0.2023-d1/go.mod h1:TvyUIUpF3aCH98QYjTmMb1cqK7pFswdFLoIVZwGNV/M=
+github.com/ringsaturn/tzf v0.15.0 h1:byBR6+it+iYfY2hakbV3RGqkx1d1M1Xne0jXebmrEu0=
+github.com/ringsaturn/tzf v0.15.0/go.mod h1:y/n82B7Lfz3v75WiR85f2QdFjXl3Q/93LySWOTv1+LA=
 github.com/ringsaturn/tzf-rel-lite v0.0.2024-a h1:olA5Zh7jE5tXhtHby2hFlZWo4nZJxIzTL7ctGFOa+Uw=
 github.com/ringsaturn/tzf-rel-lite v0.0.2024-a/go.mod h1:Kb32pggRZUJ06a6Y261pDbVeThW0Pvkr8CWP0ZIMvzg=
 github.com/rogpeppe/go-internal v1.11.0 h1:cWPaGQEPrBb5/AsnsZesgZZ9yb1OQ+GOISoDNXVBh4M=
@@ -162,8 +160,8 @@ github.com/stretchr/testify v1.7.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/
 github.com/stretchr/testify v1.7.5/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO+kdMU+MU=
 github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO+kdMU+MU=
 github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
-github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcUk=
-github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
+github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsTg=
+github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
 github.com/swaggo/files v1.0.1 h1:J1bVJ4XHZNq0I46UU90611i9/YzdrF7x92oX1ig5IdE=
 github.com/swaggo/files v1.0.1/go.mod h1:0qXmMNH6sXNf+73t65aKeB+ApmgxdnkQzVTAj2uaMUg=
 github.com/swaggo/swag v1.16.1 h1:fTNRhKstPKxcnoKsytm4sahr8FaYzUcT7i1/3nd/fBg=
@@ -229,8 +227,8 @@ golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550/go.mod h1:yigFU9vqHzYiE8U
 golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
 golang.org/x/crypto v0.0.0-20210921155107-089bfa567519/go.mod h1:GvvjBRRGRdwPK5ydBHafDWAxML/pGHZbMvKqRZ5+Abc=
 golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d/go.mod h1:IxCIyHEi3zRg3s0A5j5BB6A9Jmi73HwBIUl50j+osU4=
-golang.org/x/exp v0.0.0-20240222234643-814bf88cf225 h1:LfspQV/FYTatPTr/3HzIcmiUFH7PGP+OQ6mgDYo3yuQ=
-golang.org/x/exp v0.0.0-20240222234643-814bf88cf225/go.mod h1:CxmFvTBINI24O/j8iY7H1xHzx2i4OsyguNBmN/uPtqc=
+golang.org/x/exp v0.0.0-20240314144324-c7f7c6466f7f h1:3CW0unweImhOzd5FmYuRsD4Y4oQFKZIjAnKbjV4WIrw=
+golang.org/x/exp v0.0.0-20240314144324-c7f7c6466f7f/go.mod h1:CxmFvTBINI24O/j8iY7H1xHzx2i4OsyguNBmN/uPtqc=
 golang.org/x/mod v0.2.0/go.mod h1:s0Qsj1ACt9ePp/hMypM3fl4fZqREWJwdYDEqhRiZZUA=
 golang.org/x/mod v0.3.0/go.mod h1:s0Qsj1ACt9ePp/hMypM3fl4fZqREWJwdYDEqhRiZZUA=
 golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4/go.mod h1:jJ57K6gSWd91VN4djpZkiMVwK6gcyfeH4XE8wZrZaV4=

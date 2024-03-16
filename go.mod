@@ -12,7 +12,7 @@ require (
 	github.com/prometheus/client_golang v1.19.0
 	github.com/redis/go-redis/v9 v9.5.1
 	github.com/ringsaturn/protoc-gen-go-hertz v0.3.1
-	github.com/ringsaturn/tzf v0.14.2
+	github.com/ringsaturn/tzf v0.15.0
 	github.com/ringsaturn/tzf-rel-lite v0.0.2024-a
 	github.com/swaggo/files v1.0.1
 	github.com/tidwall/redcon v1.6.2
@@ -52,7 +52,6 @@ require (
 	github.com/prometheus/client_model v0.6.0 // indirect
 	github.com/prometheus/common v0.50.0 // indirect
 	github.com/prometheus/procfs v0.13.0 // indirect
-	github.com/ringsaturn/tzf-rel v0.0.2023-d1 // indirect
 	github.com/swaggo/swag v1.16.1 // indirect
 	github.com/tidwall/btree v1.7.0 // indirect
 	github.com/tidwall/geoindex v1.7.0 // indirect
@@ -66,7 +65,7 @@ require (
 	go.mongodb.org/mongo-driver v1.14.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/arch v0.7.0 // indirect
-	golang.org/x/exp v0.0.0-20240222234643-814bf88cf225 // indirect
+	golang.org/x/exp v0.0.0-20240314144324-c7f7c6466f7f // indirect
 	golang.org/x/net v0.22.0 // indirect
 	golang.org/x/sys v0.18.0 // indirect
 	golang.org/x/text v0.14.0 // indirect

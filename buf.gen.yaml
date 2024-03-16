@@ -11,9 +11,7 @@ version: v1
 #       - buf.build/googleapis/googleapis
 plugins:
   - plugin: buf.build/community/google-gnostic-openapi:v0.7.0
-    out: .
-    opt:
-      - paths=source_relative
+    out: tzf/v1
   # remote plugins
   - plugin: buf.build/protocolbuffers/go:v1.30.0
     out: .
