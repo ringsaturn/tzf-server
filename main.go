@@ -107,7 +107,7 @@ func main() {
 		return app.ListenAndServe()
 	})
 
-	g.Go(func() error { return tzfserver.StartRedisServer(*redisAddr) })
+	// g.Go(func() error { return tzfserver.StartRedisServer(*redisAddr) })
 
 	err := g.Wait()
 	if err != nil {

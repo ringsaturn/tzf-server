@@ -17,7 +17,7 @@ cover:
 	go tool cover -html=coverage.txt -o=coverage.html
 
 mock:
-	mockgen -source=$(GOBASEPATH)/pkg/mod/github.com/tidwall/redcon@v1.6.2/redcon.go -destination="handler/mock_redcon_test.go" -package=handler_test
+	mockgen -source=$(GOBASEPATH)/pkg/mod/github.com/tidwall/redcon@v1.6.2/redcon.go -destination="internal/redisserver/mock_redcon_test.go" -package=redisserver_test
 
 install:
 	go install github.com/favadi/protoc-go-inject-tag@latest
@@ -39,3 +39,8 @@ fmt:
 
 gtag:
 	cd internal/config;gtag -types Config -tags flag .
+
+gen:
+	make pb
+	make mock
+	make gtag

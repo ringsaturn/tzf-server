@@ -73,11 +73,11 @@ type F interface {
 	tzf.F
 }
 
-type tzfinder struct {
-	finder              tzf.F
-	tzData              VisualizableTimezoneData
-	tzName2Abbreviation map[string]string
-	tzName2Offset       map[string]*durationpb.Duration
+type TZfinder struct {
+	Finder              tzf.F
+	TZData              VisualizableTimezoneData
+	TZName2Abbreviation map[string]string
+	TZName2Offset       map[string]*durationpb.Duration
 }
 
 func setupFuzzyFinder(dataPath string) (tzf.F, VisualizableTimezoneData, error) {
@@ -138,7 +138,7 @@ func setupPolygonFinder(dataPath string) (tzf.F, VisualizableTimezoneData, error
 	return finder, &polygonData{data: tzpb}, err
 }
 
-func NewFinder(cfg *config.Config) (F, error) {
+func NewFinder(cfg *config.Config) (*TZfinder, error) {
 	var (
 		finder              tzf.F
 		err                 error
@@ -169,29 +169,32 @@ func NewFinder(cfg *config.Config) (F, error) {
 		tzName2Offset[tzName] = durationpb.New(time.Duration(offset * int(time.Second)))
 	}
 
-	return &tzfinder{
-		finder:              finder,
-		tzData:              tzData,
-		tzName2Abbreviation: tzName2Abbreviation,
-		tzName2Offset:       tzName2Offset,
+	return &TZfinder{
+		Finder:              finder,
+		TZData:              tzData,
+		TZName2Abbreviation: tzName2Abbreviation,
+		TZName2Offset:       tzName2Offset,
 	}, nil
 
 }
 
-var ProviderSet = wire.NewSet(NewFinder)
+var ProviderSet = wire.NewSet(
+	NewFinder,
+	wire.Bind(new(tzf.F), new(*TZfinder)),
+)
 
-func (f *tzfinder) GetTimezoneName(lng, lat float64) string {
-	return f.finder.GetTimezoneName(lng, lat)
+func (f *TZfinder) GetTimezoneName(lng, lat float64) string {
+	return f.Finder.GetTimezoneName(lng, lat)
 }
 
-func (f *tzfinder) GetTimezoneNames(lng, lat float64) ([]string, error) {
-	return f.finder.GetTimezoneNames(lng, lat)
+func (f *TZfinder) GetTimezoneNames(lng, lat float64) ([]string, error) {
+	return f.Finder.GetTimezoneNames(lng, lat)
 }
 
-func (f *tzfinder) TimezoneNames() []string {
-	return f.finder.TimezoneNames()
+func (f *TZfinder) TimezoneNames() []string {
+	return f.Finder.TimezoneNames()
 }
 
-func (f *tzfinder) DataVersion() string {
-	return f.finder.DataVersion()
+func (f *TZfinder) DataVersion() string {
+	return f.Finder.DataVersion()
 }
