@@ -14,7 +14,7 @@ import (
 	"github.com/hertz-contrib/swagger"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/ringsaturn/tzf-server/internal"
-	"github.com/ringsaturn/tzf-server/internal/handler"
+	tzfserver "github.com/ringsaturn/tzf-server/internal/server"
 	swaggerFiles "github.com/swaggo/files"
 	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
@@ -80,9 +80,9 @@ func main() {
 		logger.Debug("Will use custom data")
 	}
 
-	hertz := handler.Setup(
-		&handler.SetupFinderOptions{
-			FinderType:     handler.FinderType((*finderType)),
+	hertz := tzfserver.Setup(
+		&tzfserver.SetupFinderOptions{
+			FinderType:     tzfserver.FinderType((*finderType)),
 			CustomDataPath: *dataPath,
 		},
 		server.WithDisablePrintRoute(*disablePrintRoute),
@@ -124,7 +124,7 @@ func main() {
 		return app.ListenAndServe()
 	})
 
-	g.Go(func() error { return handler.StartRedisServer(*redisAddr) })
+	g.Go(func() error { return tzfserver.StartRedisServer(*redisAddr) })
 
 	err := g.Wait()
 	if err != nil {
