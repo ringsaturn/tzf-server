@@ -5,6 +5,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/google/wire"
 	"github.com/paulmach/orb/maptile"
 	"github.com/ringsaturn/tzf"
 	tzfrellite "github.com/ringsaturn/tzf-rel-lite"
@@ -176,6 +177,8 @@ func NewFinder(cfg *config.Config) (F, error) {
 	}, nil
 
 }
+
+var ProviderSet = wire.NewSet(NewFinder)
 
 func (f *tzfinder) GetTimezoneName(lng, lat float64) string {
 	return f.finder.GetTimezoneName(lng, lat)

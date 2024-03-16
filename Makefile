@@ -23,6 +23,7 @@ install:
 	go install github.com/favadi/protoc-go-inject-tag@latest
 	go install go.uber.org/mock/mockgen@latest
 	go install github.com/ringsaturn/protoc-gen-go-hertz@latest
+	go install github.com/wolfogre/gtag/cmd/gtag@latest
 
 .PHONY:pb
 pb:
@@ -35,3 +36,6 @@ fmt:
 	find proto/v1 -iname *.proto | xargs clang-format -i --style=Google
 	go fmt ./...
 	go fix ./...
+
+gtag:
+	cd internal/config;gtag -types Config -tags flag .

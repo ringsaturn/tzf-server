@@ -5,6 +5,7 @@ go 1.22.0
 require (
 	github.com/cloudwego/hertz v0.8.1
 	github.com/google/go-cmp v0.6.0
+	github.com/google/wire v0.6.0
 	github.com/hertz-contrib/logger/zap v1.1.0
 	github.com/hertz-contrib/monitor-prometheus v0.1.2
 	github.com/hertz-contrib/swagger v0.1.0

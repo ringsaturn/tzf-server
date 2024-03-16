@@ -5,6 +5,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/google/wire"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/ringsaturn/tzf"
@@ -44,6 +45,8 @@ type Server struct {
 func NewServer(f tzf.F) *Server {
 	return &Server{f: f}
 }
+
+var ProviderSet = wire.NewSet(NewServer)
 
 func (s *Server) redisGetTZCmd(conn redcon.Conn, cmd redcon.Command) {
 	lng, lat, err := parseCoordinates(cmd)
