@@ -46,7 +46,7 @@ func NewServer(cfg *config.Config, srv v1.TZFServiceHTTPServer, w *WebHandler) *
 		)),
 	)
 
-	bindAPI(h, srv)
+	BindAPI(h, srv)
 	BindWebPage(h, w)
 
 	return h

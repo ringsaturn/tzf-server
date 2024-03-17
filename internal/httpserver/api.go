@@ -5,7 +5,7 @@ import (
 	v1 "github.com/ringsaturn/tzf-server/tzf/v1"
 )
 
-func bindAPI(h *server.Hertz, srv v1.TZFServiceHTTPServer) {
+func BindAPI(h *server.Hertz, srv v1.TZFServiceHTTPServer) {
 	v1.RegisterTZFServiceHTTPServer(h, srv)
 	v1.BindDefaultSwagger(h)
 }
