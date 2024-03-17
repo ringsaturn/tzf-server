@@ -1,12 +1,14 @@
-package server
+package redisserver
 
 import (
 	"errors"
 	"strconv"
 	"strings"
 
+	"github.com/google/wire"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
+	"github.com/ringsaturn/tzf"
 	"github.com/tidwall/redcon"
 )
 
@@ -36,14 +38,24 @@ func parseCoordinates(cmd redcon.Command) (float64, float64, error) {
 	return lng, lat, nil
 }
 
-func redisGetTZCmd(conn redcon.Conn, cmd redcon.Command) {
+type Server struct {
+	f tzf.F
+}
+
+func NewServer(f tzf.F) *Server {
+	return &Server{f: f}
+}
+
+var ProviderSet = wire.NewSet(NewServer)
+
+func (s *Server) redisGetTZCmd(conn redcon.Conn, cmd redcon.Command) {
 	lng, lat, err := parseCoordinates(cmd)
 	if err != nil {
 		conn.WriteError(err.Error())
 		return
 	}
 
-	timezone_name := finder.GetTimezoneName(lng, lat)
+	timezone_name := s.f.GetTimezoneName(lng, lat)
 	if timezone_name == "" {
 		conn.WriteError("no tz found")
 		return
@@ -51,14 +63,14 @@ func redisGetTZCmd(conn redcon.Conn, cmd redcon.Command) {
 	conn.WriteString(timezone_name)
 }
 
-func redisGetTZsCmd(conn redcon.Conn, cmd redcon.Command) {
+func (s *Server) redisGetTZsCmd(conn redcon.Conn, cmd redcon.Command) {
 	lng, lat, err := parseCoordinates(cmd)
 	if err != nil {
 		conn.WriteError(err.Error())
 		return
 	}
 
-	timezone_names, err := finder.GetTimezoneNames(lng, lat)
+	timezone_names, err := s.f.GetTimezoneNames(lng, lat)
 	if err != nil {
 		conn.WriteError("no tz found")
 		return
@@ -69,35 +81,28 @@ func redisGetTZsCmd(conn redcon.Conn, cmd redcon.Command) {
 	}
 }
 
-func redisDefaultCmd(conn redcon.Conn, cmd redcon.Command) {
-	conn.WriteError("ERR unknown command '" + string(cmd.Args[0]) + "'")
-}
-
-func redisPingCmd(conn redcon.Conn, _ redcon.Command) { conn.WriteString("PONG") }
-
-func redisQuitCmd(conn redcon.Conn, _ redcon.Command) { conn.WriteString("OK"); conn.Close() }
-
-func RedisHandler(conn redcon.Conn, cmd redcon.Command) {
+func (s *Server) Handler(conn redcon.Conn, cmd redcon.Command) {
 	inputCmd := strings.ToLower(string(cmd.Args[0]))
 	timer := prometheus.NewTimer(redisServerCmdHistogram.WithLabelValues(inputCmd))
 	defer timer.ObserveDuration()
 	switch inputCmd {
 	case "ping":
-		redisPingCmd(conn, cmd)
+		conn.WriteString("PONG")
 	case "quit":
-		redisQuitCmd(conn, cmd)
+		conn.WriteString("OK")
+		conn.Close()
 	case "get_tz":
-		redisGetTZCmd(conn, cmd)
+		s.redisGetTZCmd(conn, cmd)
 	case "get_tzs":
-		redisGetTZsCmd(conn, cmd)
+		s.redisGetTZsCmd(conn, cmd)
 	default:
-		redisDefaultCmd(conn, cmd)
+		conn.WriteError("ERR unknown command '" + string(cmd.Args[0]) + "'")
 	}
 }
 
-func StartRedisServer(addr string) error {
+func (s *Server) StartRedisServer(addr string) error {
 	err := redcon.ListenAndServe(addr,
-		RedisHandler,
+		s.Handler,
 		func(conn redcon.Conn) bool { return true },
 		func(conn redcon.Conn, err error) {},
 	)

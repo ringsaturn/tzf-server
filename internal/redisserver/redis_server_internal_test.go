@@ -1,4 +1,4 @@
-package server
+package redisserver
 
 import (
 	"testing"

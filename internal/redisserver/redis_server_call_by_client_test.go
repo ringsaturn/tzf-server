@@ -1,4 +1,4 @@
-package server_test
+package redisserver_test
 
 import (
 	"context"
@@ -8,7 +8,8 @@ import (
 
 	"github.com/cloudwego/hertz/pkg/common/test/assert"
 	"github.com/redis/go-redis/v9"
-	"github.com/ringsaturn/tzf-server/internal/server"
+	"github.com/ringsaturn/tzf"
+	"github.com/ringsaturn/tzf-server/internal/redisserver"
 )
 
 var (
@@ -26,7 +27,12 @@ var (
 
 func mustStartServer() {
 	redisServerOnce.Do(func() {
-		go func() { _ = server.StartRedisServer(":6380") }()
+		f, err := tzf.NewDefaultFinder()
+		if err != nil {
+			panic(err)
+		}
+		srv := redisserver.NewServer(f)
+		go func() { _ = srv.StartRedisServer(":6380") }()
 		time.Sleep(100 * time.Millisecond)
 	})
 }

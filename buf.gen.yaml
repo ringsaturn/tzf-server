@@ -21,8 +21,10 @@ plugins:
     out: .
     opt:
       - paths=source_relative
-  # local plugins: protoc-gen-<plugin>
   - plugin: go-hertz
     out: .
     opt:
       - paths=source_relative
+  - plugin: go-grpc-mock
+    out: .
+    opt: paths=source_relative

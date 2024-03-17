@@ -1,14 +1,19 @@
-package server_test
+package httpserver_test
 
 import (
 	"net/http"
 	"testing"
 	"time"
 
+	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/test/assert"
 	"github.com/cloudwego/hertz/pkg/common/ut"
 	"github.com/google/go-cmp/cmp"
-	"github.com/ringsaturn/tzf-server/internal/server"
+
+	"github.com/ringsaturn/tzf-server/internal/config"
+	"github.com/ringsaturn/tzf-server/internal/finder"
+	"github.com/ringsaturn/tzf-server/internal/httpserver"
+	"github.com/ringsaturn/tzf-server/internal/wraps"
 	v1 "github.com/ringsaturn/tzf-server/tzf/v1"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
@@ -16,9 +21,27 @@ import (
 	"google.golang.org/protobuf/types/known/durationpb"
 )
 
+func setUp(cfg *config.Config) *server.Hertz {
+	tZfinder, err := finder.NewFinder(cfg)
+	if err != nil {
+		panic(err)
+	}
+	tzfServiceHTTPServer := wraps.NewTZFServiceServer(tZfinder)
+	webHandler := httpserver.NewWebHandler(tZfinder)
+	hertz := httpserver.NewServer(cfg, tzfServiceHTTPServer, webHandler)
+	return hertz
+}
+
 var (
-	h      = server.Setup(nil)
-	hFuzzy = server.Setup(&server.SetupFinderOptions{FinderType: server.FuzzyFinder})
+	h *server.Hertz = setUp(&config.Config{
+		HertzPrometheusHostPorts: "localhost:7777",
+		HertzPrometheusPath:      "/metrics",
+	})
+	hFuzzy = setUp(&config.Config{
+		FinderType:               int(finder.FuzzyFinder),
+		HertzPrometheusHostPorts: "localhost:7778",
+		HertzPrometheusPath:      "/metrics2",
+	})
 )
 
 func mustEqualForProto(t *testing.T, expected proto.Message, actual proto.Message) {

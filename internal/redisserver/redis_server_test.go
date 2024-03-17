@@ -1,9 +1,10 @@
-package server_test
+package redisserver_test
 
 import (
 	"testing"
 
-	"github.com/ringsaturn/tzf-server/internal/server"
+	"github.com/ringsaturn/tzf"
+	"github.com/ringsaturn/tzf-server/internal/redisserver"
 	"github.com/tidwall/redcon"
 	gomock "go.uber.org/mock/gomock"
 )
@@ -23,7 +24,12 @@ func TestRedisServerGetTimezoneName(t *testing.T) {
 			[]byte("39.9289"),
 		},
 	}
-	server.RedisHandler(conn, cmd)
+	f, err := tzf.NewDefaultFinder()
+	if err != nil {
+		t.Fatal(err)
+	}
+	srv := redisserver.NewServer(f)
+	srv.Handler(conn, cmd)
 }
 
 func BenchmarkRedisServerGetTimezoneName(b *testing.B) {
@@ -41,9 +47,17 @@ func BenchmarkRedisServerGetTimezoneName(b *testing.B) {
 			[]byte("39.9289"),
 		},
 	}
+
+	f, err := tzf.NewDefaultFinder()
+	if err != nil {
+		b.Fatal(err)
+	}
+	srv := redisserver.NewServer(f)
+	srv.Handler(conn, cmd)
+
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		server.RedisHandler(conn, cmd)
+		srv.Handler(conn, cmd)
 	}
 }
 
@@ -61,7 +75,13 @@ func TestRedisServerGetTimezoneNameWithInvalidArgs(t *testing.T) {
 			[]byte("116.3883"),
 		},
 	}
-	server.RedisHandler(conn, cmd)
+
+	f, err := tzf.NewDefaultFinder()
+	if err != nil {
+		t.Fatal(err)
+	}
+	srv := redisserver.NewServer(f)
+	srv.Handler(conn, cmd)
 }
 
 func TestRedisServerGetTimezoneNames(t *testing.T) {
@@ -81,7 +101,12 @@ func TestRedisServerGetTimezoneNames(t *testing.T) {
 			[]byte("43.8254"),
 		},
 	}
-	server.RedisHandler(conn, cmd)
+	f, err := tzf.NewDefaultFinder()
+	if err != nil {
+		t.Fatal(err)
+	}
+	srv := redisserver.NewServer(f)
+	srv.Handler(conn, cmd)
 }
 
 func BenchmarkRedisServerGetTimezoneNames(b *testing.B) {
@@ -102,8 +127,16 @@ func BenchmarkRedisServerGetTimezoneNames(b *testing.B) {
 		},
 	}
 	b.ResetTimer()
+
+	f, err := tzf.NewDefaultFinder()
+	if err != nil {
+		b.Fatal(err)
+	}
+	srv := redisserver.NewServer(f)
+	srv.Handler(conn, cmd)
+
 	for i := 0; i < b.N; i++ {
-		server.RedisHandler(conn, cmd)
+		srv.Handler(conn, cmd)
 	}
 }
 
@@ -120,7 +153,12 @@ func TestRedisServerPing(t *testing.T) {
 			[]byte("ping"),
 		},
 	}
-	server.RedisHandler(conn, cmd)
+	f, err := tzf.NewDefaultFinder()
+	if err != nil {
+		t.Fatal(err)
+	}
+	srv := redisserver.NewServer(f)
+	srv.Handler(conn, cmd)
 }
 
 func TestRedisServerQuit(t *testing.T) {
@@ -137,5 +175,10 @@ func TestRedisServerQuit(t *testing.T) {
 			[]byte("quit"),
 		},
 	}
-	server.RedisHandler(conn, cmd)
+	f, err := tzf.NewDefaultFinder()
+	if err != nil {
+		t.Fatal(err)
+	}
+	srv := redisserver.NewServer(f)
+	srv.Handler(conn, cmd)
 }
