@@ -7,6 +7,7 @@ require (
 	github.com/favadi/protoc-go-inject-tag v1.4.0
 	github.com/google/go-cmp v0.6.0
 	github.com/google/wire v0.6.0
+	github.com/hertz-contrib/logger/zap v1.1.0
 	github.com/hertz-contrib/monitor-prometheus v0.1.2
 	github.com/hertz-contrib/swagger v0.1.0
 	github.com/paulmach/orb v0.11.1
