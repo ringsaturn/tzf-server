@@ -16,12 +16,7 @@ import (
 	v1 "github.com/ringsaturn/tzf-server/tzf/v1"
 )
 
-func bindAPI(h *server.Hertz, srv v1.TZFServiceHTTPServer) {
-	v1.RegisterTZFServiceHTTPServer(h, srv)
-	v1.BindDefaultSwagger(h)
-}
-
-func NewServer(cfg *config.Config, srv v1.TZFServiceHTTPServer) *server.Hertz {
+func NewServer(cfg *config.Config, srv v1.TZFServiceHTTPServer, w *WebHandler) *server.Hertz {
 	opts := []hc.Option{
 		server.WithDisablePrintRoute(cfg.DisablePrintRoute),
 		server.WithHostPorts(cfg.HTTPAddr),
@@ -46,20 +41,10 @@ func NewServer(cfg *config.Config, srv v1.TZFServiceHTTPServer) *server.Hertz {
 		)),
 	)
 
-	// h.SetHTMLTemplate(template.Must(template.New("").ParseFS(f, "template/*.html")))
-
-	// h.GET("/", Index)
-	// h.GET("/api/v1/tz/geojson", GetTimezoneShape)
-
 	bindAPI(h, srv)
+	BindWebPage(h, w)
 
-	// webPageGroup := h.Group("/web")
-	// webPageGroup.GET("/tz", GetTimezoneInfoPage)
-	// webPageGroup.GET("/tzs", GetTimezonesInfoPage)
-	// webPageGroup.GET("/tzs/all", GetAllSupportTimezoneNamesPage)
-	// webPageGroup.GET("/tz/geojson/viewer", GetGeoJSONViewerForTimezone)
-	// webPageGroup.GET("/click", GetClickPage)
 	return h
 }
 
-var ProviderSet = wire.NewSet(NewServer)
+var ProviderSet = wire.NewSet(NewServer, NewWebHandler)

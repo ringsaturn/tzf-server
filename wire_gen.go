@@ -22,15 +22,16 @@ import (
 
 // Injectors from wire.go:
 
-func initService(ctx context.Context) (*app.App, error) {
+func newApp(ctx context.Context) (*app.App, error) {
 	configConfig := config.NewConfigFromArgs()
 	tZfinder, err := finder.NewFinder(configConfig)
 	if err != nil {
 		return nil, err
 	}
 	tzfServiceHTTPServer := wraps.NewTZFServiceServer(tZfinder)
-	hertz := httpserver.NewServer(configConfig, tzfServiceHTTPServer)
+	webHandler := httpserver.NewWebHandler(tZfinder)
+	hertz := httpserver.NewServer(configConfig, tzfServiceHTTPServer, webHandler)
 	server := redisserver.NewServer(tZfinder)
-	appApp := app.NewApp(hertz, server)
+	appApp := app.NewApp(configConfig, hertz, server)
 	return appApp, nil
 }

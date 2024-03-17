@@ -14,7 +14,7 @@ import (
 	"github.com/ringsaturn/tzf-server/internal/wraps"
 )
 
-func initService(ctx context.Context) (*app.App, error) {
+func newApp(ctx context.Context) (*app.App, error) {
 	panic(wire.Build(
 		config.ProviderSet,
 		redisserver.ProviderSet,
