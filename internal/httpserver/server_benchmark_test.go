@@ -1,4 +1,4 @@
-package server_test
+package httpserver_test
 
 import (
 	"testing"

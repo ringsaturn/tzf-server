@@ -82,8 +82,6 @@ github.com/gopherjs/gopherjs v0.0.0-20181017120253-0766667cb4d1/go.mod h1:wJfORR
 github.com/henrylee2cn/ameda v1.4.8/go.mod h1:liZulR8DgHxdK+MEwvZIylGnmcjzQ6N6f2PlWe7nEO4=
 github.com/henrylee2cn/ameda v1.4.10/go.mod h1:liZulR8DgHxdK+MEwvZIylGnmcjzQ6N6f2PlWe7nEO4=
 github.com/henrylee2cn/goutil v0.0.0-20210127050712-89660552f6f8/go.mod h1:Nhe/DM3671a5udlv2AdV2ni/MZzgfv2qrPL5nIi3EGQ=
-github.com/hertz-contrib/logger/zap v1.1.0 h1:4efINiIDJrXEtAFeEdDJvc3Hye0VFxp+0X4BwaZgxNs=
-github.com/hertz-contrib/logger/zap v1.1.0/go.mod h1:D/rJJgsYn+SGaHVfVqWS3vHTbbc7ODAlJO+6smWgTeE=
 github.com/hertz-contrib/monitor-prometheus v0.1.2 h1:MYZGi4uStLtHKUm7+kc/ljbxzUTDE9H5FPCTSB/p7ZM=
 github.com/hertz-contrib/monitor-prometheus v0.1.2/go.mod h1:aUP6t5bK8msuf+5dN/k8099IjD0u8s9A6vrYWQ+yzN0=
 github.com/hertz-contrib/swagger v0.1.0 h1:FlnMPRHuvAt/3pt3KCQRZ6RH1g/agma9SU70Op2Pb58=
