@@ -39,7 +39,7 @@ go install github.com/ringsaturn/tzf-server@latest
 Please visit <https://github.com/ringsaturn/tzf-server/releases> to get latest
 release.
 
-#### Install from Docker Hub
+#### Install from [Docker Hub](https://hub.docker.com/r/ringsaturn/tzf-server)
 
 ```bash
 docker pull ringsaturn/tzf-server
