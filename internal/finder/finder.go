@@ -39,18 +39,45 @@ type fuzzyData struct {
 }
 
 func (d *fuzzyData) GetShape(name string) (interface{}, error) {
+	feature := &convert.FeatureItem{
+		Type: convert.FeatureType,
+		Properties: convert.PropertiesDefine{
+			Tzid: name,
+		},
+		Geometry: convert.GeometryDefine{
+			Type:        convert.MultiPolygonType,
+			Coordinates: make(convert.MultiPolygonCoordinates, 0),
+		},
+	}
+
+	res := convert.MultiPolygonCoordinates{}
+
 	var hit bool
-	tileSet := maptile.Set{}
 	for _, key := range d.data.Keys {
 		if name == key.Name || name == "all" {
 			hit = true
-			tileSet[maptile.New(uint32(key.X), uint32(key.Y), maptile.Zoom(key.Z))] = true
+
+			tile := maptile.New(uint32(key.X), uint32(key.Y), maptile.Zoom(key.Z))
+			bound := tile.Bound()
+
+			res = append(
+				res,
+				convert.PolygonCoordinates{
+					{
+						{bound.Min[0], bound.Min[1]},
+						{bound.Max[0], bound.Min[1]},
+						{bound.Max[0], bound.Max[1]},
+						{bound.Min[0], bound.Max[1]},
+					},
+				})
 		}
 	}
 	if !hit {
 		return nil, errors.New("not found")
 	}
-	return tileSet.ToFeatureCollection(), nil
+	feature.Geometry.Coordinates = res
+
+	return feature, nil
 }
 
 type polygonData struct {
