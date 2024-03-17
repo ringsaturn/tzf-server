@@ -24,6 +24,7 @@ mock:  ## Generate mock
 	mockgen -source=$(GOBASEPATH)/pkg/mod/github.com/tidwall/redcon@v1.6.2/redcon.go -destination="internal/redisserver/mock_redcon_test.go" -package=redisserver_test
 
 install:  ## Install tools
+	go install github.com/mfridman/tparse@latest
 	go install go.uber.org/mock/mockgen@latest
 	go install github.com/wolfogre/gtag/cmd/gtag@latest
 	go install github.com/google/wire/cmd/wire@latest
