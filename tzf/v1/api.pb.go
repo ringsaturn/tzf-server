@@ -215,9 +215,9 @@ type GetTimezoneResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Timezone     string               `protobuf:"bytes,1,opt,name=timezone,proto3" json:"timezone,omitempty"`
-	Abbreviation string               `protobuf:"bytes,2,opt,name=abbreviation,proto3" json:"abbreviation,omitempty"`
-	Offset       *durationpb.Duration `protobuf:"bytes,3,opt,name=offset,proto3" json:"offset,omitempty"`
+	Timezone     string               `protobuf:"bytes,1,opt,name=timezone,proto3" json:"timezone,omitempty"`         // timezone name
+	Abbreviation string               `protobuf:"bytes,2,opt,name=abbreviation,proto3" json:"abbreviation,omitempty"` // timezone abbreviation
+	Offset       *durationpb.Duration `protobuf:"bytes,3,opt,name=offset,proto3" json:"offset,omitempty"`             // timezone offset
 }
 
 func (x *GetTimezoneResponse) Reset() {

@@ -30,8 +30,11 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TZFServiceClient interface {
 	Ping(ctx context.Context, in *PingRequest, opts ...grpc.CallOption) (*PingResponse, error)
+	// GetTimezone returns timezone name by longitude and latitude.
 	GetTimezone(ctx context.Context, in *GetTimezoneRequest, opts ...grpc.CallOption) (*GetTimezoneResponse, error)
+	// GetTimezones returns timezone names by longitude and latitude.
 	GetTimezones(ctx context.Context, in *GetTimezonesRequest, opts ...grpc.CallOption) (*GetTimezonesResponse, error)
+	// GetAllTimezones returns all timezone names.
 	GetAllTimezones(ctx context.Context, in *GetAllTimezonesRequest, opts ...grpc.CallOption) (*GetAllTimezonesResponse, error)
 }
 
@@ -84,8 +87,11 @@ func (c *tZFServiceClient) GetAllTimezones(ctx context.Context, in *GetAllTimezo
 // for forward compatibility
 type TZFServiceServer interface {
 	Ping(context.Context, *PingRequest) (*PingResponse, error)
+	// GetTimezone returns timezone name by longitude and latitude.
 	GetTimezone(context.Context, *GetTimezoneRequest) (*GetTimezoneResponse, error)
+	// GetTimezones returns timezone names by longitude and latitude.
 	GetTimezones(context.Context, *GetTimezonesRequest) (*GetTimezonesResponse, error)
+	// GetAllTimezones returns all timezone names.
 	GetAllTimezones(context.Context, *GetAllTimezonesRequest) (*GetAllTimezonesResponse, error)
 	mustEmbedUnimplementedTZFServiceServer()
 }

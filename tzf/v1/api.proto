@@ -9,7 +9,13 @@ import "google/api/client.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/duration.proto";
 
-// Simple server convert longitude&latitude to timezone name
+// Simple server convert longitude&latitude to timezone name(s).
+// The server also provides timezone name list.
+//
+// Please note that this service is for demonstration purpose only and
+// should not be used in production.
+//
+// Use https://github.com/ringsaturn/tzf as internal library.
 service TZFService {
   option (google.api.default_host) = "0.0.0.0:8080";
 
@@ -19,18 +25,21 @@ service TZFService {
     };
   }
 
+  // GetTimezone returns timezone name by longitude and latitude.
   rpc GetTimezone(GetTimezoneRequest) returns (GetTimezoneResponse) {
     option (google.api.http) = {
       get: "/api/v1/tz"
     };
   }
 
+  // GetTimezones returns timezone names by longitude and latitude.
   rpc GetTimezones(GetTimezonesRequest) returns (GetTimezonesResponse) {
     option (google.api.http) = {
       get: "/api/v1/tzs"
     };
   }
 
+  // GetAllTimezones returns all timezone names.
   rpc GetAllTimezones(GetAllTimezonesRequest) returns (GetAllTimezonesResponse) {
     option (google.api.http) = {
       get: "/api/v1/tzs/all"
@@ -59,9 +68,9 @@ message GetTimezonesRequest {
 };
 
 message GetTimezoneResponse {
-  string timezone                 = 1;
-  string abbreviation             = 2;
-  google.protobuf.Duration offset = 3;
+  string timezone                 = 1;  // timezone name
+  string abbreviation             = 2;  // timezone abbreviation
+  google.protobuf.Duration offset = 3;  // timezone offset
 }
 
 message GetTimezonesResponse {

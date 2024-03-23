@@ -28,8 +28,11 @@ const OperationTZFServiceGetTimezones = "/tzf.v1.TZFService/GetTimezones"
 const OperationTZFServicePing = "/tzf.v1.TZFService/Ping"
 
 type TZFServiceHTTPServer interface {
+	// GetAllTimezones GetAllTimezones returns all timezone names.
 	GetAllTimezones(context.Context, *GetAllTimezonesRequest) (*GetAllTimezonesResponse, error)
+	// GetTimezone GetTimezone returns timezone name by longitude and latitude.
 	GetTimezone(context.Context, *GetTimezoneRequest) (*GetTimezoneResponse, error)
+	// GetTimezones GetTimezones returns timezone names by longitude and latitude.
 	GetTimezones(context.Context, *GetTimezonesRequest) (*GetTimezonesResponse, error)
 	Ping(context.Context, *PingRequest) (*PingResponse, error)
 }

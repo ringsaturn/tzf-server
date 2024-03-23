@@ -5,6 +5,7 @@
 //
 //	mockgen -source=/Users/ringsaturn/go/pkg/mod/github.com/tidwall/redcon@v1.6.2/redcon.go -destination=internal/redisserver/mock_redcon_test.go -package=redisserver_test
 //
+
 // Package redisserver_test is a generated GoMock package.
 package redisserver_test
 

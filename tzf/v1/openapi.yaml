@@ -4,7 +4,14 @@
 openapi: 3.0.3
 info:
     title: TZFService API
-    description: Simple server convert longitude&latitude to timezone name
+    description: |-
+        Simple server convert longitude&latitude to timezone name(s).
+         The server also provides timezone name list.
+
+         Please note that this service is for demonstration purpose only and
+         should not be used in production.
+
+         Use https://github.com/ringsaturn/tzf as internal library.
     version: 0.0.1
 paths:
     /api/v1/ping:
@@ -29,6 +36,7 @@ paths:
         get:
             tags:
                 - TZFService
+            description: GetTimezone returns timezone name by longitude and latitude.
             operationId: TZFService_GetTimezone
             parameters:
                 - name: longitude
@@ -60,6 +68,7 @@ paths:
         get:
             tags:
                 - TZFService
+            description: GetTimezones returns timezone names by longitude and latitude.
             operationId: TZFService_GetTimezones
             parameters:
                 - name: longitude
@@ -91,6 +100,7 @@ paths:
         get:
             tags:
                 - TZFService
+            description: GetAllTimezones returns all timezone names.
             operationId: TZFService_GetAllTimezones
             responses:
                 "200":
