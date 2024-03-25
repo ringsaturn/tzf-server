@@ -151,7 +151,9 @@ components:
             description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
         PingResponse:
             type: object
-            properties: {}
+            properties:
+                data:
+                    $ref: '#/components/schemas/GoogleProtobufAny'
         Status:
             type: object
             properties:

@@ -7,6 +7,7 @@ import (
 	"github.com/google/wire"
 	"github.com/ringsaturn/tzf-server/internal/finder"
 	v1 "github.com/ringsaturn/tzf-server/tzf/v1"
+	"google.golang.org/protobuf/types/known/anypb"
 )
 
 type apiServer struct {
@@ -63,7 +64,12 @@ func (as *apiServer) GetTimezones(ctx context.Context, in *v1.GetTimezonesReques
 }
 
 func (as *apiServer) Ping(ctx context.Context, in *v1.PingRequest) (*v1.PingResponse, error) {
-	return &v1.PingResponse{}, nil
+	return &v1.PingResponse{
+		Data: &anypb.Any{
+			TypeUrl: "tzf.v1.PingResponse",
+			Value:   []byte("pong"),
+		},
+	}, nil
 }
 
 func NewTZFServiceServer(tzfinder *finder.TZfinder) v1.TZFServiceHTTPServer {

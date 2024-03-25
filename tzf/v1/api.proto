@@ -8,6 +8,7 @@ import "google/api/annotations.proto";
 import "google/api/client.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/duration.proto";
+import "google/protobuf/any.proto"; // Add this import statement
 
 // Simple server convert longitude&latitude to timezone name(s).
 // The server also provides timezone name list.
@@ -45,11 +46,14 @@ service TZFService {
       get: "/api/v1/tzs/all"
     };
   }
+
 }
 
 message PingRequest {}
 
-message PingResponse {}
+message PingResponse {
+  google.protobuf.Any data = 1;
+}
 
 message GetTimezoneRequest {
   // @gotags: query:"longitude" vd:"$>=-180 && $<=180"
