@@ -13,6 +13,6 @@ services:
   healthCheckPath: /api/v1/ping
   dockerCommand: /app/tzf-server
   domains:
-  - tzf-server.onrender.com
+  # - tzf-server.onrender.com
   - tzf-server.ringsaturn.me
 version: "1"
