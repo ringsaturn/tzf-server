@@ -96,12 +96,12 @@ tzf-server -type 1
 ### All supported timezone names
 
 - [`http://localhost:8080/web/tzs/all`](http://localhost:8080/web/tzs/all)
-- Live demo: <https://tzf-server.onrender.com/web/tzs/all>
+- Live demo: <https://tzf-server.ringsaturn.me/web/tzs/all>
 
 ### [Experiment] Clickable debugger
 
 - [`http://localhost:8080/web/click`](http://localhost:8080/web/click)
-- Live demo: <https://tzf-server.onrender.com/web/click>
+- Live demo: <https://tzf-server.ringsaturn.me/web/click>
 
 I have little knowledge about frontend development so it's just a experiment,
 most codes are written by ChatGPT 3.5. You can access the prompts from
@@ -117,7 +117,7 @@ most codes are written by ChatGPT 3.5. You can access the prompts from
 A swagger UI can be found at
 [`http://localhost:8080/swagger/index.html`](http://localhost:8080/swagger/index.html).
 
-Or live demo: <https://tzf-server.onrender.com/swagger/index.html>
+Or live demo: <https://tzf-server.ringsaturn.me/swagger/index.html>
 
 ### Lookup Location's timezone
 
@@ -128,7 +128,7 @@ curl "http://localhost:8080/api/v1/tz?longitude=116.3883&latitude=39.9289"
 or live demo:
 
 ```bash
-curl "https://tzf-server.onrender.com/api/v1/tz?longitude=116.3883&latitude=39.9289"
+curl "https://tzf-server.ringsaturn.me/api/v1/tz?longitude=116.3883&latitude=39.9289"
 ```
 
 Output:
@@ -150,7 +150,7 @@ curl "http://localhost:8080/api/v1/tzs?longitude=87.6168&latitude=43.8254"
 or live demo:
 
 ```bash
-curl "https://tzf-server.onrender.com/api/v1/tzs?longitude=87.6168&latitude=43.8254"
+curl "https://tzf-server.ringsaturn.me/api/v1/tzs?longitude=87.6168&latitude=43.8254"
 ```
 
 Output:
@@ -181,7 +181,7 @@ curl "http://localhost:8080/api/v1/tzs/all"
 or live demo:
 
 ```bash
-curl "https://tzf-server.onrender.com/api/v1/tzs/all"
+curl "https://tzf-server.ringsaturn.me/api/v1/tzs/all"
 ```
 
 Output:
