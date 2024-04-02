@@ -85,7 +85,7 @@ func (w *WebHandler) GetTimezoneInfoPage(c context.Context, ctx *app.RequestCont
 
 	resp.Items = append(resp.Items, &GetTimezoneInfoPageResponseItem{
 		Name: timezone,
-		URL:  fmt.Sprintf("http://%v/web/tz/geojson/viewer?name=%v", string(ctx.Request.Host()), timezone),
+		URL:  fmt.Sprintf("%s://%v/web/tz/geojson/viewer?name=%v", string(ctx.Request.URI().Scheme()), string(ctx.Request.Host()), timezone),
 	})
 
 	ctx.HTML(200, "info_multi.html", resp)
@@ -113,7 +113,7 @@ func (w *WebHandler) GetTimezonesInfoPage(c context.Context, ctx *app.RequestCon
 	for _, name := range names {
 		resp.Items = append(resp.Items, &GetTimezoneInfoPageResponseItem{
 			Name: name,
-			URL:  fmt.Sprintf("http://%v/web/tz/geojson/viewer?name=%v", string(ctx.Request.Host()), name),
+			URL:  fmt.Sprintf("%s://%v/web/tz/geojson/viewer?name=%v", string(ctx.Request.URI().Scheme()), string(ctx.Request.Host()), name),
 		})
 	}
 	ctx.HTML(200, "info_multi.html", resp)
@@ -127,11 +127,11 @@ func (w *WebHandler) GetAllSupportTimezoneNamesPage(c context.Context, ctx *app.
 
 	resp.Items = append(resp.Items, &GetTimezoneInfoPageResponseItem{
 		Name: "All",
-		URL:  fmt.Sprintf("http://%v/web/tz/geojson/viewer?name=%v", string(ctx.Request.Host()), "all"),
+		URL:  fmt.Sprintf("%s://%v/web/tz/geojson/viewer?name=%v", string(ctx.Request.URI().Scheme()), string(ctx.Request.Host()), "all"),
 	})
 
 	for _, name := range w.tzfinder.TimezoneNames() {
-		viewerURL := fmt.Sprintf("http://%v/web/tz/geojson/viewer?name=%v", string(ctx.Request.Host()), name)
+		viewerURL := fmt.Sprintf("%s://%v/web/tz/geojson/viewer?name=%v", string(ctx.Request.URI().Scheme()), string(ctx.Request.Host()), name)
 		resp.Items = append(resp.Items, &GetTimezoneInfoPageResponseItem{
 			Name: name,
 			URL:  viewerURL,
@@ -154,7 +154,7 @@ func (w *WebHandler) GetGeoJSONViewerForTimezone(c context.Context, ctx *app.Req
 	}
 
 	ctx.HTML(http.StatusOK, "viewer.html", map[string]any{
-		"URL": fmt.Sprintf("http://%v/api/v1/tz/geojson?longitude=%v&latitude=%v&name=%v", string(ctx.Request.Host()), req.Lng, req.Lat, req.Name),
+		"URL": fmt.Sprintf("%s://%v/api/v1/tz/geojson?longitude=%v&latitude=%v&name=%v", string(ctx.Request.URI().Scheme()), string(ctx.Request.Host()), req.Lng, req.Lat, req.Name),
 	})
 }
 
