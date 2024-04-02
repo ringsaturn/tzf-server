@@ -5,6 +5,7 @@ go 1.22.0
 require (
 	github.com/cloudwego/hertz v0.8.1
 	github.com/favadi/protoc-go-inject-tag v1.4.0
+	github.com/google/gnostic v0.7.0
 	github.com/google/go-cmp v0.6.0
 	github.com/google/wire v0.6.0
 	github.com/hertz-contrib/logger/zap v1.1.0
@@ -48,6 +49,7 @@ require (
 	github.com/go-openapi/swag v0.23.0 // indirect
 	github.com/gochore/uniq v1.1.0 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
+	github.com/google/gnostic-models v0.6.9-0.20230804172637-c7be7c783f49 // indirect
 	github.com/google/subcommands v1.2.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.7 // indirect

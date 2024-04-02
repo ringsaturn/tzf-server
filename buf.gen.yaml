@@ -12,7 +12,6 @@ version: v1
 plugins:
   - plugin: buf.build/community/google-gnostic-openapi:v0.7.0
     out: tzf/v1
-  # remote plugins
   - plugin: buf.build/protocolbuffers/go:v1.30.0
     out: .
     opt:
