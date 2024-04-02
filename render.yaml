@@ -1,0 +1,18 @@
+# Exported from Render on 2024-04-02T16:31:33Z
+services:
+- type: web
+  name: tzf-server
+  runtime: image
+  image:
+    url: docker.io/ringsaturn/tzf-server:latest
+  plan: free
+  envVars:
+  - key: PORT
+    sync: false
+  region: singapore
+  healthCheckPath: /api/v1/ping
+  dockerCommand: /app/tzf-server
+  domains:
+  - tzf-server.onrender.com
+  - tzf-server.ringsaturn.me
+version: "1"
