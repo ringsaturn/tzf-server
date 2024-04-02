@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: TZFService API
+    title: TZF Server
     description: |-
         Simple server convert longitude&latitude to timezone name(s).
          The server also provides timezone name list.
@@ -12,7 +12,14 @@ info:
          should not be used in production.
 
          Use https://github.com/ringsaturn/tzf as internal library.
-    version: 0.0.1
+    contact:
+        name: ringsaturn
+        url: https://github.com/ringsaturn/tzf-server?tab=readme-ov-file
+        email: ringsaturn.me@gmail.com
+    license:
+        name: Unlicense
+        url: https://github.com/ringsaturn/tzf-server/blob/main/LICENSE
+    version: 0.13.2
 paths:
     /api/v1/ping:
         get:
