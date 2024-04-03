@@ -19,7 +19,7 @@ info:
     license:
         name: Unlicense
         url: https://github.com/ringsaturn/tzf-server/blob/main/LICENSE
-    version: 0.13.3
+    version: 0.13.4
 paths:
     /api/v1/ping:
         get:

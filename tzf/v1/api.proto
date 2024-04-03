@@ -13,7 +13,7 @@ option go_package = "github.com/ringsaturn/tzf-server/tzf/v1;v1";
 option (gnostic.openapi.v3.document) = {
   info: {
     title: "TZF Server";
-    version: "0.13.3";
+    version: "0.13.4";
     contact: {
       name: "ringsaturn";
       url: "https://github.com/ringsaturn/tzf-server?tab=readme-ov-file";
