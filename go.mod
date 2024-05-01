@@ -22,10 +22,10 @@ require (
 	github.com/wolfogre/gtag v0.9.0
 	go.uber.org/mock v0.4.0
 	go.uber.org/zap v1.27.0
-	golang.org/x/sync v0.6.0
+	golang.org/x/sync v0.7.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20240314234333-6e1732d8331c
-	google.golang.org/grpc v1.62.1
-	google.golang.org/protobuf v1.33.0
+	google.golang.org/grpc v1.63.2
+	google.golang.org/protobuf v1.34.0
 )
 
 require (
@@ -48,7 +48,6 @@ require (
 	github.com/go-openapi/spec v0.21.0 // indirect
 	github.com/go-openapi/swag v0.23.0 // indirect
 	github.com/gochore/uniq v1.1.0 // indirect
-	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/gnostic-models v0.6.9-0.20230804172637-c7be7c783f49 // indirect
 	github.com/google/subcommands v1.2.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
