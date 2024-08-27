@@ -48,7 +48,7 @@ func mustEqualForProto(t *testing.T, expected proto.Message, actual proto.Messag
 	eq := proto.Equal(expected, actual)
 	if !eq {
 		diff := cmp.Diff(expected, actual, protocmp.Transform())
-		t.Fatalf(diff)
+		t.Fatal(diff)
 	}
 }
 
@@ -72,7 +72,7 @@ func TestGetTimezoneName(t *testing.T) {
 	result := &v1.GetTimezoneResponse{}
 	err := protojson.Unmarshal(resp.BodyBytes(), result)
 	if err != nil {
-		t.Fatalf(err.Error())
+		t.Fatal(err.Error())
 	}
 	expected := &v1.GetTimezoneResponse{
 		Timezone:     "Asia/Shanghai",
@@ -90,7 +90,7 @@ func TestFuzzyGetTimezoneName(t *testing.T) {
 	result := &v1.GetTimezoneResponse{}
 	err := protojson.Unmarshal(resp.BodyBytes(), result)
 	if err != nil {
-		t.Fatalf(err.Error())
+		t.Fatal(err.Error())
 	}
 	expected := &v1.GetTimezoneResponse{
 		Timezone:     "Asia/Shanghai",
@@ -108,7 +108,7 @@ func TestFuzzyGetTimezoneNames(t *testing.T) {
 	result := &v1.GetTimezonesResponse{}
 	err := protojson.Unmarshal(resp.BodyBytes(), result)
 	if err != nil {
-		t.Fatalf(err.Error())
+		t.Fatal(err.Error())
 	}
 	expected := &v1.GetTimezonesResponse{
 		Timezones: []*v1.GetTimezoneResponse{
