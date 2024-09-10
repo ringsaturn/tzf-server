@@ -3,7 +3,7 @@ module github.com/ringsaturn/tzf-server
 go 1.23
 
 require (
-	github.com/cloudwego/hertz v0.9.3-0.20240822034752-c29f150532af
+	github.com/cloudwego/hertz v0.9.3
 	github.com/favadi/protoc-go-inject-tag v1.4.0
 	github.com/google/gnostic v0.7.0
 	github.com/google/go-cmp v0.6.0
@@ -15,8 +15,8 @@ require (
 	github.com/prometheus/client_golang v1.19.1
 	github.com/redis/go-redis/v9 v9.6.1
 	github.com/ringsaturn/protoc-gen-go-hertz v0.3.1
-	github.com/ringsaturn/tzf v0.15.0
-	github.com/ringsaturn/tzf-rel-lite v0.0.2024-a
+	github.com/ringsaturn/tzf v0.16.0
+	github.com/ringsaturn/tzf-rel-lite v0.0.2024-b
 	github.com/swaggo/files v1.0.1
 	github.com/tidwall/redcon v1.6.2
 	github.com/wolfogre/gtag v0.9.0
@@ -76,7 +76,7 @@ require (
 	golang.org/x/exp v0.0.0-20240314144324-c7f7c6466f7f // indirect
 	golang.org/x/mod v0.16.0 // indirect
 	golang.org/x/net v0.25.0 // indirect
-	golang.org/x/sys v0.20.0 // indirect
+	golang.org/x/sys v0.24.0 // indirect
 	golang.org/x/text v0.15.0 // indirect
 	golang.org/x/tools v0.19.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240528184218-531527333157 // indirect
