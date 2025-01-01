@@ -3,7 +3,7 @@ module github.com/ringsaturn/tzf-server
 go 1.23
 
 require (
-	github.com/cloudwego/hertz v0.9.3
+	github.com/cloudwego/hertz v0.9.4
 	github.com/favadi/protoc-go-inject-tag v1.4.0
 	github.com/google/gnostic v0.7.0
 	github.com/google/go-cmp v0.6.0
@@ -14,7 +14,7 @@ require (
 	github.com/paulmach/orb v0.11.1
 	github.com/prometheus/client_golang v1.20.5
 	github.com/redis/go-redis/v9 v9.7.0
-	github.com/ringsaturn/protoc-gen-go-hertz v0.3.1
+	github.com/ringsaturn/protoc-gen-go-hertz v0.3.3
 	github.com/ringsaturn/tzf v0.16.0
 	github.com/ringsaturn/tzf-rel-lite v0.0.2024-b
 	github.com/swaggo/files v1.0.1
@@ -22,25 +22,22 @@ require (
 	github.com/wolfogre/gtag v0.9.0
 	go.uber.org/mock v0.5.0
 	go.uber.org/zap v1.27.0
-	golang.org/x/sync v0.8.0
-	google.golang.org/genproto/googleapis/api v0.0.0-20240814211410-ddb44dafa142
-	google.golang.org/grpc v1.67.1
-	google.golang.org/protobuf v1.35.1
+	golang.org/x/sync v0.10.0
+	google.golang.org/genproto/googleapis/api v0.0.0-20240903143218-8af14fe29dc1
+	google.golang.org/grpc v1.68.0
+	google.golang.org/protobuf v1.36.1
 )
 
 require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
-	github.com/andeya/ameda v1.5.3 // indirect
-	github.com/andeya/goutil v1.0.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/bytedance/go-tagexpr/v2 v2.9.11 // indirect
 	github.com/bytedance/gopkg v0.1.0 // indirect
 	github.com/bytedance/sonic v1.12.0 // indirect
 	github.com/bytedance/sonic/loader v0.2.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
 	github.com/cloudwego/iasm v0.2.0 // indirect
-	github.com/cloudwego/netpoll v0.6.2 // indirect
+	github.com/cloudwego/netpoll v0.6.4 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
@@ -77,10 +74,10 @@ require (
 	golang.org/x/arch v0.7.0 // indirect
 	golang.org/x/exp v0.0.0-20240314144324-c7f7c6466f7f // indirect
 	golang.org/x/mod v0.18.0 // indirect
-	golang.org/x/net v0.28.0 // indirect
-	golang.org/x/sys v0.24.0 // indirect
-	golang.org/x/text v0.17.0 // indirect
+	golang.org/x/net v0.29.0 // indirect
+	golang.org/x/sys v0.25.0 // indirect
+	golang.org/x/text v0.18.0 // indirect
 	golang.org/x/tools v0.22.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20240814211410-ddb44dafa142 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20240903143218-8af14fe29dc1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
