@@ -104,10 +104,9 @@ type GetTimezoneRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @gotags: query:"longitude" vd:"$>=-180 && $<=180"
-	Longitude float64 `protobuf:"fixed64,1,opt,name=longitude,proto3" json:"longitude,omitempty"`
-	// @gotags: query:"latitude" vd:"$>=-90 && $<=90"
-	Latitude float64 `protobuf:"fixed64,2,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude float64 `protobuf:"fixed64,1,opt,name=longitude,proto3" json:"longitude,omitempty" query:"longitude" vd:"$>=-180 && $<=180"`
+
+	Latitude float64 `protobuf:"fixed64,2,opt,name=latitude,proto3" json:"latitude,omitempty" query:"latitude" vd:"$>=-90 && $<=90"`
 }
 
 func (x *GetTimezoneRequest) Reset() {
@@ -161,10 +160,9 @@ type GetTimezonesRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @gotags: query:"longitude" vd:"$>=-180 && $<=180"
-	Longitude float64 `protobuf:"fixed64,1,opt,name=longitude,proto3" json:"longitude,omitempty"`
-	// @gotags: query:"latitude" vd:"$>=-90 && $<=90"
-	Latitude float64 `protobuf:"fixed64,2,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude float64 `protobuf:"fixed64,1,opt,name=longitude,proto3" json:"longitude,omitempty" query:"longitude" vd:"$>=-180 && $<=180"`
+
+	Latitude float64 `protobuf:"fixed64,2,opt,name=latitude,proto3" json:"latitude,omitempty" query:"latitude" vd:"$>=-90 && $<=90"`
 }
 
 func (x *GetTimezonesRequest) Reset() {
