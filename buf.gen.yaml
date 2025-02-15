@@ -1,16 +1,16 @@
 version: v2
 plugins:
-  - remote: buf.build/community/google-gnostic-openapi:v0.7.0
-    out: tzf/v1
   - remote: buf.build/protocolbuffers/go:v1.30.0
-    out: .
+    out: gen/go
     opt: paths=source_relative
+  - remote: buf.build/community/google-gnostic-openapi:v0.7.0
+    out: gen/openapi
   - remote: buf.build/grpc/go:v1.3.0
-    out: .
+    out: gen/go
     opt: paths=source_relative
   - local: protoc-gen-go-hertz
-    out: .
+    out: gen/go
     opt: paths=source_relative
   - local: protoc-gen-go-grpc-mock
-    out: .
+    out: gen/go
     opt: paths=source_relative

@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             (unknown)
-// source: tzf/v1/api.proto
+// source: tzf_server/v1/api.proto
 
 package v1
 
@@ -19,10 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	TZFService_Ping_FullMethodName            = "/tzf.v1.TZFService/Ping"
-	TZFService_GetTimezone_FullMethodName     = "/tzf.v1.TZFService/GetTimezone"
-	TZFService_GetTimezones_FullMethodName    = "/tzf.v1.TZFService/GetTimezones"
-	TZFService_GetAllTimezones_FullMethodName = "/tzf.v1.TZFService/GetAllTimezones"
+	TZFService_Ping_FullMethodName            = "/tzf_server.v1.TZFService/Ping"
+	TZFService_GetTimezone_FullMethodName     = "/tzf_server.v1.TZFService/GetTimezone"
+	TZFService_GetTimezones_FullMethodName    = "/tzf_server.v1.TZFService/GetTimezones"
+	TZFService_GetAllTimezones_FullMethodName = "/tzf_server.v1.TZFService/GetAllTimezones"
 )
 
 // TZFServiceClient is the client API for TZFService service.
@@ -201,7 +201,7 @@ func _TZFService_GetAllTimezones_Handler(srv interface{}, ctx context.Context, d
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var TZFService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "tzf.v1.TZFService",
+	ServiceName: "tzf_server.v1.TZFService",
 	HandlerType: (*TZFServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -222,5 +222,5 @@ var TZFService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "tzf/v1/api.proto",
+	Metadata: "tzf_server/v1/api.proto",
 }

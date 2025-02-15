@@ -10,8 +10,8 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/utils"
+	v1 "github.com/ringsaturn/tzf-server/gen/go/tzf_server/v1"
 	"github.com/ringsaturn/tzf-server/internal/finder"
-	v1 "github.com/ringsaturn/tzf-server/tzf/v1"
 )
 
 //go:embed template/*

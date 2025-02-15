@@ -31,6 +31,9 @@ install:  ## Install tools
 	go install github.com/favadi/protoc-go-inject-tag@latest
 	go install github.com/ringsaturn/protoc-gen-go-hertz@latest
 
+bump-buf-dep:
+	buf dep update
+
 .PHONY:pb
 pb:  ## Generate protobuf
 	buf build

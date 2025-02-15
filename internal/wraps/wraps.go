@@ -5,8 +5,8 @@ import (
 	"errors"
 
 	"github.com/google/wire"
+	v1 "github.com/ringsaturn/tzf-server/gen/go/tzf_server/v1"
 	"github.com/ringsaturn/tzf-server/internal/finder"
-	v1 "github.com/ringsaturn/tzf-server/tzf/v1"
 )
 
 type apiServer struct {

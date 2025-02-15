@@ -1,3 +1,2 @@
-tzf-server
-*.pb
 coverage.*
+tmp/

@@ -1,27 +1,26 @@
 syntax = "proto3";
 
-package tzf.v1;
+package tzf_server.v1;
 
+import "gnostic/openapi/v3/annotations.proto";
 import "google/api/annotations.proto";
 import "google/api/client.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/duration.proto";
-import "gnostic/openapi/v3/annotations.proto";
 
-option go_package = "github.com/ringsaturn/tzf-server/tzf/v1;v1";
-
+option go_package = "github.com/ringsaturn/tzf-server/gen/go/tzf_server/v1;v1";
 option (gnostic.openapi.v3.document) = {
   info: {
-    title: "TZF Server";
-    version: "0.13.4";
+    title: "TZF Server"
+    version: "0.13.4"
     contact: {
-      name: "ringsaturn";
-      url: "https://github.com/ringsaturn/tzf-server?tab=readme-ov-file";
-      email: "ringsaturn.me@gmail.com";
+      name: "ringsaturn"
+      url: "https://github.com/ringsaturn/tzf-server?tab=readme-ov-file"
+      email: "ringsaturn.me@gmail.com"
     }
     license: {
-      name: "Unlicense";
-      url: "https://github.com/ringsaturn/tzf-server/blob/main/LICENSE";
+      name: "Unlicense"
+      url: "https://github.com/ringsaturn/tzf-server/blob/main/LICENSE"
     }
   }
 };
@@ -37,30 +36,22 @@ service TZFService {
   option (google.api.default_host) = "0.0.0.0:8080";
 
   rpc Ping(PingRequest) returns (PingResponse) {
-    option (google.api.http) = {
-      get: "/api/v1/ping"
-    };
+    option (google.api.http) = {get: "/api/v1/ping"};
   }
 
   // GetTimezone returns timezone name by longitude and latitude.
   rpc GetTimezone(GetTimezoneRequest) returns (GetTimezoneResponse) {
-    option (google.api.http) = {
-      get: "/api/v1/tz"
-    };
+    option (google.api.http) = {get: "/api/v1/tz"};
   }
 
   // GetTimezones returns timezone names by longitude and latitude.
   rpc GetTimezones(GetTimezonesRequest) returns (GetTimezonesResponse) {
-    option (google.api.http) = {
-      get: "/api/v1/tzs"
-    };
+    option (google.api.http) = {get: "/api/v1/tzs"};
   }
 
   // GetAllTimezones returns all timezone names.
   rpc GetAllTimezones(GetAllTimezonesRequest) returns (GetAllTimezonesResponse) {
-    option (google.api.http) = {
-      get: "/api/v1/tzs/all"
-    };
+    option (google.api.http) = {get: "/api/v1/tzs/all"};
   }
 }
 
@@ -74,7 +65,7 @@ message GetTimezoneRequest {
 
   // @gotags: query:"latitude" vd:"$>=-90 && $<=90"
   double latitude = 2 [(google.api.field_behavior) = REQUIRED];
-};
+}
 
 message GetTimezonesRequest {
   // @gotags: query:"longitude" vd:"$>=-180 && $<=180"
@@ -82,12 +73,12 @@ message GetTimezonesRequest {
 
   // @gotags: query:"latitude" vd:"$>=-90 && $<=90"
   double latitude = 2 [(google.api.field_behavior) = REQUIRED];
-};
+}
 
 message GetTimezoneResponse {
-  string timezone                 = 1;  // timezone name
-  string abbreviation             = 2;  // timezone abbreviation
-  google.protobuf.Duration offset = 3;  // timezone offset
+  string timezone = 1; // timezone name
+  string abbreviation = 2; // timezone abbreviation
+  google.protobuf.Duration offset = 3; // timezone offset
 }
 
 message GetTimezonesResponse {

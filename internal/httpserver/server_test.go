@@ -9,12 +9,11 @@ import (
 	"github.com/cloudwego/hertz/pkg/common/test/assert"
 	"github.com/cloudwego/hertz/pkg/common/ut"
 	"github.com/google/go-cmp/cmp"
-
+	v1 "github.com/ringsaturn/tzf-server/gen/go/tzf_server/v1"
 	"github.com/ringsaturn/tzf-server/internal/config"
 	"github.com/ringsaturn/tzf-server/internal/finder"
 	"github.com/ringsaturn/tzf-server/internal/httpserver"
 	"github.com/ringsaturn/tzf-server/internal/wraps"
-	v1 "github.com/ringsaturn/tzf-server/tzf/v1"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/testing/protocmp"
