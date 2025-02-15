@@ -11,21 +11,19 @@ jobs:
     name: buf
     permissions:
       contents: read
-      pull-requests: read
+      pull-requests: write
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+
+      - uses: bufbuild/buf-action@v1
         with:
-          go-version-file: go.mod
-      - uses: bufbuild/buf-setup-action@v1
-        with:
-          version: "latest"
-      - uses: bufbuild/buf-lint-action@v1
-      - uses: bufbuild/buf-breaking-action@v1
-        with:
-          against: "https://github.com/${GITHUB_REPOSITORY}.git#branch=main"
+          token: ${{ secrets.BUF_TOKEN }}
+          pr_comment: true
+          breaking: flase
+          # breaking_against: "https://github.com/ringsaturn/tzf.git#branch=main"
+          push: ${{ github.ref == 'refs/heads/main' }}
 
   golangci:
     name: golangci-lint

@@ -14,8 +14,8 @@ import (
 	"github.com/google/wire"
 	hertzzap "github.com/hertz-contrib/logger/zap"
 	prometheus "github.com/hertz-contrib/monitor-prometheus"
+	v1 "github.com/ringsaturn/tzf-server/gen/go/tzf_server/v1"
 	"github.com/ringsaturn/tzf-server/internal/config"
-	v1 "github.com/ringsaturn/tzf-server/tzf/v1"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )

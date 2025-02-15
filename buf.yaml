@@ -1,17 +1,15 @@
+# For details on buf.yaml configuration, visit https://buf.build/docs/configuration/v2/buf-yaml
 version: v2
 deps:
   - buf.build/gnostic/gnostic
   - buf.build/googleapis/googleapis
 lint:
   use:
-    - DEFAULT
-  except:
-    - FIELD_NOT_REQUIRED
-    - PACKAGE_NO_IMPORT_CYCLE
-  disallow_comment_ignores: true
+    - STANDARD
 breaking:
   use:
     - FILE
-  except:
-    - EXTENSION_NO_DELETE
-    - FIELD_SAME_DEFAULT
+
+modules:
+  - path: pb
+    name: buf.build/ringsaturn/tzf-server
