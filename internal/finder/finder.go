@@ -12,7 +12,7 @@ import (
 	"github.com/ringsaturn/tzf-server/internal"
 	"github.com/ringsaturn/tzf-server/internal/config"
 	"github.com/ringsaturn/tzf/convert"
-	"github.com/ringsaturn/tzf/pb"
+	pb "github.com/ringsaturn/tzf/gen/go/tzf/v1"
 	"github.com/ringsaturn/tzf/reduce"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/durationpb"

@@ -918,8 +918,8 @@ github.com/ringsaturn/go-cities.json v0.6.6 h1:zXEsYeQBjgJwKdGHMrq1j8d9uVNxmnbVv
 github.com/ringsaturn/go-cities.json v0.6.6/go.mod h1:RWApnQPG6nU558XXbY1try5mi9u9Hd667J6vr948VBo=
 github.com/ringsaturn/protoc-gen-go-hertz v0.3.3 h1:NyU/aNV+I3o2LpXvhKGp75Gn7AamvKYkF5pNcwLgYe0=
 github.com/ringsaturn/protoc-gen-go-hertz v0.3.3/go.mod h1:0ECqvpCVBeB34h0CKmclt1exhzawsEALIXhVoNVK+fY=
-github.com/ringsaturn/tzf v0.16.1 h1:XWnDm9KZvwGBtUGB8ABAtljm3R56CtdlPugHpaOvacg=
-github.com/ringsaturn/tzf v0.16.1/go.mod h1:gLZAYRGUNCHQW88H9kCsgNHix4c9g2UevrmQe9kFSoU=
+github.com/ringsaturn/tzf v0.17.0 h1:hGHBPBzJfSLmCAKg0khA7yxx9kqPPNYkggdodpKNaKI=
+github.com/ringsaturn/tzf v0.17.0/go.mod h1:4Z139lkC4Btg5tse9qdQ78gWmj7X0VwJjDxxO4ydAiU=
 github.com/ringsaturn/tzf-rel-lite v0.0.2025-a h1:V+B0brHLxYqSyAeEWim/0BhM7Hnz587ZLGe3+8YgJ6E=
 github.com/ringsaturn/tzf-rel-lite v0.0.2025-a/go.mod h1:nVMtMUFC40aMfjXzc+fj3CCXrHxD8sRUXLEVfxhFVAs=
 github.com/rogpeppe/fastuuid v1.2.0/go.mod h1:jVj6XXZzXRy/MSR5jhDC/2q6DgLz+nrA6LYCDYWNEvQ=
@@ -1060,8 +1060,6 @@ golang.org/x/exp v0.0.0-20200119233911-0405dc783f0a/go.mod h1:2RIsYlXP63K8oxa1u0
 golang.org/x/exp v0.0.0-20200207192155-f17229e696bd/go.mod h1:J/WKrq2StrnmMY6+EHIKF9dgMWnmCNThgcyBT1FY9mM=
 golang.org/x/exp v0.0.0-20200224162631-6cc2880d07d6/go.mod h1:3jZMyOhIsHpP37uCMkUooju7aAi5cS1Q23tOzKc+0MU=
 golang.org/x/exp v0.0.0-20220827204233-334a2380cb91/go.mod h1:cyybsKvd6eL0RnXn6p/Grxp8F5bW7iYuBgsNCOHpMYE=
-golang.org/x/exp v0.0.0-20240314144324-c7f7c6466f7f h1:3CW0unweImhOzd5FmYuRsD4Y4oQFKZIjAnKbjV4WIrw=
-golang.org/x/exp v0.0.0-20240314144324-c7f7c6466f7f/go.mod h1:CxmFvTBINI24O/j8iY7H1xHzx2i4OsyguNBmN/uPtqc=
 golang.org/x/image v0.0.0-20180708004352-c73c2afc3b81/go.mod h1:ux5Hcp/YLpHSI86hEcLt0YII63i6oz57MZXIpbrjZUs=
 golang.org/x/image v0.0.0-20190227222117-0694c2d4d067/go.mod h1:kZ7UVZpmo3dzQBMxlp+ypCbDeSB+sBbTgSJuh5dn5js=
 golang.org/x/image v0.0.0-20190802002840-cff245a6509b/go.mod h1:FeLwcggjj3mMvU+oOTbSwawSJRM1uh48EjtB4UJZlP0=
@@ -1683,8 +1681,8 @@ google.golang.org/protobuf v1.28.0/go.mod h1:HV8QOd/L58Z+nl8r43ehVNZIU/HEI6OcFqw
 google.golang.org/protobuf v1.28.1/go.mod h1:HV8QOd/L58Z+nl8r43ehVNZIU/HEI6OcFqwMG9pJV4I=
 google.golang.org/protobuf v1.29.1/go.mod h1:HV8QOd/L58Z+nl8r43ehVNZIU/HEI6OcFqwMG9pJV4I=
 google.golang.org/protobuf v1.30.0/go.mod h1:HV8QOd/L58Z+nl8r43ehVNZIU/HEI6OcFqwMG9pJV4I=
-google.golang.org/protobuf v1.36.4 h1:6A3ZDJHn/eNqc1i+IdefRzy/9PokBTPvcqMySR7NNIM=
-google.golang.org/protobuf v1.36.4/go.mod h1:9fA7Ob0pmnwhb644+1+CVWFRbNajQ6iRojtC/QF5bRE=
+google.golang.org/protobuf v1.36.5 h1:tPhr+woSbjfYvY6/GPufUoYizxw1cF/yFoxJ2fmpwlM=
+google.golang.org/protobuf v1.36.5/go.mod h1:9fA7Ob0pmnwhb644+1+CVWFRbNajQ6iRojtC/QF5bRE=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c h1:Hei/4ADfdWqJk1ZMxUNpqntNwaWcugrBjAiHlqqRiVk=

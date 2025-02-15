@@ -1,6 +1,6 @@
 module github.com/ringsaturn/tzf-server
 
-go 1.23
+go 1.24
 
 require (
 	github.com/cloudwego/hertz v0.9.5
@@ -15,7 +15,7 @@ require (
 	github.com/prometheus/client_golang v1.20.5
 	github.com/redis/go-redis/v9 v9.7.0
 	github.com/ringsaturn/protoc-gen-go-hertz v0.3.3
-	github.com/ringsaturn/tzf v0.16.1
+	github.com/ringsaturn/tzf v0.17.0
 	github.com/ringsaturn/tzf-rel-lite v0.0.2025-a
 	github.com/swaggo/files v1.0.1
 	github.com/tidwall/redcon v1.6.2
@@ -25,7 +25,7 @@ require (
 	golang.org/x/sync v0.10.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20240903143218-8af14fe29dc1
 	google.golang.org/grpc v1.68.0
-	google.golang.org/protobuf v1.36.4
+	google.golang.org/protobuf v1.36.5
 )
 
 require (
@@ -72,7 +72,6 @@ require (
 	go.mongodb.org/mongo-driver v1.14.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/arch v0.7.0 // indirect
-	golang.org/x/exp v0.0.0-20240314144324-c7f7c6466f7f // indirect
 	golang.org/x/mod v0.18.0 // indirect
 	golang.org/x/net v0.33.0 // indirect
 	golang.org/x/sys v0.28.0 // indirect
