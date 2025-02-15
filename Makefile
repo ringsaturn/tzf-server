@@ -38,7 +38,7 @@ bump-buf-dep:
 pb:  ## Generate protobuf
 	buf build
 	buf generate
-	protoc-go-inject-tag -input="gen/go/tzf_server/v1/*.pb.go" -remove_tag_comment
+	go tool protoc-go-inject-tag -input="gen/go/tzf_server/v1/*.pb.go" -remove_tag_comment
 	cp internal/misc/api_hertz_swagger.go.txt gen/openapi/api_hertz_swagger.go
 	go fmt ./...
 
