@@ -12,7 +12,7 @@ require (
 	github.com/hertz-contrib/swagger v0.1.0
 	github.com/paulmach/orb v0.11.1
 	github.com/prometheus/client_golang v1.20.5
-	github.com/redis/go-redis/v9 v9.7.0
+	github.com/redis/go-redis/v9 v9.7.3
 	github.com/ringsaturn/protoc-gen-go-hertz v0.3.3
 	github.com/ringsaturn/tzf v0.17.0
 	github.com/ringsaturn/tzf-rel-lite v0.0.2025-a
